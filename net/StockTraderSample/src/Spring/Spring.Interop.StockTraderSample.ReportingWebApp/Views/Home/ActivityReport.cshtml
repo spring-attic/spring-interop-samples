@@ -1,0 +1,10 @@
+﻿@model Spring.Interop.StockTraderSample.ReportingWebApp.Models.TradeActivityModel
+@{
+    ViewBag.Title = Model.Title;
+}
+<ul>
+@foreach (var trade in Model.Trades)
+{
+    <li>@trade.Symbol  @trade.ExecutionPrice  @trade.Quantity  @trade.Type</li>
+}
+</ul>
