@@ -10,7 +10,7 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : Spring.Web.Mvc.SpringMvcApplication
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {

@@ -4,9 +4,12 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
 {
     public class HomeController : Controller
     {
+
+        public string Message { get; set; }
+
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            ViewBag.Message = Message;
 
             return View();
         }
