@@ -15,7 +15,9 @@
     <property name="DataReaderWrapperType" value="Spring.Data.Support.NullMappingDataReader, Spring.Data"/>
   </object>
 
-  <object id="tradeRowMapper" type="Spring.Interop.StockTraderSample.ReportingWebApp.Controllers.TradeRowMapper, Spring.Interop.StockTraderSample.ReportingWebApp" />
+  <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.TradeRowMapper, Spring.Interop.StockTraderSample.ReportingWebApp" />
+  
+  <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.TradeActivityRepository, Spring.Interop.StockTraderSample.ReportingWebApp" autowire="constructor" />
 
 
 </objects>

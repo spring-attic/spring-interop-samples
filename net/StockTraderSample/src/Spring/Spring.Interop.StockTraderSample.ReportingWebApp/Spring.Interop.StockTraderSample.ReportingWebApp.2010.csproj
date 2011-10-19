@@ -88,12 +88,15 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\TradeActivityModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\TradeActivityRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\controllers.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\adoTemplate.xml" />
+    <Content Include="Config\repositories.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\images\SpringSource_Meatball.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -133,7 +136,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

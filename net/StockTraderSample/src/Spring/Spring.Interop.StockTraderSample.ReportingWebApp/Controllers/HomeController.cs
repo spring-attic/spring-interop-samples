@@ -4,18 +4,17 @@ using System.Data;
 using System.Web.Mvc;
 using Spring.Data.Generic;
 using Spring.Interop.StockTraderSample.ReportingWebApp.Models;
+using Spring.Interop.StockTraderSample.ReportingWebApp.Repository;
 
 namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly AdoTemplate _adoTemplate;
-        private readonly IRowMapper<Trade> _tradeRowMapper;
+        private readonly TradeActivityRepository _tradeActivity;
 
-        public HomeController(AdoTemplate adoTemplate, IRowMapper<Trade> tradeRowMapper)
+        public HomeController(TradeActivityRepository tradeActivity)
         {
-            _adoTemplate = adoTemplate;
-            _tradeRowMapper = tradeRowMapper;
+            _tradeActivity = tradeActivity;
         }
 
         public string Message { get; set; }
@@ -34,9 +33,7 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
 
         public ActionResult ActivityReport()
         {
-            var sql = "select Symbol, Quantity, ExecutionPrice, Type from Trade";
-
-            var trades = _adoTemplate.QueryWithRowMapper(CommandType.Text, sql, _tradeRowMapper);
+            var trades = _tradeActivity.GetAllTrades();
 
             var tradeModel = new TradeActivityModel("Activity", trades);
 
@@ -44,15 +41,5 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
         }
     }
 
-    public class TradeRowMapper : IRowMapper<Trade>
-    {
-        public Trade MapRow(IDataReader reader, int rowNum)
-        {
-            var typeString = reader.GetString(3);
-
-            var type = typeString == "BUY" ? Trade.OrderType.BUY : Trade.OrderType.SELL;
-
-            return new Trade(reader.GetString(0), reader.GetInt32(1), (double)reader.GetDecimal(2), type);
-        }
-    }
+  
 }
