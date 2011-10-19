@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<objects xmlns="http://www.springframework.net">
+<objects xmlns="http://www.springframework.net" default-autowire="constructor">
 
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Controllers.HomeController, Spring.Interop.StockTraderSample.ReportingWebApp" singleton="false" >
     <property name="Message" value="Welcome to ASP.NET MVC3 powered by Spring.NET!" />
-    <property name="AdoTemplate" ref="adoTemplate" />
-    <property name="TradeRowMapper" ref="tradeRowMapper" />
   </object>
   
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Controllers.AccountController, Spring.Interop.StockTraderSample.ReportingWebApp" singleton="false" >

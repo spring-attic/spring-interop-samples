@@ -9,12 +9,16 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private AdoTemplate _adoTemplate;
-        private IRowMapper<Trade> _tradeRowMapper;
+        private readonly AdoTemplate _adoTemplate;
+        private readonly IRowMapper<Trade> _tradeRowMapper;
+
+        public HomeController(AdoTemplate adoTemplate, IRowMapper<Trade> tradeRowMapper)
+        {
+            _adoTemplate = adoTemplate;
+            _tradeRowMapper = tradeRowMapper;
+        }
 
         public string Message { get; set; }
-        public AdoTemplate AdoTemplate { set { _adoTemplate = value; } }
-        public IRowMapper<Trade> TradeRowMapper { set { _tradeRowMapper = value; } }
 
         public ActionResult Index()
         {
