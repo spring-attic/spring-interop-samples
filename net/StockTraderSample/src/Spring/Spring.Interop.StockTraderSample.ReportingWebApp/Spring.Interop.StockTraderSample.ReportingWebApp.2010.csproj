@@ -81,11 +81,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Repository\CreditCheckFailuresRepository.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CreditCheckFailure.cs" />
+    <Compile Include="Models\CreditCheckFailureModel.cs" />
+    <Compile Include="Models\Trade.cs" />
     <Compile Include="Models\TradeActivityModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\TradeActivityRepository.cs" />

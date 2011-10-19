@@ -29,9 +29,8 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Repository
         public Trade MapRow(IDataReader reader, int rowNum)
         {
             var typeString = reader.GetString(3);
-
-            var type = typeString == "BUY" ? Trade.OrderType.BUY : Trade.OrderType.SELL;
-
+            var type = Trade.ConvertToOrderType(typeString);
+            
             return new Trade(reader.GetString(0), reader.GetInt32(1), (double)reader.GetDecimal(2), type);
         }
     }

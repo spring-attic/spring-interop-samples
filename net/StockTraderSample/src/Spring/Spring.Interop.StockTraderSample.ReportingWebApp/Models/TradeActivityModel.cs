@@ -23,42 +23,4 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Models
             get { return _trades; }
         }
     }
-
-    public class Trade
-    {
-        public enum OrderType { BUY, SELL }
-
-        private string _symbol;
-        private OrderType _type;
-        private long _quantity;
-        private double _executionPrice;
-
-        public Trade(string symbol, long quantity, double executionPrice, OrderType type)
-        {
-            _symbol = symbol;
-            _type = type;
-            _executionPrice = executionPrice;
-            _quantity = quantity;
-        }
-
-        public OrderType Type
-        {
-            get { return _type; }
-        }
-
-        public long Quantity
-        {
-            get { return _quantity; }
-        }
-
-        public double ExecutionPrice
-        {
-            get { return _executionPrice; }
-        }
-
-        public string Symbol
-        {
-            get { return _symbol; }
-        }
-    }
 }
