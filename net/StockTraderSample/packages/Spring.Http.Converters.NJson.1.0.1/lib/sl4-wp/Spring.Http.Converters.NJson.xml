@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Spring.Http.Converters.NJson</name>
+    </assembly>
+    <members>
+        <member name="T:Spring.Http.Converters.Json.NJsonHttpMessageConverter">
+            <summary>
+            Implementation of <see cref="T:Spring.Http.Converters.IHttpMessageConverter"/> that can read and write JSON 
+            using the Json.NET (Newtonsoft.Json) library.
+            </summary>
+            <remarks>
+            <para>
+            This implementation supports getting/setting values from JSON directly, 
+            without the need to deserialize/serialize to a .NET class.
+            </para>
+            <para>
+            By default, this converter supports 'application/json' media type. 
+            This can be overridden by setting the <see cref="P:SupportedMediaTypes"/> property.
+            </para>
+            </remarks>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Http.Converters.Json.NJsonHttpMessageConverter.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:Spring.Http.Converters.Json.NJsonHttpMessageConverter"/> 
+            with the media type 'application/json'. 
+            </summary>
+        </member>
+        <member name="M:Spring.Http.Converters.Json.NJsonHttpMessageConverter.Supports(System.Type)">
+            <summary>
+            Indicates whether the given class is supported by this converter.
+            </summary>
+            <param name="type">The type to test for support.</param>
+            <returns><see langword="true"/> if supported; otherwise <see langword="false"/></returns>
+        </member>
+        <member name="M:Spring.Http.Converters.Json.NJsonHttpMessageConverter.ReadInternal``1(Spring.Http.IHttpInputMessage)">
+            <summary>
+            Abstract template method that reads the actualy object. Invoked from <see cref="M:Read"/>.
+            </summary>
+            <typeparam name="T">The type of object to return.</typeparam>
+            <param name="message">The HTTP message to read from.</param>
+            <returns>The converted object.</returns>
+            <exception cref="T:Spring.Http.Converters.HttpMessageNotReadableException">In case of conversion errors</exception>
+        </member>
+        <member name="M:Spring.Http.Converters.Json.NJsonHttpMessageConverter.WriteInternal(System.Object,Spring.Http.IHttpOutputMessage)">
+            <summary>
+            Abstract template method that writes the actual body. Invoked from <see cref="M:Write"/>.
+            </summary>
+            <param name="content">The object to write to the HTTP message.</param>
+            <param name="message">The HTTP message to write to.</param>
+            <exception cref="T:Spring.Http.Converters.HttpMessageNotWritableException">In case of conversion errors</exception>
+        </member>
+    </members>
+</doc>

@@ -18,7 +18,7 @@
 
 #endregion
 
-
+using System;
 using System.Collections;
 using Spring.Interop.StockTraderSample.Client.Gateways;
 using Spring.Interop.StockTraderSample.Common.Data;
@@ -27,7 +27,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 {
     /// <summary>
     /// Handles requests from the UI and forwards them to the remote service.  Messages recieved from
-    /// the service routed through this controller to update the UI. 
+    /// the service routed through this contcroller to update the UI. 
     /// </summary>
     /// <author>Mark Pollack</author>
     /// <author>Don McRae</author>
@@ -36,7 +36,8 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         private StockForm stockForm;
 
         private IStockServiceGateway stockService;
-        
+        private int _nextRequest;
+
         public StockForm StockForm
         {
             get { return stockForm; }
@@ -49,20 +50,26 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             set { stockService = value; }
         }
 
-        public void SendTradeRequest()
+        public void SendTradeRequest(string symbol, int quantity, string account)
         {
             TradeRequest tradeRequest = new TradeRequest();
-            tradeRequest.AccountName = "ACCT-123";
+            tradeRequest.AccountName = account;
             tradeRequest.BuyRequest = true;
             tradeRequest.OrderType = "MARKET";
-            tradeRequest.Quantity = 314000000;
-            tradeRequest.RequestId = "REQ-1";
-            tradeRequest.Ticker = "CSCO";
+            tradeRequest.Quantity = quantity;
+            tradeRequest.RequestId = NextRequest();
+            tradeRequest.Ticker = symbol;
             tradeRequest.UserName = "Joe Trader";
             
             stockService.Send(tradeRequest);
-        }       
-        
+        }
+
+        private string NextRequest()
+        {
+            _nextRequest++;
+            return string.Format("REQ-{0}", _nextRequest);
+        }
+
         public void UpdateMarketData(Quote quote)
         {
             stockForm.UpdateMarketData(quote);

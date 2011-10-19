@@ -43,19 +43,21 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         #endregion
 
-        private StockController stockController;
+        private StockController _stockController;
         private string _currentBinding;
+        private const decimal DefaultTradeRequestQuantity = 1;
+        private const string DefaultAccountName = "ACCT-123";
 
         public StockForm()
         {
             InitializeComponent();
-            stockController = ContextRegistry.GetContext()["StockController"] as StockController;
-            stockController.StockForm = this;
+            _stockController = ContextRegistry.GetContext()["StockController"] as StockController;
+            _stockController.StockForm = this;
         }
 
         public StockController Controller
         {
-            set { stockController = value; }
+            set { _stockController = value; }
         }
 
         private void OnSendTradeRequest(object sender, EventArgs e)
@@ -63,7 +65,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             //In this simple example no data is collected from the view.
             //Instead a hardcoded trade request is created in the controller.
             tradeRequestStatusTextBox.Text = "Request Pending...";
-            stockController.SendTradeRequest();
+            _stockController.SendTradeRequest(tradeRequestStatusTextBox.Text, Convert.ToInt32(tradeQuantityNumericUpDown.Value), accountNameTextBox.Text);
             log.Info("Sent trade request.");
         }
 
@@ -108,6 +110,9 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         private void StockForm_Load(object sender, EventArgs e)
         {
+            accountNameTextBox.Text = DefaultAccountName;
+            tradeQuantityNumericUpDown.Value = DefaultTradeRequestQuantity;
+
             try
             {
                 using (IConnectionFactory connectionFactory = new CachingConnectionFactory())
@@ -135,9 +140,8 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         {
 
             var ctx = ContextRegistry.GetContext();
-            var factory =
-                ctx.GetObject("ConnectionFactory") as IConnectionFactory;
-                
+            var factory = ctx.GetObject("ConnectionFactory") as IConnectionFactory;
+
             try
             {
                 IAmqpAdmin amqpAdmin = new RabbitAdmin(factory);
@@ -167,5 +171,12 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         {
             RebindQueue(string.Empty);
         }
+
+        private void failedTradesButton_Click(object sender, EventArgs e)
+        {
+            var failuresForm = new FailuresForm(accountNameTextBox.Text);
+            failuresForm.Show();
+        }
+        
     }
 }
