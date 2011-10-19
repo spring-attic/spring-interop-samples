@@ -3,6 +3,8 @@
 
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Controllers.HomeController, Spring.Interop.StockTraderSample.ReportingWebApp" singleton="false" >
     <property name="Message" value="Welcome to ASP.NET MVC3 powered by Spring.NET!" />
+    <property name="AdoTemplate" ref="adoTemplate" />
+    <property name="TradeRowMapper" ref="tradeRowMapper" />
   </object>
   
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Controllers.AccountController, Spring.Interop.StockTraderSample.ReportingWebApp" singleton="false" >
