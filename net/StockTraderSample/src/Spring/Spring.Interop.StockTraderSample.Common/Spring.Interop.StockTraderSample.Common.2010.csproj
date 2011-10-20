@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CreditCheckFailure.cs" />
+    <Compile Include="Data\CreditCheckRequest.cs" />
+    <Compile Include="Data\CreditCheckResponse.cs" />
     <Compile Include="Data\StockExchange.cs" />
     <Compile Include="Data\Quote.cs" />
     <Compile Include="Data\Stock.cs" />
