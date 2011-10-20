@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Spring.Interop.StockTraderSample.Common.Data;
 
 namespace Spring.Interop.StockTraderSample.ReportingWebApp.Models
 {

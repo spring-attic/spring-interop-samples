@@ -175,7 +175,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         private void failedTradesButton_Click(object sender, EventArgs e)
         {
             var failuresForm = new FailuresForm(accountNameTextBox.Text);
-            failuresForm.Show();
+            failuresForm.ShowDialog();
         }
         
     }

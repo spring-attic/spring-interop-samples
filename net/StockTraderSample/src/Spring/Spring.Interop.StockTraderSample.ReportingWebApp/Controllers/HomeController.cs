@@ -44,9 +44,7 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
         public ActionResult CreditFailureReport()
         {
             var failures = _creditCheckFailures.GetAllFailures();
-            var failuresModel = new CreditCheckFailureModel("Credit Check Failures",failures);
-
-            return Json(failuresModel, JsonRequestBehavior.AllowGet);
+            return Json(failures, JsonRequestBehavior.AllowGet);
         }
     }
 }

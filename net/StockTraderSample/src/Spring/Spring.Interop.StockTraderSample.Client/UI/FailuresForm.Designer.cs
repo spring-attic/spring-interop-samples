@@ -69,7 +69,9 @@
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.tradeFailuresListBox);
             this.Name = "FailuresForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Trade Failures";
+            this.Load += new System.EventHandler(this.FailuresForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

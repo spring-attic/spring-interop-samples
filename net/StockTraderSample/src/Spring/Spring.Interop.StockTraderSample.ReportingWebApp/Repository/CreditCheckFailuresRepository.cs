@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Spring.Data.Generic;
+using Spring.Interop.StockTraderSample.Common.Data;
 using Spring.Interop.StockTraderSample.ReportingWebApp.Models;
 
 namespace Spring.Interop.StockTraderSample.ReportingWebApp.Repository

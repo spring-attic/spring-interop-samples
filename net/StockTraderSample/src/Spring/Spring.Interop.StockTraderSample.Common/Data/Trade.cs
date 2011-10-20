@@ -1,4 +1,4 @@
-﻿namespace Spring.Interop.StockTraderSample.ReportingWebApp.Models
+﻿namespace Spring.Interop.StockTraderSample.Common.Data
 {
     public class Trade
     {
