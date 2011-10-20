@@ -79,6 +79,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\lib\SQLFire_ADONET\VMware.Data.SQLFire.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
@@ -90,10 +93,14 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\TradeActivityModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\SqlFireDbProvider.cs" />
     <Compile Include="Repository\TradeActivityRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\controllers.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\sqlfire.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Config\repositories.xml">

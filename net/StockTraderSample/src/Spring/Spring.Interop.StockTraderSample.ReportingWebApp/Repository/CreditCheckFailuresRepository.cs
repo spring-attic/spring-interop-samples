@@ -19,7 +19,7 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Repository
 
         public IEnumerable<CreditCheckFailure> GetAllFailures()
         {
-            var sql = "select Symbol, Quantity, Failure_Reason, Type, DateTime from CreditCheckFailure";
+            var sql = "select Symbol, Quantity, Failure_Reason, TradeType, DateTime from CreditCheckFailure";
 
             return _adoTemplate.QueryWithRowMapper(CommandType.Text, sql, _creditFailureRowMapper);
         }

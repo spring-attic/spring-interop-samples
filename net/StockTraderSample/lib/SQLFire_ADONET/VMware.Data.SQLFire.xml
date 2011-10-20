@@ -1,0 +1,3876 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VMware.Data.SQLFire</name>
+    </assembly>
+    <members>
+        <member name="T:VMware.Data.SQLFire.BatchUpdateException">
+             <summary>
+             Class to encapsulate and exception during a batch update operation.
+             This can happen when using the batch operations of a
+             <see cref="T:VMware.Data.SQLFire.SQLFCommand"/>, or when using <c>UpdateBatchSize</c> of
+             <see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/>.
+            
+             In addition to the information provided by SQLFException, a
+             BatchUpdateException provides the update counts for all commands that
+             were executed successfully during the batch update before error occurred.
+             </summary>
+             <seealso cref="T:VMware.Data.SQLFire.SQLFCommand"/>
+             <see cref="P:VMware.Data.SQLFire.SQLFDataAdapter.UpdateBatchSize"/>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFException">
+            <summary>
+            Encapsulates all SQL exceptions in SQLFire drivers and extends
+            <see cref="T:System.Data.Common.DbException"/> class.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFException.m_sqlState">
+            <summary>
+            the JDBC SQLState string for this exception
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFException.m_severity">
+            <summary>
+            the SQLFire specific JDBC errorCode for this exception
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFException.m_nextException">
+            <summary>
+            any next exception in the chain for multiple exceptions
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFException.m_stackTrace">
+            <summary>
+            cached StackTrace for this exception
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.#ctor(java.sql.SQLException)">
+            <summary>
+            Wrap given <c>java.sql.SQLException</c> in this exception object
+            </summary>
+            <param name="jdbcEx">the JDBC SQLException to be wrapped</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.#ctor(System.String,VMware.Data.SQLFire.SQLState,System.Exception)">
+            <summary>
+            Create a new exception with given message, <see cref="T:VMware.Data.SQLFire.SQLState"/> and
+            inner exception. This formats the message putting the JDBC SQLState
+            and severity in the message.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.#ctor(System.String,VMware.Data.SQLFire.SQLState)">
+            <summary>
+            Create a new exception with given message and <see cref="T:VMware.Data.SQLFire.SQLState"/>.
+            This formats the message putting the JDBC SQLState and severity
+            in the message.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.#ctor(java.sql.SQLException,System.Exception)">
+            <summary>
+            Wrap given <c>java.sql.SQLException</c> in this exception object
+            with the given inner exception.
+            </summary>
+            <param name="jdbcEx">the JDBC SQLException to be wrapped</param>
+            <param name="innerEx">inner exception for this exception</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.Create(java.sql.SQLException)">
+            <summary>
+            Wrap given <c>java.sql.SQLException</c> in this exception object
+            </summary>
+            <param name="jdbcEx">the JDBC SQLException to be wrapped</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.ToInnerException(System.Exception,java.lang.StackTraceElement[])">
+            <summary>
+            Wrap the given java exception as <c>InnerException</c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.GetJavaExceptionStackTrace(java.lang.Throwable,java.lang.StackTraceElement[])">
+            <summary>
+            Get the stack trace string for a java exception as a cause for the
+            specified stack trace (when non-null). Adapted from JDK's
+            Throwable#printStackTraceAsCause() and other methods.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.ToString">
+            <summary>
+            Get a string representation of the exception including the stacktrace,
+            any inner exceptions as well as any <see cref="P:VMware.Data.SQLFire.SQLFException.NextException"/>s.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.BaseToString">
+            <summary>
+            Helper method to get the base.ToString().
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFException.NullValue">
+            <summary>
+            Static exception for null data used commonly where null data
+            is not excepted.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.RowUpdatedError">
+            <summary>
+            Exception for an unknown error during handling of a
+            <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated"/> event.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.UpdateRequiresCommand(System.String)">
+            <summary>
+            Exception for the case when an <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.Update(System.Data.DataRow[],System.Data.Common.DataTableMapping)"/> is invoked without a valid SELECT
+            query execution on the <see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.InvalidUpdateStatus(System.Data.UpdateStatus)">
+            <summary>
+            Exception for the case when <see cref="T:System.Data.UpdateStatus"/> is not valid
+            for current <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.Update(System.Data.DataRow[],System.Data.Common.DataTableMapping)"/>
+            </summary>
+            <param name="status">
+            the <see cref="T:System.Data.UpdateStatus"/> that was determined to be invalid
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFException.PreserveStackTrace(System.Exception)">
+            <summary>
+            Useful function to preserve the stack trace when rethrowing. See
+            http://stackoverflow.com/questions/57383/
+              in-c-how-can-i-rethrow-innerexception-without-losing-stack-trace.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFException.ErrorCode">
+            <summary>
+            The error code for this exception.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFException.State">
+            <summary>
+            The JDBC SQLState string for this exception.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFException.Severity">
+            <summary>
+            The <see cref="T:VMware.Data.SQLFire.SQLFSeverity"/> associated with this exception.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFException.NextException">
+            <summary>
+            Any next exception for the case of multiple exceptions chained in this.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFException.StackTrace">
+            <summary>
+            Get the stacktrace of this exception. The implementation overrides the
+            base class to add the stack for the underlying java SQLException if
+            required for inner exceptions.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.BatchUpdateException.m_updateCounts">
+            <summary>
+            the update counts as retrieved from JDBC BatchUpdateException
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.BatchUpdateException.#ctor(java.sql.BatchUpdateException)">
+            <summary>
+            Wrap given <c>java.sql.BatchUpdateException</c> in this exception.
+            </summary>
+            <param name="batchEx">the JDBC BatchUpdateException to be wrapped</param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.BatchUpdateException.UpdateCounts">
+            <summary>
+            Get the update count for each update statement in the batch operations
+            that executed successfully before this exception occurred.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.JdbcConsts">
+            <summary>
+            Various JDBC constant values.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.JdbcUtils">
+            <summary>
+            Internal class to provide static utilities for working with JDBC.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.DefaultTZ">
+            <summary>
+            The default Java TimeZone of this process.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.DefaultTZOffsetTicks">
+            <summary>
+            The offset ticks using the default instance of java.util.TimeZone.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.DefaultTZOffsetTicksNoDST">
+            <summary>
+            The offset ticks using the default instance of java.util.TimeZone.
+            </summary>
+            <remarks>
+            This variation is used for dates that don't fall in DST and to convert
+            for TIME SQL type since it is will have no date hence no DST.
+            </remarks>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.DefaultTZUsesDST">
+            <summary>
+            True if the default timezone uses daylight savings.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.EpochTime">
+            <summary>
+            Static to store the epoch time that is used to calculate the millis
+            since epoch for java Date structures.
+            </summary>
+            <remarks>
+            This variation adds offset for both the timezone as well as DST
+            so is used for dates that fall in DST.
+            </remarks>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.EpochTimeWithDST">
+            <summary>
+            Static to store the epoch time that is used to calculate the millis
+            since epoch for java Date structures.
+            </summary>
+            <remarks>
+            This variation adds offset for both the timezone as well as DST
+            so is used for dates that fall in DST.
+            </remarks>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.EpochTimeNoDST">
+            <summary>
+            Static to store the epoch time that is used to calculate the millis
+            since epoch for java Date structures.
+            </summary>
+            <remarks>
+            This variation is used for dates that don't fall in DST and also to
+            convert for TIME SQL type since it is will have no date hence no DST.
+            </remarks>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.IsEpochInDST">
+            <summary>
+            Stores whether epoch itself is in DST.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.DefaultTimeZone">
+            <summary>
+            The default .NET TimeZone of this process.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.s_convertJavaMap">
+            <summary>
+            Map from Java type (as provided by IKVM) to delegate that will convert
+            the java object into equivalent .NET object
+            (e.g. java.lang.Integer to boxed int).
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.s_convertDotNetMap">
+            <summary>
+            Map from .NET type to delegate that will convert the .NET object into
+            equivalent IKVM java object (e.g. boxed int to java.lang.Integer).
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetDateTimeMillis(System.DateTime)">
+            <summary>
+            Get the number of milliseconds since epoch represented by the provided
+            DateTime object.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetDateTimeForJavaDate(java.util.Date,System.Boolean)">
+            <summary>
+            Convert the given java Date object into .NET DateTime structure.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetJavaBigDecimal(System.Object,System.Int32,System.Int32)">
+            <summary>
+            Get the Java BigDecimal object for the given decimal value.
+            </summary>
+            <param name="val">
+            the decimal value to be converted to java BigDecimal; this can be a
+            <see cref="T:System.Decimal"/> type or anything whose ToString() evaluates to
+            a decimal value (e.g. a string, a double etc.)
+            </param>
+            <param name="scale">
+            if greater than zero, then specifies the number of digits after decimal
+            </param>
+            <param name="precision">
+            if greater than zero, then specifies the total number of digits
+            </param>
+            <returns>
+            A <see cref="T:java.math.BigDecimal"/> corresponding to the provided
+            decimal value
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.JavaObjectToFrameworkObject(System.Object,VMware.Data.SQLFire.SQLFType@)">
+            <summary>
+            Convert the given java object into a .NET object. This only works
+            for the builtin SQL types and not a generic java object.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.FrameworkObjectToJavaObject(System.Object,System.Boolean,VMware.Data.SQLFire.SQLFType@)">
+             <summary>
+             Convert the given .NET object into an IKVM java object also returning
+             its <see cref="T:VMware.Data.SQLFire.SQLFType"/> (out parameter <paramref name="type"/>.
+             This works correctly only for the builtin SQL types and not for generic
+             .NET objects.
+            
+             The parameter <paramref name="skipConversion"/> will skip the
+             conversion just returning the <see cref="T:VMware.Data.SQLFire.SQLFType"/>.
+             </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetFrameworkObject(VMware.Data.SQLFire.SQLFCommand,java.sql.ResultSet,System.Int32)">
+            <summary>
+            Get the .NET object, converting as necessary from java object, for the
+            given column in a JDBC ResultSet.
+            </summary>
+            <param name="command">the command executed</param>
+            <param name="rs">the JDBC ResultSet to be read</param>
+            <param name="index">the index (one based) of column to be read</param>
+            <returns></returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetFrameworkObject(VMware.Data.SQLFire.SQLFType,java.sql.ResultSet,System.Int32)">
+            <summary>
+            Get the .NET object, converting as necessary from java object, with
+            given type for the given column in a JDBC ResultSet.
+            </summary>
+            <param name="type">the <c>SQLFType</c> of the column</param>
+            <param name="rs">the JDBC ResultSet to be read</param>
+            <param name="index">the index (one based) of column to be read</param>
+            <returns></returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetFrameworkObject(VMware.Data.SQLFire.SQLFCommand,java.sql.ResultSet,System.String)">
+            <summary>
+            Get the .NET object, converting as necessary from java object, for the
+            given column in a JDBC ResultSet.
+            </summary>
+            <param name="command">the command executed</param>
+            <param name="rs">the JDBC ResultSet to be read</param>
+            <param name="name">the name of column to be read</param>
+            <returns></returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetFrameworkObject(VMware.Data.SQLFire.SQLFType,java.sql.ResultSet,System.String)">
+            <summary>
+            Get the .NET object, converting as necessary from java object, with
+            given type for the given column in a JDBC ResultSet.
+            </summary>
+            <param name="type">the <c>SQLFType</c> of the column</param>
+            <param name="rs">the JDBC ResultSet to be read</param>
+            <param name="name">the name of column to be read</param>
+            <returns></returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetSQLFType(System.Data.DbType,System.Boolean)">
+            <summary>
+            Get the <c><see cref="T:VMware.Data.SQLFire.SQLFType"/></c> (corresponding to a JDBC type ID)
+            for given <c><see cref="T:System.Data.DbType"/></c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.GetDbType(VMware.Data.SQLFire.SQLFType)">
+            <summary>
+            Get the <c><see cref="T:System.Data.DbType"/></c> for given
+            <c><see cref="T:VMware.Data.SQLFire.SQLFType"/></c> (corresponding to a JDBC type ID).
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.FrameworkTypeForSQLFType(VMware.Data.SQLFire.SQLFType)">
+            <summary>
+            Get the .NET type for given <c><see cref="T:VMware.Data.SQLFire.SQLFType"/></c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.JdbcUtils.IsLongType(VMware.Data.SQLFire.SQLFType)">
+            <summary>
+            Returns true if the given <see cref="T:VMware.Data.SQLFire.SQLFType"/> is a "long" type
+            that should not be included in the where clause of command builder.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.JdbcUtils.IsMonoRuntime">
+            <summary>
+            Static that tells whether this is Mono runtime or not. Use it only
+            if absolutely required.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.ConvertJavaObjectToDotNet">
+            <summary>
+            Delegate used by <see cref="M:VMware.Data.SQLFire.JdbcUtils.JavaObjectToFrameworkObject(System.Object,VMware.Data.SQLFire.SQLFType@)"/>
+            method to convert the given IKVM java object to equivalent .NET object.
+            </summary>
+            <param name="javaVal">the java object to be converted</param>
+            <param name="type">the type determined for the object</param>
+            <returns>the equivalent .NET object</returns>
+        </member>
+        <member name="T:VMware.Data.SQLFire.ConvertDotNetObjectToJava">
+            <summary>
+            Delegate used by <see cref="M:VMware.Data.SQLFire.JdbcUtils.FrameworkObjectToJavaObject(System.Object,System.Boolean,VMware.Data.SQLFire.SQLFType@)"/>
+            method to convert the given .NET object to equivalent IKVM java object.
+            </summary>
+            <param name="val">the .NET object to be converted</param>
+            <param name="skipConversion">
+            if set to true then no conversion is done and the method returns
+            setting the type only
+            </param>
+            <param name="type">the type determined for the object</param>
+            <returns>the equivalent IKVM java object</returns>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFClientConnection">
+             <summary>
+             Establish a connection to SQLFire system using the network client driver
+             and corresponds to the JDBC scheme "jdbc:sqlfire://".
+            
+             This class implements ADO.NET's <c><see cref="T:System.Data.IDbConnection"/>
+             </c> interface and extends the abstract
+             <c><see cref="T:System.Data.Common.DbConnection"/></c> class.
+             Some SQLFire specific extensions are provided including
+             <c><see cref="P:VMware.Data.SQLFire.SQLFConnection.AutoCommit"/></c>,
+             <c><see cref="M:VMware.Data.SQLFire.SQLFConnection.BeginSQLFTransaction"/></c>,
+             <c><see cref="M:VMware.Data.SQLFire.SQLFConnection.BeginSQLFTransaction(System.Data.IsolationLevel)"/></c>,
+             <c><see cref="M:VMware.Data.SQLFire.SQLFConnection.Commit"/></c>,
+             <c><see cref="P:VMware.Data.SQLFire.SQLFConnection.IsolationLevel"/></c>,
+             <c><see cref="P:VMware.Data.SQLFire.SQLFConnection.IsClosed"/></c>,
+             <c><see cref="M:VMware.Data.SQLFire.SQLFConnection.Rollback"/></c>.
+            
+             This class cannot be inherited.
+             </summary>
+             <remarks>
+             Implementation notes:
+             <para>
+             Most of the real work is done by <see cref="T:VMware.Data.SQLFire.SQLFConnection"/> while this
+             class just defines how to split a string in "Server=..." format to the
+             form expected by the JDBC driver. Also forces load of the ClientDriver
+             since the DLLs cannot load it automatically like in JDK6.
+             </para>
+             </remarks>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection">
+            <summary>
+            This is the base class for all ADO.NET drivers that are to be
+            provided by SQLFire including network client driver, peer driver and
+            GFE edge client driver.
+            </summary>
+            <remarks>
+            This class handles all required functionality of setting up a
+            connection, dealing with transactions etc. and just requires the
+            implementations to define how to translate a .NET style connection
+            string into a form expected by JDBC (
+              <see cref="M:VMware.Data.SQLFire.SQLFConnection.GetConnectionStringFormat"/>,
+              <see cref="M:VMware.Data.SQLFire.SQLFConnection.TokenizeConnectionString(System.String)"/>).
+            In addition implementations may provide any extra methods to enhance
+            the API as deemed fit.
+            </remarks>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.SQLF_DBNAME">
+            <summary>
+            The fixed database name used by SQLFire.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.SQLF_VERSION">
+            <summary>
+            The fixed database version used by SQLFire.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.SQLF_DATASOURCE">
+            <summary>
+            The fixed DataSource name used by SQLFire.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.m_connectionString">
+            <summary>
+            The .NET connection string used by this connection.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.m_jdbcConn">
+            <summary>
+            The underlying JDBC connection object.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.m_dbMetaData">
+            <summary>
+            The cached <c>java.sql.DatabaseMetaData</c> for this connection.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.m_connectionTokens">
+            <summary>
+            The .NET connection string split into tokens used by
+            <see cref="M:VMware.Data.SQLFire.SQLFConnection.GetConnectionStringFormat"/> to construct the
+            JDBC connection string.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.m_loginTimeout">
+            <summary>
+            The connection timeout, if any, set for this connection.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.m_txActive">
+            <summary>
+            Transient flag that indicates whether a transaction is already active
+            on this connection. JDBC does not allow for nested transactions to be
+            started explicitly on a connection so this checks for that condition.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.s_connTimeoutLock">
+            <summary>
+            Object used to synchronize setting of connection timeout using the
+            JDBC DriverManager API that will be used by all connections.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.s_lastThreadTimeout">
+            <summary>
+            Stores the last thread that set the connection timeout using
+            JDBC's DriverManager. Used to check if the timeout should be reverted
+            back once done.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.#ctor">
+            <summary>
+            Default constructor to be used by child classes.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.#ctor(System.String)">
+            <summary>
+            Constructor to be used by child classes passing in the
+            .NET connection string.
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.System#Data#IDbConnection#BeginTransaction">
+            <summary>
+            Start a transaction on this connection. Returns an instance of
+            <see cref="T:VMware.Data.SQLFire.SQLFTransaction"/> that just uses this connection object's
+            <c>BeginTransaction</c> and other methods to do the real work.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.BeginTransaction">
+            <summary>
+            Begin a new transaction on this connection with
+            Unspecified transaction level.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.BeginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Begin a new transaction on this connection with specified
+            isolation level.
+            </summary>
+            <param name="level">the isolation level for the new TX</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.BeginSQLFTransaction">
+            <summary>
+            Begin a new transaction on this connection with default transaction
+            isolation level (defaults to READ_COMMITTED in SQLFire).
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.BeginSQLFTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Begin a new transaction on this connection with specified
+            isolation level.
+            </summary>
+            <param name="level">the isolation level for the new TX</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.BeginDbTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Base class implementation to start a new transaction given an
+            isolation level.
+            </summary>
+            <param name="level">the isolation level for the new TX</param>
+            <returns>
+            an instance of <c>SQLFTransaction</c> encapsulating this connection
+            and the provided isolation level
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.Open">
+            <summary>
+            Open this connection. This sets the <c>AutoCommit</c> property for the
+            connection to false by default to be able to control transactions
+            explicitly.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.Open(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Open this connection with the given set of property key, value pairs
+            as expected by the JDBC connection. This sets the <c>AutoCommit</c>
+            property for the connection to false by default to be able to control
+            transactions explicitly.
+            </summary>
+            <param name="properties">
+            the set of key, value pairs as expected by the JDBC connection;
+            a value of null will use the default properties for this connection
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.Close">
+            <summary>
+            Close this connection performing a commit if auto-commit was false
+            on this connection (which is the default).
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.CreateCommand">
+            <summary>
+            Create a new <c>SQLFCommand</c> object to be used for executing
+            DDLs/DMLs etc.
+            </summary>
+            <returns>a new default <c>SQLFCommand</c> object</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.CreateDbCommand">
+            <summary>
+            Base class implementation to create a new <c>SQLFCommand</c> object to
+            be used for executing DDLs/DMLs etc.
+            </summary>
+            <returns>a new default <c>SQLFCommand</c> object</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.GetSchema">
+            <summary>
+            Returns schema information for the data source of this connection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Data.DataTable"/> that contains schema information.
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.GetSchema(System.String)">
+            <summary>
+            Returns schema information for the data source of this connection
+            using the specified string for the schema name.
+            </summary>
+            <param name="collectionName">
+            Specifies the name of the schema to return.
+            </param>
+            <returns>
+            A <see cref="T:System.Data.DataTable"/> that contains schema information.
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.GetSchema(System.String,System.String[])">
+            <summary>
+            Returns schema information for the data source of this connection
+            using the specified string for the schema name and the specified
+            string array for the restriction values.
+            </summary>
+            <param name="collectionName">
+            Specifies the name of the schema to return.
+            </param>
+            <param name="restrictionValues">
+            Specifies a set of restriction values for the requested schema.
+            </param>
+            <returns>
+            A <see cref="T:System.Data.DataTable"/> that contains schema information.
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.ChangeDatabase(System.String)">
+            <summary>
+            Changing the database name is not supported by SQLFire
+            and this method will always throw an exception.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.Dispose(System.Boolean)">
+            <summary>
+            Invoked when this object is disposed.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.Commit">
+            <summary>
+            Commit the active transaction on this connection.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.Rollback">
+            <summary>
+            Rollback the active transaction on this connection.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.GetConnectionStringFormat">
+            <summary>
+            This abstract method expects implementations to return the JDBC
+            formatted connection string with place holders that will be
+            filled in by the result of <c>TokenizeConnectionString</c> method.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.TokenizeConnectionString(System.String)">
+            <summary>
+            Implementations are expected to split the .NET style connection string
+            into array of string in this method that will be passed to the string
+            format as returned by <c>GetConnectionStringFormat</c> method.
+            </summary>
+            <param name="connectionString">the .NET connection string</param>
+            <returns>
+            the split tokens as expected by <c>GetConnectionStringFormat</c>
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.CheckOpenConnection">
+            <summary>
+            Internal method to check if connection is open and throw an exception
+            if it is closed.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.CheckOpenConnection(VMware.Data.SQLFire.SQLFConnection)">
+            <summary>
+            Internal method to check if given connection is non-null and open and
+            throw an exception if it is null or closed.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.GetJdbcIsolationLevel(System.Data.IsolationLevel)">
+            <summary>
+            Convert the given .NET IsolationLevel enum to JDBC isolation level int.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.GetIsolationLevel(System.Int32)">
+            <summary>
+            Convert the given JDBC isolation level to .NET IsolationLevel enum.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.s_queryLockInstance">
+            <summary>
+            Static locking object for schema queries.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.FillDataTable(System.Data.DataTable@,java.sql.ResultSet,System.String[][],System.Object,System.String,System.String[],System.String,System.Boolean)">
+            <summary>
+            Fill the given <see cref="T:System.Data.DataTable"/> from the given JDBC
+            <c>java.sql.ResultSet</c> and column mappings from the <c>DataTable</c>
+            columns to <c>ResultSet</c> columns.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.ExtractValue(System.Object[],System.Int32)">
+            <summary>
+            Helper method to extract the restriction value at given index of an
+            array of values, and null if index is beyond the size of array.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.ExtractPattern(System.Object[],System.Int32)">
+            <summary>
+            Helper method to extract the restriction pattern at given index of an
+            array of values, and null if index is beyond the size of array.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.ConnectionString">
+            <summary>
+            Get/set the connection string to be used for this connection. If the
+            connection has already been opened the setting the connection string
+            will throw an exception.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.System#Data#IDbConnection#ConnectionTimeout">
+            <summary>
+            Gets the maximum time in seconds that a driver can wait when
+            attempting to log in to a database.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.ConnectionTimeout">
+            <summary>
+            Gets or sets the maximum time in seconds that a driver can wait when
+            attempting to log in to a database.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.Database">
+            <summary>
+            Get the default database name used by SQLFire.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.ServerVersion">
+            <summary>
+             Get the database server version used by SQLFire.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.DataSource">
+            <summary>
+            Get the name of DataSource used for SQLFire.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.State">
+            <summary>
+            Get the state the connection. Currently only open or closed
+            states are returned.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.AutoCommit">
+             <summary>
+             Get/set auto-commit for this connection.
+            
+             Default is false.
+             </summary>
+             <remarks>
+             If set to true then it causes an implicit commit to be invoked at the
+             end of every transactional statement execution.
+             </remarks>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.IsolationLevel">
+            <summary>
+            Get the isolation level for the active transaction on this connection.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.IsClosed">
+            <summary>
+            Return true if this connection is closed.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.JdbcConn">
+            <summary>
+            Internal property to return the underlying JDBC Connection object.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.JdbcDatabaseMetaData">
+            <summary>
+            Get the cached instance of <c>java.sql.DatabaseMetaData</c>.
+            The meta-data object is obtained using the connection if required.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.TXActive">
+            <summary>
+            Returns true if a Transaction is active on this connection.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection.DataSourceInformation">
+            <summary>
+            Class to get the "DataSourceInformation" schema.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection.MetaDataCollections">
+            <summary>
+            Holds the static instance of the "MetaDataCollections" schema.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.MetaDataCollections.Instance">
+            <summary>
+            Get the static instance of "MetaDataCollections" DataTable.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection.Restrictions">
+            <summary>
+            Holds the static instance of the "Restrictions" schema.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.Restrictions.Instance">
+            <summary>
+            Get the static instance of "Restrictions" DataTable.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection.DataTypes">
+            <summary>
+            Create an instance of the "DataTypes" schema.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.DataTypes.s_instance">
+            <summary>
+            the static instance of the "DataTypes" table
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.DataTypes.s_typeProperties">
+            <summary>
+            hard-coded properties for JDBC types that are missing from JDBC's
+            <c>java.sql.DatabaseMetaData</c>
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.DataTypes.GetInstance(VMware.Data.SQLFire.SQLFConnection)">
+            <summary>
+            This method returns a cached static instance of the DataTable
+            containing the datatypes. Since the datatypes cannot change
+            so caching the instance is safe.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.DataTypes.GetNumParameters(System.String)">
+            <summary>
+            Get the number of comma-separated parameters in the given string.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.DataTypes.FillParameterPlaceHolders(System.Int32,System.Int32,System.Text.StringBuilder)">
+            <summary>
+            Fill the given number of parameter markers (e.g. {0}, {1}) in the
+            given <c>StringBuilder</c> starting at given
+            <paramref name="startIndex"/> and ending at value less than
+            <paramref name="end"/>.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection.DataTypes.TypeProperty">
+            <summary>
+            Encodes some boolean flags required for "DataTypes" table that are
+            absent from JDBC <c>DatabaseMetaData</c> class.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.DataTypes.TypeProperty.IsFixedLength">
+            <summary>
+            indicates that the given type's values are of fixed length
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.DataTypes.TypeProperty.IsLong">
+            <summary>
+            indicates that the given type's values are really long (e.g.
+            BLOB)
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.DataTypes.TypeProperty.IsBestMatch">
+            <summary>
+            enabled when this type is the best match for the corresponding
+            .NET type (e.g. NUMERIC for .NET's Decimal)
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.DataTypes.TypeProperty.IsLiteralSupported">
+            <summary>
+            indicates that literal values can be inserted for this type
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection.ReservedWords">
+            <summary>
+            Create an instance of the "ReservedWords" schema.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.ReservedWords.s_reservedWords">
+            <summary>
+            SQL-92 keywords are below. Remaining keywords are obtained using
+            JDBC DatabaseMetaData#getSQLKeywords()
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.ReservedWords.GetInstance(VMware.Data.SQLFire.SQLFConnection)">
+            <summary>
+            This method returns an instance of the DataTable containing the
+            reserved keywords.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFConnection.TableInfo">
+            <summary>
+            Encapsulates database table information and obtaining it using JDBC.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.TableInfo.m_catalogName">
+            <summary>
+            name of catalog of this table
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.TableInfo.m_schemaName">
+            <summary>
+            schema of this table
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.TableInfo.m_tableName">
+            <summary>
+            name of this table
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFConnection.TableInfo.m_tableType">
+            <summary>
+            JDBC type string of this table as in DatabaseMetaData.getTableTypes
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFConnection.TableInfo.GetAll(VMware.Data.SQLFire.SQLFConnection,System.String,System.String,System.String,System.String)">
+            <summary>
+            Get the list of all tables of given type using the given connection.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.TableInfo.Catalog">
+            <summary>
+            name of catalog of this table
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.TableInfo.Schema">
+            <summary>
+            get the schema of this table
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.TableInfo.Name">
+            <summary>
+            name of this table
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFConnection.TableInfo.Type">
+            <summary>
+            type of this table as a string as in
+            <c>DatabaseMetaData.getTableTypes</c> e.g. "TABLE", "VIEW" etc.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFClientConnection.JdbcConnFormat">
+            <summary>
+            The JDBC connection format string including placeholders for hostname,
+            port and connection properties that will be extracted from the .NET
+            style connection string "Server=host:port;{prop1}={value};...".
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFClientConnection.ConnJdbcRegex">
+            <summary>
+            The regular expression used to split the .NET connection string and
+            extract the hostname, port from it. The remaining string, if any, is
+            passed as such assuming it to be the properties as expected by JDBC.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFClientConnection.DbNameRegex">
+            <summary>
+            Regular expression used to extract database name. Not support by
+            SQLFire so an exception is thrown if there is a match.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFClientConnection.#cctor">
+            <summary>
+            Static constructor that forces loading of the JDBC ClientDriver.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFClientConnection.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFClientConnection.#ctor(System.String)">
+            <summary>
+            Constructor given a connection string in .NET style
+            "Server={host}:{port};{prop1}={val1};{prop2}={val2};...".
+            </summary>
+            <param name="connectionString">the connection string</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFClientConnection.Clone">
+            <summary>
+            Get a clone for this connection copying in the relevant properties.
+            The new connection will not be open and will not share any state
+            with this connection.
+            </summary>
+            <returns>a clone for this connection object</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFClientConnection.GetConnectionStringFormat">
+            <summary>
+            The JDBC formatted connection string with place holders that will be
+            filled in by the result of <c>TokenizeConnectionString</c> method.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFClientConnection.TokenizeConnectionString(System.String)">
+            <summary>
+            Split the .NET style connection string into array of string that
+            will be passed to the string format as returned by
+            <c>GetConnectionStringFormat</c> method.
+            </summary>
+            <param name="connectionString">the .NET connection string</param>
+            <returns>
+            the split tokens as expected by <c>GetConnectionStringFormat</c>
+            </returns>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFCommand">
+             <summary>
+             Used for executing SQL commands and reading the results, if any, as a
+             scalar value or using a <see cref="T:VMware.Data.SQLFire.SQLFDataReader"/>.
+             Implements the <see cref="T:System.Data.IDbCommand"/> interface and
+             extends <see cref="T:System.Data.Common.DbCommand"/> encapsulating
+             the functionality of JDBC Statement, PreparedStatement and
+             CallableStatements.
+            
+             Also adds batch executions directly rather than requiring DataAdapter etc.
+             Typical usage:
+             <code>
+             SQLFCommand cmd = new SQLFCommand("insert into t1 values (?, ?)", conn);
+             cmd.Prepare();
+             for (int i = 0; i &lt; 1000; ++i) {
+               cmd.Parameters.Add(f(i));
+               cmd.Parameters.Add(g(i));
+               cmd.AddBatch();
+             }
+             int[] results = cmd.ExecuteBatch();
+             </code>
+             </summary>
+             <remarks>
+             Implementation notes:
+             <para>
+             This class delegates most of the functionality to the underlying
+             java.sql.ResultSet interface. However, it performs the task of
+             holding the parameters to be used for prepared and callable statements
+             and determines whether a prepared/callable statement is to be created
+             at execution time as per the type of parameters and/or at the time of
+             explicit invocation of <c>Prepare</c> method. Any conversions from
+             .NET types to corresponding java types is done just before execution
+             of the command.
+             </para>
+             </remarks>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.TransientFlags">
+            <summary>
+            the transient flags that are to be cleared on change of state
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.ParameterStartPattern">
+            <summary>
+            Regular expression pattern to match the first character
+            of a parameter name.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.ParameterMiddlePattern">
+            <summary>
+            Regular expression pattern to match the characters other than
+            the first one of a parameter name.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.ParameterBeforeStartPattern">
+            <summary>
+            Regular expression pattern to assert (zero-width) the start
+            of a parameter name.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.ParameterNamePattern">
+            <summary>
+            Regular expression string for matching named parameters
+            in a query string.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_commandStr">
+            <summary>
+            The command string to be executing.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_conn">
+            <summary>
+            The connection object to be used for this command.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_tran">
+            <summary>
+            The transaction object, if any, for this command.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_stmt">
+            <summary>
+            The underlying JDBC Statement/PreparedStatement/CallableStatement.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_timeout">
+            <summary>
+            The timeout to be used for execution of the command.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_parameters">
+            <summary>
+            The collection of parameters for Prepared/CallableStatements.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_namedParameters">
+            <summary>
+            Array of parameters that are bound by names stored at the index as
+            in the query string.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_namedParameterSet">
+            <summary>
+            Set of parameters that are bound by names as in the query string.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_updatedRowSource">
+            <summary>
+            The UpdateRowSource for this command; currently ignored.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_readerType">
+            <summary>
+            The scrollability of the <c>SQLFDataReader</c> that enapsulates
+            a JDBC ResultSet.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_fetchSize">
+            <summary>
+            The default number of rows that are attempted to be fetched when
+            using an <c><see cref="T:VMware.Data.SQLFire.SQLFDataReader"/></c>.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_currentTable">
+            <summary>
+            The current cached DataTable. This is placed by the current resultset
+            of an <c>SQLFDataReader</c> created using <c>ExecuteReader</c> methods.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_currentResultSet">
+            <summary>
+            The current cached <c>java.sql.ResultSet</c> created after the last
+            Execute* method invocation.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_currentRSMD">
+            <summary>
+            The cached JDBC ResultSetMetaData for the current JDBC ResultSet as
+            placed by an <c>SQLFDataReader</c>.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_currentBehaviour">
+            <summary>
+            The <c>CommandBehavior</c> for the current <c>SQLFDataReader</c>.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_flags">
+            <summary>
+            <see cref="T:VMware.Data.SQLFire.SQLFCommand.CommandFlags"/> for this command
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.m_keyColumns">
+            <summary>
+            Set of key columns of the table for reuse by
+            <see cref="T:VMware.Data.SQLFire.SQLFCommandBuilder"/>.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.ParameterMarkerRegex">
+            <summary>
+            Regular expression object for matching named parameters or parameter
+            placeholders in a query string.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.#ctor(System.String,VMware.Data.SQLFire.SQLFConnection)">
+            <summary>
+            Creates a new SQLFCommand given the command string
+            and the connection to be used.
+            </summary>
+            <param name="commandStr">the command string to be used</param>
+            <param name="conn">the connection to be used</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteNonQuery">
+            <summary>
+            Execute a non-query DML command and return the number of affected rows.
+            Throws an SQLFException in case the provided command is a query.
+            </summary>
+            <returns>the number of updated/changed rows</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteReader">
+            <summary>
+            Execute a query DML and return an <c>SQLFDataReader</c> to be used
+            for reading the results. The reader is normally read-only
+            unless the <see cref="P:VMware.Data.SQLFire.SQLFCommand.ReaderLockForUpdate"/> property has
+            been set to true.
+            </summary>
+            <returns>
+            the <c>SQLFDataReader</c> to be used for reading in the query results
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteReader(System.Data.CommandBehavior)">
+            <summary>
+            Execute a query DML with given <c>CommandBehavior</c> and return an
+            <c>SQLFDataReader</c> to be used for reading the results.
+            </summary>
+            <remarks>
+            Currently <c>CloseConnection</c>, <c>KeyInfo</c>, <c>SchemaOnly</c>,
+            <c>SingleResult</c> values for <see cref="T:System.Data.CommandBehavior"/> are
+            honoured though they may not be optimized to bring in only required
+            data. The reader is normally read-only unless the
+            <see cref="P:VMware.Data.SQLFire.SQLFCommand.ReaderLockForUpdate"/> property has been set
+            to true.
+            </remarks>
+            <returns>
+            the <c>SQLFDataReader</c> to be used for reading in the query results
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteDbDataReader(System.Data.CommandBehavior)">
+            <summary>
+            Base class implementation to execute a query DML and return a
+            <c>DbDataReader</c> to be used for reading the results.
+            </summary>
+            <returns>
+            the <c>SQLFDataReader</c> to be used for reading in the query results
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteScalar">
+            <summary>
+            Execute a query DML and return the first column of the first row from
+            the results. If nothing is found then <c>DBNull.Value</c> is returned.
+            </summary>
+            <returns>
+            the first column or first row or <c>DBNull.Value</c> if nothing is found
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.Prepare">
+            <summary>
+            Prepare this command for further executions with parameters, or
+            better efficiency if the command is to be used repeatedly even
+            without parameters.
+            </summary>
+            <remarks>
+            The implementation just marks this command for prepare and the actual
+            prepare is done just before the first execution.
+            </remarks>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.Cancel">
+            <summary>
+            Cancel the current command execution in progress.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.CreateParameter">
+            <summary>
+            Create a new empty parameter that can be added to the existing
+            parameter collection (<c>Parameters</c> property).
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.CreateDbParameter">
+            <summary>
+            Base class implementation to create a new empty parameter.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.CreateParameter(System.String,VMware.Data.SQLFire.SQLFType)">
+            <summary>
+            Create an <c>SQLFParameter</c> given the name and its
+            <c><see cref="T:VMware.Data.SQLFire.SQLFType"/></c>.
+            </summary>
+            <param name="name">the name of the parameter</param>
+            <param name="type">the type of the parameter</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.CreateDataAdapter">
+            <summary>
+            Create a new <c>SQLFDataAdapter</c> for this command.
+            </summary>
+            <returns>An <see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/> for this command.</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.SetCommandText(System.String)">
+            <summary>
+            Internal method to set the command text without affecting parameters.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.AddBatch">
+            <summary>
+            Enable binding new set of parameters for a prepared command. The
+            command will be prepared here if not done already.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.AddBatch(System.String)">
+            <summary>
+            Add a new batch statement (should not be a <c>Prepare</c>d command
+              or a callable statement).
+            </summary>
+            <param name="commandStr">
+            the command string to be added to the batch
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteBatch">
+            <summary>
+            Submits a batch of commands to the database for execution and if all
+            commands execute successfully, returns an array of update counts.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ClearBatch">
+            <summary>
+            Empties this command's current list of SQL commands.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.Dispose(System.Boolean)">
+            <summary>
+            Invoked when this object is disposed.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.Clone">
+            <summary>
+            Create a clone of this command passing the connection, command text
+            and other attributes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.Close">
+            <summary>
+            Close and free any resources for this command.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ToString">
+            <summary>
+            Get a string representation of this command object.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.SetCurrentResultSet(java.sql.ResultSet)">
+            <summary>
+            Set the current JDBC ResultSet cached for this command.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.GetCurrentRSMD(System.Boolean)">
+            <summary>
+            Get the current JDBC ResultSetMetaData cached for this command.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.InitResultSetMetaData(java.sql.ResultSet)">
+            <summary>
+            Cache the JDBC ResultSetMetaData for the results.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.SetTransaction(VMware.Data.SQLFire.SQLFTransaction)">
+            <summary>
+            Set the <c>SQLFTransaction</c> for this command to given value.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ClearCachedInformation">
+            <summary>
+            Clear the cached information for this command.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.GetSchemaTable">
+            <summary>
+            Get the <c>DataTable</c> for the last DataReader executed for this
+            command representing the schema of the results.
+            </summary>
+            <returns>
+            the <c>DataTable</c> encapsulating the schema of the results from an
+            <c>SQLFDataReader</c>
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteQuery(System.Boolean)">
+            <summary>
+            Execute a query or update DML for a prepared or unprepared statement.
+            Returns number of rows changed if the DML was an update else -1 if
+            the result of execution is a resultset or no result.
+            </summary>
+            <param name="throwOnUpdate">
+            if true then throw an exception if the DML is an update
+            rather than a query returning a resultset
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.InitStatement(java.sql.CallableStatement@)">
+            <summary>
+            Create a JDBC Statement or PreparedStatement or CallableStatement as
+            appropriate for this command if not already created.
+            </summary>
+            <param name="cstmt">
+            if the current JDBC statement is a <c>CallableStatement</c> then
+            provides it as out parameter
+            </param>
+            <returns>
+            if the statement is a PreparedStatement or CallableStatement
+            then it is returned else null
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.CreateJDBCStatement(System.Boolean,java.sql.CallableStatement@)">
+            <summary>
+            Create a JDBC Statement or PreparedStatement or CallableStatement as
+            appropriate for this command.
+            </summary>
+            <param name="forcePrepare">
+            if set to true then the statement will be prepared even if there are
+            no parameters assuming it to be a zero parameter PreparedStatement
+            </param>
+            <param name="cstmt">
+            if the current JDBC statement is a <c>CallableStatement</c> then
+            provides it as out parameter
+            </param>
+            <returns>
+            if the statement is a PreparedStatement or CallableStatement then
+            returns it else return null
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.BindParameters(java.sql.PreparedStatement,java.sql.CallableStatement)">
+            <summary>
+            Bind the parameters provided so far for the given PreparedStatement.
+            </summary>
+            <param name="pstmt">the JDBC PreparedStatement to use for bind</param>
+            <param name="cstmt">
+            if the current JDBC statement is a <c>CallableStatement</c> then that
+            should be provided here as argument
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.BindParametersPostExecute(java.sql.CallableStatement)">
+            <summary>
+            Bind the results back from a CallableStatement for output parameters
+            into this command's parameter collection.
+            </summary>
+            <param name="cstmt">
+            the <c>CallableStatement</c> to be used for setting output results
+            back into the parameters
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ExecuteUpdate(java.sql.PreparedStatement)">
+             <summary>
+             Execute the current statement assuming to be an update DML.
+             Also handles batch statements if <see cref="M:VMware.Data.SQLFire.SQLFCommand.AddBatch(System.String)"/> has
+             been invoked and returns the cumulative update count.
+            
+             This method should be called only once per result.
+             </summary>
+             <returns>
+             the current result as an update count; if the result is a ResultSet
+             object or there are no more results, -1 is returned; if the current
+             statement is a batch statement then the cumulative update count is
+             returned
+             </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.CheckState">
+            <summary>
+            Check the state of command to see if the command string is non-null
+            and connection is proper.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.CheckStatement">
+            <summary>
+            Throw exception if the statement is not created or is closed.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.SetFlag(VMware.Data.SQLFire.SQLFCommand.CommandFlags)">
+            <summary>
+            Set the given flag for this command.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.ClearFlag(VMware.Data.SQLFire.SQLFCommand.CommandFlags)">
+            <summary>
+            Clear the given flag for this command.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.SetFlag(VMware.Data.SQLFire.SQLFCommand.CommandFlags,System.Boolean)">
+            <summary>
+            Set or clear the given flag for this command.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommand.IsFlagSet(VMware.Data.SQLFire.SQLFCommand.CommandFlags)">
+            <summary>
+            Return true if the given flag is set for this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.CommandText">
+            <summary>
+            Get or set the command text of the DDL/DML to be executed. If any
+            old command had been run or prepared then it will be cleared when
+            setting the new text. Also any existing parameters in the
+            <c>Parameters</c> list will be cleared.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.CommandTimeout">
+            <summary>
+            Get or set the timeout to be used for the command execution.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.CommandType">
+            <summary>
+            Get or set the type of command. Currently only <c>CommandType.Text</c>
+            and <c>CommandType.StoredProcedure</c> can be set in SQLFire.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.System#Data#IDbCommand#Connection">
+            <summary>
+            Get or set the connection object for this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.Connection">
+            <summary>
+            Get or set the connection object for this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.DbConnection">
+            <summary>
+            Base class override to get/set the connection object for this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.Parameters">
+            <summary>
+            Get the collection of parameters for this command. Users can add
+            either raw objects or <c>SQLFParameter</c> objects to this collection.
+            In the case of former the raw objects are taken to be input-only
+            parameters and the DB type determined from the type of object.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.DbParameterCollection">
+            <summary>
+            Base class implementation to return the collection of parameters for
+            command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.System#Data#IDbCommand#Transaction">
+            <summary>
+            Get or set the Transaction (of type <c>SQLFTransaction</c>) to be used
+            for the execution of this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.Transaction">
+            <summary>
+            Get or set the Transaction (of type <c>SQLFTransaction</c>) to be used
+            for the execution of this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.DbTransaction">
+            <summary>
+            Base class implementation to get or set the Transaction (of type
+              <c>SQLFTransaction</c>) to be used for the execution of this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.UpdatedRowSource">
+            <summary>
+            Get or set the <c>UpdateRowSource</c> for this command. Currently
+            not honoured by the driver.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.DesignTimeVisible">
+            <summary>
+            Base class implementation for DesignTimeVisible property.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.FetchSize">
+            <summary>
+            Get or set the default number of rows that are attempted to be fetched
+            when using an <c><see cref="T:VMware.Data.SQLFire.SQLFDataReader"/></c>. A value of &lt;= 0
+            indicates using the default fetch size of the underlying JDBC driver.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.ReaderType">
+            <summary>
+            Get or set the <c>DataReadType</c> returned by <c>ExecuteReader</c>
+            methods for this command.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.ReaderLockForUpdate">
+            <summary>
+            Get or set whether the <c>IDataReader</c> will ask the selected rows to
+            be locked on the server (e.g. for update).
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.IsClosed">
+            <summary>
+            Return true if this command has been closed.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.Statement">
+            <summary>
+            Get the underlying JDBC Statement object.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.IsUsingSQLFCommandBuilder">
+            <summary>
+            Get or set the internal <see cref="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.IsUsingSQLFCB"/> flag.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommand.KeyColumns">
+            <summary>
+            Get or set the list of key column names of the table, if any, for use
+            by <see cref="T:VMware.Data.SQLFire.SQLFCommandBuilder"/>.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFCommand.CommandFlags">
+            <summary>
+            Enum to encapsulate the flags for this command.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.None">
+            <summary>
+            default is None i.e. no special flag
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.Prepared">
+            <summary>
+            indicates that the underlying JDBC statement has been prepared
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.Batch">
+            <summary>
+            set if AddBatch has been invoked so that ExecuteBatch
+            is invoked by the Execute*() methods
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.Callable">
+            <summary>
+            indicates that the underlying JDBC statement is a
+            <c>CallableStatement</c>
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.Updatable">
+            <summary>
+            set for updatable ResultSets (JDBC ResultSet.CONCUR_UPDATABLE)
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.HoldCursors">
+            <summary>
+            when set then enables holding of cursors over commit
+            (JDBC ResultSet.HOLD_CURSORS_OVER_COMMIT)
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.DesignTimeVisible">
+            <summary>
+            set when the base class property <c>DesignTimeVisible</c> is enabled
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.IsUsingSQLFCB">
+            <summary>
+            special flag that indicates that this command has been generated
+            by <see cref="T:VMware.Data.SQLFire.SQLFCommandBuilder"/>
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.HasNamedParameter">
+            <summary>
+            indicates that there is a named parameter in this command matching
+            the query string that needs to be bound by name
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.CommandFlags.DoPrepare">
+            <summary>
+            indicates that the underlying JDBC statement has to be prepared
+            before execution
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFCommand.DataReaderType">
+            <summary>
+            Enumeration to set the type of <c>IDataReader</c> object returned by
+            <c>ExecuteReader</c> methods.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.DataReaderType.ForwardOnly">
+            <summary>
+            Indicates that the resultset is forward-only (default).
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.DataReaderType.ScrollInsensitive">
+            <summary>
+            Indicates that the resultset is scroll-insensitive.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommand.DataReaderType.ScrollSensitive">
+            <summary>
+            Indicates that the resultset is scroll-sensitive.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFCommandBuilder">
+            <summary>
+            Generates single-table commands against SQLFire used to apply changes
+            made to a <c>DataSet</c> or <c>DataTable</c> when
+            <c><see cref="M:System.Data.Common.DbDataAdapter.Update(System.Data.DataRow[],System.Data.Common.DataTableMapping)"/></c> is invoked.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.QUOTE">
+            <summary>
+            Constant used to quote schema/table/column names.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.CATALOG_SEPERATOR">
+            <summary>
+            Separator for catalog.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.SCHEMA_SEPARATOR">
+            <summary>
+            Separator used between schema name and table name.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.MonoParameterPrefix">
+            <summary>
+            Prefix marker for mono parameter that is replaced with "?" in
+            DML string during execution.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.MonoParameterSuffix">
+            <summary>
+            Suffix marker for mono parameter that is replaced with "?" in
+            DML string during execution.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.m_schemaTable">
+            <summary>
+            The cached DataTable.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.m_fullTableName">
+            <summary>
+            The quoted full table name for this command.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFCommandBuilder.CATALOG_LOCATION">
+            <summary>
+            Constant used for <see cref="P:System.Data.Common.DbCommandBuilder.CatalogLocation"/>
+            (not used by SQLFire).
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.#ctor(VMware.Data.SQLFire.SQLFDataAdapter)">
+            <summary>
+            Construct a command-builder for the given DataAdapter.
+            </summary>
+            <param name="adapter">
+            the <c><see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/></c> for which to generate
+            insert/update/delete commands
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetInsertCommand">
+            <summary>
+            Get a generated <see cref="T:VMware.Data.SQLFire.SQLFCommand"/> object that can be used
+            to perform insertions.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetInsertCommand(System.Boolean)">
+            <summary>
+            Get a generated <see cref="T:VMware.Data.SQLFire.SQLFCommand"/> object that can be used
+            to perform insertions.
+            </summary>
+            <param name="useColumnsForParameterNames">
+            If true then generate parameter names matching column names,
+            if possible else placeholder names are generated.
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetInsertCommand(System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean)">
+            <summary>
+            Generate a new insert command given a new <c><see cref="T:System.Data.DataRow"/></c>
+            with given <c><see cref="T:System.Data.Common.DataTableMapping"/></c>.
+            </summary>
+            <param name="dataRow">the new <c>DataRow</c> to be inserted</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+            <returns>
+            the generated command that can be executed to perform the insert
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetUpdateCommand">
+            <summary>
+            Get a generated <see cref="T:VMware.Data.SQLFire.SQLFCommand"/> object that can be used
+            to perform updates.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetUpdateCommand(System.Boolean)">
+            <summary>
+            Get a generated <see cref="T:VMware.Data.SQLFire.SQLFCommand"/> object that can be used
+            to perform updates.
+            </summary>
+            <param name="useColumnsForParameterNames">
+            If true then generate parameter names matching column names,
+            if possible else placeholder names are generated.
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetUpdateCommand(System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean)">
+            <summary>
+            Generate an update command given changes to a <c><see cref="T:System.Data.DataRow"/>
+            </c> with given <c><see cref="T:System.Data.Common.DataTableMapping"/></c>. The select
+            command of the DataAdapter should have at least all the primary columns
+            for the generation to happen successfully else an
+            <see cref="T:System.InvalidOperationException"/> is thrown.
+            </summary>
+            <param name="dataRow">the changed <c>DataRow</c></param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+            <returns>
+            the generated command that can be executed to perform the update
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetDeleteCommand">
+            <summary>
+            Get a generated <see cref="T:VMware.Data.SQLFire.SQLFCommand"/> object that can be used
+            to perform deletions.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetDeleteCommand(System.Boolean)">
+            <summary>
+            Get a generated <see cref="T:VMware.Data.SQLFire.SQLFCommand"/> object that can be used
+            to perform deletions.
+            </summary>
+            <param name="useColumnsForParameterNames">
+            If true then generate parameter names matching column names,
+            if possible else placeholder names are generated.
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetDeleteCommand(System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean)">
+            <summary>
+            Generate a delete command corresponding to a given
+            <c><see cref="T:System.Data.DataRow"/></c> with given
+            <c><see cref="T:System.Data.Common.DataTableMapping"/></c>. The select command of the
+            DataAdapter should have at least all the primary columns for the
+            generation to happen successfully else an
+            <see cref="T:System.InvalidOperationException"/> is thrown.
+            </summary>
+            <param name="dataRow">the <c>DataRow</c> to be deleted</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+            <returns>
+            the generated command that can be executed to perform the delete
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.QuoteIdentifier(System.String)">
+            <summary>
+            Override for base class method to quote a given unquoted identifier.
+            </summary>
+            <param name="unquotedIdentifier">the identifier to be quoted</param>
+            <returns>the quoted identifier</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.RefreshSchema">
+            <summary>
+            Override for base class method that is invoked to refresh any cached
+            table schema information.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.ApplyParameterInfo(System.Data.Common.DbParameter,System.Data.DataRow,System.Data.StatementType,System.Boolean)">
+            <summary>
+            Base class override to apply any extra information to a new parameter
+            using the schema or any other information.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetParameterName(System.Int32)">
+            <summary>
+            Get a new parameter name for a given ordinal.
+            </summary>
+            <param name="parameterOrdinal">the ordinal of the parameter</param>
+            <returns>a new parameter name for the provided ordinal</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetParameterName(System.String)">
+            <summary>
+            Get the actual parameter name to be used for given name making changes
+            as necessary.
+            </summary>
+            <param name="parameterName">the tentative parameter name</param>
+            <returns>the actual parameter name to be used</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetParameterPlaceholder(System.Int32)">
+            <summary>
+            The placeholder to be used in the generated command strings for a
+            parameter having a given ordinal.
+            </summary>
+            <param name="parameterOrdinal">the ordinal of the parameter</param>
+            <returns>the placeholder string to be used in command text</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.RowUpdatingHandler(System.Object,VMware.Data.SQLFire.SQLFRowUpdatingEventArgs)">
+            <summary>
+            The handler for the <c><see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/></c>
+            event.
+            </summary>
+            <param name="sender">the sender of this event</param>
+            <param name="args">any arguments for this event</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.SetRowUpdatingHandler(System.Data.Common.DbDataAdapter)">
+            <summary>
+            Set the handler for <c><see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/></c>
+            event.
+            </summary>
+            <param name="adapter">
+            the adapter that will raise the <c>RowUpdating</c> event
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetSchemaTable(System.Data.Common.DbCommand)">
+            <summary>
+            Get the table schema for the results of a given query command.
+            </summary>
+            <param name="srcCommand">
+            the source command to be used for determining the table schema
+            </param>
+            <returns>
+            the table schema to be used for generating the command strings
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetSchemaTable(VMware.Data.SQLFire.SQLFCommand)">
+            <summary>
+            Get the table schema for the results of a given query command.
+            </summary>
+            <param name="srcCommand">
+            the source command to be used for determining the table schema
+            </param>
+            <returns>
+            the table schema to be used for generating the command strings
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.InitializeCommand(System.Data.Common.DbCommand)">
+            <summary>
+            Initialize the given command or a generate a new one if the provided
+            command is null.
+            </summary>
+            <param name="command">the command to be initialized</param>
+            <returns>the initialized command or a new generated one</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.System#ICloneable#Clone">
+            <summary>
+            Generate a clone of this CommandBuilder.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.PopulateInsertCommand(VMware.Data.SQLFire.SQLFCommand,System.Text.StringBuilder,System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean)">
+            <summary>
+            Populate parameters and command string for insert in the given
+            <paramref name="insertCommand"/>.
+            </summary>
+            <param name="insertCommand">the insert command to be populated</param>
+            <param name="commandStr">
+            the StringBuilder to be populated with command text; can be null in
+            which case this is ignored
+            </param>
+            <param name="dataRow">the new <c>DataRow</c> to be inserted</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+            <returns>
+            true if something was populated in the command object else false
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.PopulateUpdateCommand(VMware.Data.SQLFire.SQLFCommand,System.Text.StringBuilder,System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean)">
+            <summary>
+            Populate parameters and command string for update in the given
+            <paramref name="updateCommand"/>.
+            </summary>
+            <param name="updateCommand">the update command to be populated</param>
+            <param name="commandStr">
+            the StringBuilder to be populated with command text; can be null in
+            which case this is ignored
+            </param>
+            <param name="dataRow">the changed <c>DataRow</c></param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+            <returns>
+            true if something was populated in the command object else false
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.PopulateDeleteCommand(VMware.Data.SQLFire.SQLFCommand,System.Text.StringBuilder,System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean)">
+            <summary>
+            Populate parameters and command string for delete in the given
+            <paramref name="deleteCommand"/>.
+            </summary>
+            <param name="deleteCommand">the delete command to be populated</param>
+            <param name="commandStr">
+            the StringBuilder to be populated with command text; can be null in
+            which case this is ignored
+            </param>
+            <param name="dataRow">the <c>DataRow</c> to be deleted</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.ApplyParameterInfo(VMware.Data.SQLFire.SQLFParameter,System.Data.DataRow)">
+            <summary>
+            Apply any extra information to a new parameter using the schema
+            or any other information as required.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.PrepareWhereClause(System.Text.StringBuilder,VMware.Data.SQLFire.SQLFCommand,System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean,System.String)">
+            <summary>
+            Prepare the command text for the "WHERE" portion of update/delete
+            commands also generating the parameters as required.
+            </summary>
+            <param name="commandStr">
+            the command string to which the "WHERE" clause need to be appended
+            </param>
+            <param name="command">the <c>SQLFCommand</c> object</param>
+            <param name="dataRow">
+            the data row for which the command has to be generated
+            </param>
+            <param name="tableMapping">
+            any <c>DataTableMapping</c> to be used for the given data row
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+            <param name="commandName">
+            name of command used in exception strings and logging
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.AddWhereParameter(System.Text.StringBuilder,VMware.Data.SQLFire.SQLFCommand,System.Data.DataRow,System.String,System.Int32,System.Data.DataRow,System.Data.Common.DataTableMapping,System.Boolean)">
+            <summary>
+            Add a parameter to the given command and also append corresponding
+            command string to any given non-null <c>StringBuilder</c>.
+            </summary>
+            <param name="commandStr">
+            the command string to which the "WHERE" clause need to be appended
+            </param>
+            <param name="command">the <c>SQLFCommand</c> object</param>
+            <param name="dataRow">
+            the data row for which the command has to be generated
+            </param>
+            <param name="keyColumnName">
+            the base table column name of the key column
+            </param>
+            <param name="numKeyColumns">
+            zero-based index of the key column among all key columns
+            </param>
+            <param name="schemaRow">
+            the <c>DataRow</c> from the schema of the base table for the key column
+            </param>
+            <param name="tableMapping">
+            any <c>DataTableMapping</c> to be used for the given data row
+            </param>
+            <param name="useColumnsForParameterNames">
+            set to true to use base table column names for corresponding parameter
+            names; by default the CommandBuilder does not use names for parameters
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.IncludedInInsert(System.Data.DataRow)">
+            <summary>
+            Determine if the column corresponding to the given table schema row
+            should be included in the insert command or not.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.LookupColumnMapping(System.Data.Common.DataTableMapping,System.String@)">
+            <summary>
+            Get the mapped column name, if any, using the provided
+            <c>DataTableMapping</c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.InitSchema">
+            <summary>
+            Initialize and cache the table schema and return the source command
+            used for the same.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetSourceCommand">
+            <summary>
+            Get the source command used for generating the insert/update/delete
+            commands.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetQuotedString(System.String)">
+            <summary>
+            Quote the given identifier.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFCommandBuilder.GetQuotedString(System.Text.StringBuilder,System.String)">
+            <summary>
+            Quote the given identifier appending to provided StringBuilder.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommandBuilder.DataAdapter">
+            <summary>
+            Get or set the DataAdapter for this CommandBuilder.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommandBuilder.QuotePrefix">
+            <summary>
+            Get or set the prefix string used for quoting schema/table/column
+            names. This is fixed to '"' for SQLFire and cannot be changed to
+            any other value.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommandBuilder.QuoteSuffix">
+            <summary>
+            Get or set the suffix string used for quoting schema/table/column
+            names. This is fixed to '"' for SQLFire and cannot be changed to
+            any other value.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommandBuilder.CatalogSeparator">
+            <summary>
+            Get or set the catalog separator. This is fixed to '.' for SQLFire
+            and cannot be changed to any other value.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommandBuilder.SchemaSeparator">
+            <summary>
+            Get or set the separator between schema and table name. This is fixed
+            to '.' for SQLFire and cannot be changed to any other value.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFCommandBuilder.CatalogLocation">
+            <summary>
+            Override for <see cref="P:System.Data.Common.DbCommandBuilder.CatalogLocation"/> that is
+            fixed to <c>CatalogLocation.Start</c>.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFDataAdapter">
+             <summary>
+             An implementation of the <c><see cref="T:System.Data.IDbDataAdapter"/></c> interface
+             for SQLFire that extends <c><see cref="T:System.Data.Common.DbDataAdapter"/></c>.
+            
+             This class provides a bridge between a <see cref="T:System.Data.DataSet"/> or
+             <see cref="T:System.Data.DataTable"/> and the underlying data in a SQLFire system.
+             The <c>Fill</c> method populates the DataSet/DataTable with data in the
+             SQLFire system using the command set in <c>SelectCommand</c> while the
+             <c>Update</c> method does the reverse and applies any changes done
+             in the DataSet to the SQLFire system and requires an associated
+             <see cref="T:VMware.Data.SQLFire.SQLFCommandBuilder"/> to accomplish it.
+             </summary>
+             <remarks>
+             Batch operations are supported when <c>UpdateBatchSize</c> is set to a
+             value &gt; 1. It executes a batch of operations using
+             <c><see cref="M:VMware.Data.SQLFire.SQLFCommand.AddBatch"/></c> when possible, so will work
+             only if consecutive operations are identical in nature.
+             </remarks>
+             <seealso cref="T:VMware.Data.SQLFire.SQLFCommand"/>
+             <seealso cref="T:VMware.Data.SQLFire.SQLFCommandBuilder"/>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFDataAdapter.m_updateBatchSize">
+            <summary>
+            The batch size for batch updates.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFDataAdapter.FixMonoParameters">
+            <summary>
+            Pattern to fix the parameter names (instead of placeholders) in command
+            added by Mono's implementation of DbCommandBuilder.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.#ctor">
+            <summary>
+            Default constructor with null select <c>SQLFCommand</c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.#ctor(VMware.Data.SQLFire.SQLFCommand)">
+            <summary>
+            Create a new DataAdapter given an <c>SQLFCommand</c> assuming
+            it to be a select query.
+            </summary>
+            <param name="selectCommand">the command object for select query</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.#ctor(System.String,VMware.Data.SQLFire.SQLFConnection)">
+            <summary>
+            Create a new DataAdapter given SELECT DML text and connection.
+            </summary>
+            <param name="selectCommandText">the SELECT query string</param>
+            <param name="conn">the connection to use for query</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.Fill(System.Data.DataSet,System.Int32,System.Int32,System.String,System.Data.IDbCommand,System.Data.CommandBehavior)">
+            <summary>
+            base class override for <c>DbDataAdapter.Fill</c>
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.Update(System.Data.DataRow[],System.Data.Common.DataTableMapping)">
+            <summary>
+            Invokes the appropriate INSERT, UPDATE, or DELETE statements for each
+            inserted, updated, or deleted row in the provided array of
+            <see cref="T:System.Data.DataRow"/> objects.
+            </summary>
+            <param name="dataRows">
+            the array of <see cref="T:System.Data.DataRow"/> objects to be used for updating
+            the data source
+            </param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <returns>
+            the number of rows successfully updated from the DataSet
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.PostUpdate(VMware.Data.SQLFire.SQLFCommand,System.Data.StatementType,System.Data.DataRow,System.Collections.Generic.List{System.Data.DataRow},System.Data.Common.DataTableMapping,System.Data.Common.DataColumnMappingCollection,System.Int32,System.Int32@)">
+            <summary>
+            Actions to be taken after execution of command in <c>Update</c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.PostUpdate(VMware.Data.SQLFire.SQLFCommand,System.Data.StatementType,System.Data.DataRow,System.Data.Common.DataTableMapping,System.Data.Common.DataColumnMappingCollection)">
+            <summary>
+            Actions to be taken after execution of command in <c>Update</c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.ExecuteBatch(VMware.Data.SQLFire.SQLFCommand,System.Boolean)">
+            <summary>
+            Execute a batch of commands accumulated so far in the given
+            <see cref="T:VMware.Data.SQLFire.SQLFCommand"/> and return the total number of updates.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,VMware.Data.SQLFire.SQLFCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Create an argument object (<see cref="T:System.Data.Common.RowUpdatingEventArgs"/>) for the
+            <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/> event.
+            </summary>
+            <param name="dataRow">the data row that being updated</param>
+            <param name="command">the command, if any, for the update</param>
+            <param name="statementType">the type of statement</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <returns>
+            the arguments to be used for the handler of <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/>
+            event
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Base class override to generate argument object (<see cref="T:System.Data.Common.RowUpdatingEventArgs"/>) for the <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/> event.
+            </summary>
+            <param name="dataRow">the data row that being updated</param>
+            <param name="command">the command, if any, for the update</param>
+            <param name="statementType">the type of statement</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <returns>
+            the arguments to be used for the handler of <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/>
+            event
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,VMware.Data.SQLFire.SQLFCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Create an argument object (<see cref="T:System.Data.Common.RowUpdatedEventArgs"/>) for the
+            <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated"/> event.
+            </summary>
+            <param name="dataRow">the data row that being updated</param>
+            <param name="command">the command, if any, for the update</param>
+            <param name="statementType">the type of statement</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <returns>
+            the arguments to be used for the handler of <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated"/>
+            event
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Base class override to generate argument object (<see cref="T:System.Data.Common.RowUpdatedEventArgs"/>) for the <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated"/> event.
+            </summary>
+            <param name="dataRow">the data row that being updated</param>
+            <param name="command">the command, if any, for the update</param>
+            <param name="statementType">the type of statement</param>
+            <param name="tableMapping">
+            the <c>DataTableMapping</c> for current <c>DataTable</c>
+            </param>
+            <returns>
+            the arguments to be used for the handler of <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated"/>
+            event
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.OnRowUpdating(VMware.Data.SQLFire.SQLFRowUpdatingEventArgs)">
+            <summary>
+            Event handler for the <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/> event.
+            </summary>
+            <param name="val">
+            the arguments object for the event as returned by
+            <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,VMware.Data.SQLFire.SQLFCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)"/> method
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.OnRowUpdating(System.Data.Common.RowUpdatingEventArgs)">
+            <summary>
+            Implementation of base class <see cref="M:System.Data.Common.DbDataAdapter.OnRowUpdating(System.Data.Common.RowUpdatingEventArgs)"/>
+            event handler for the <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating"/> event.
+            </summary>
+            <param name="val">
+            the arguments object for the event as returned by
+            <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)"/> method
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.OnRowUpdated(VMware.Data.SQLFire.SQLFRowUpdatedEventArgs)">
+            <summary>
+            Event handler for the <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated"/> event.
+            </summary>
+            <param name="val">
+            the arguments object for the event as returned by
+            <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,VMware.Data.SQLFire.SQLFCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)"/> method
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.OnRowUpdated(System.Data.Common.RowUpdatedEventArgs)">
+            <summary>
+            Implementation of base class <see cref="M:System.Data.Common.DbDataAdapter.OnRowUpdated(System.Data.Common.RowUpdatedEventArgs)"/>
+            event handler for the <see cref="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated"/> event.
+            </summary>
+            <param name="val">
+            the arguments object for the event as returned by
+            <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)"/> method
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataAdapter.System#ICloneable#Clone">
+            <summary>
+            Get a clone of this <c><see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/></c>.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataAdapter.SelectCommand">
+            <summary>
+            Get or set the select command for this adapter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataAdapter.InsertCommand">
+            <summary>
+            Get or set the insert command for this adapter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataAdapter.UpdateCommand">
+            <summary>
+            Get or set the update command for this adapter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataAdapter.DeleteCommand">
+            <summary>
+            Get or set the delete command for this adapter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataAdapter.UpdateBatchSize">
+            <summary>
+            Gets or sets the number of commands that can be executed in a batch.
+            Default value is 1 meaning that batch processing is disabled.
+            </summary>
+            <remarks>
+            The SQLFire batching is a best-effort where different kinds of
+            operations cannot be batched. So if there are some inserts followed
+            by an update, for example, then the inserts will be batched but not
+            the update which will be in a separate batch. This is consistent
+            with the behaviour of JDBC driver that has batching for a particular
+            <c>PreparedStatement</c> but not across <c>PreparedStatements</c>s.
+            </remarks>
+        </member>
+        <member name="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdating">
+            <summary>
+            Event that occurs before an update command is executed against the
+            data source.
+            </summary>
+        </member>
+        <member name="E:VMware.Data.SQLFire.SQLFDataAdapter.RowUpdated">
+            <summary>
+            Event that occurs after an update command is executed against the
+            data source.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFDataReader">
+             <summary>
+             Implementation of <c><see cref="T:System.Data.IDataReader"/></c> for SQLFire that
+             delegates behaviour to underlying java ResultSet.
+             It provides for reading of result sets obtained by executing the
+             <see cref="M:VMware.Data.SQLFire.SQLFCommand.ExecuteReader"/> method on a <c>SQLFCommand</c>
+             object.
+            
+             Currently the implementation provides only a forward-only access to the
+             result sets.
+             </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFDataReader.m_command">
+            <summary>
+            the underlying command object
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFDataReader.m_currentResultSet">
+            <summary>
+            the current underlying JDBC ResultSet object
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFDataReader.m_updateCount">
+            <summary>
+            the current update count
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFDataReader.m_behaviour">
+            <summary>
+            The required <c>CommandBehavior</c> for this DataReader. Currently
+            only <c>CommandBehavior.CloseConnection</c> is honoured.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.#ctor(VMware.Data.SQLFire.SQLFCommand,System.Data.CommandBehavior,System.Int32,System.Boolean)">
+            <summary>
+            Constructs a new DataReader given the SQLFCommand object and passing
+            the required <c>CommandBehavior</c>. The reader is normally read-only
+            unless the <see cref="P:VMware.Data.SQLFire.SQLFCommand.ReaderLockForUpdate"/> property has
+            been set to true.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.Read">
+            <summary>
+            Move to the next row from the resultset returning false if there are
+            no more rows available.
+            </summary>
+            <returns>
+            true if move to next row was successful and false otherwise
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.NextResult">
+            <summary>
+            Move to the next resultset returning false if there are no more
+            resultsets for the query.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetSchemaTable">
+            <summary>
+            Get the <c>DataTable</c> for this DataReader representing the schema
+            of the results.
+            </summary>
+            <returns>
+            the <c>DataTable</c> encapsulating the schema of the results
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.Close">
+            <summary>
+            Close this DataReader. This also closes the underlying connection
+            if the <c>CommandBehavior</c> for this was set to
+            <c>CommandBehavior.CloseConnection</c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetEnumerator">
+            <summary>
+            Get an enumerator for the results in the DataReader.
+            </summary>
+            <returns>an enumerator for the results</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetBoolean(System.Int32)">
+            <summary>
+            Get a boolean value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the boolean result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetByte(System.Int32)">
+            <summary>
+            Get a byte value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the byte result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetBytes(System.Int32,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Get the raw byte array result at the given index. Useful for BLOB data.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <param name="fieldOffset">the start offset in the input</param>
+            <param name="buffer">the buffer to fill with the result</param>
+            <param name="bufferOffset">
+            the offset in the buffer to start filling the results
+            </param>
+            <param name="length">the maximum number of bytes to read</param>
+            <returns>the number of bytes read</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetBytes(System.Int32)">
+            <summary>
+            Get a byte array value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the raw bytes</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetChar(System.Int32)">
+            <summary>
+            Get a character value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the character result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetChars(System.Int32,System.Int64,System.Char[],System.Int32,System.Int32)">
+            <summary>
+            Get the character array result at the given index. Useful for CLOB data.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <param name="fieldOffset">the start offset in the input</param>
+            <param name="buffer">the buffer to fill with the result</param>
+            <param name="bufferOffset">
+            the offset in the buffer to start filling the results
+            </param>
+            <param name="length">the maximum number of chars to read</param>
+            <returns>the number of chars read</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetChars(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Get the character array result at the given index. Useful for CLOB data.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <param name="offset">the start offset in the input</param>
+            <param name="length">
+            the maximum number of chars to read; a zero value or less will read to
+            the end of the result
+            </param>
+            <returns>the character array result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetDataTypeName(System.Int32)">
+            <summary>
+            Get the SQL type name for the value at given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the SQL type name</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetDateTime(System.Int32)">
+            <summary>
+            Get DateTime value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the DateTime result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetDecimal(System.Int32)">
+            <summary>
+            Get a decimal value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the decimal result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetDouble(System.Int32)">
+            <summary>
+            Get a double value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the double result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetFieldType(System.Int32)">
+            <summary>
+            Get the .NET type of value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the .NET type of the result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetFloat(System.Int32)">
+            <summary>
+            Get float value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the float result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetGuid(System.Int32)">
+            <summary>
+            Get value as a GUID at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the GUID result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetInt16(System.Int32)">
+            <summary>
+            Get 16-bit short value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the 16-bit short result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetInt32(System.Int32)">
+            <summary>
+            Get 32-bit integer value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the 32-bit integer result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetInt64(System.Int32)">
+            <summary>
+            Get 64-bit long value at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the 64-bit long result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetName(System.Int32)">
+            <summary>
+            Get column name at the given index.
+            </summary>
+            <param name="index">the zero based column index</param>
+            <returns>the column name</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetOrdinal(System.String)">
+            <summary>
+            Get the index for given column name.
+            </summary>
+            <param name="name">the name of column to be searched</param>
+            <returns>the zero based column index of the value</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetString(System.Int32)">
+            <summary>
+            Get value at the given index as a string.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the string result</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetValue(System.Int32)">
+            <summary>
+            Get the object at the given index.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the value as generic object</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetValues(System.Object[])">
+            <summary>
+            Get values for indexes starting from zero to length of given array.
+            </summary>
+            <param name="values">the array to be filled with results</param>
+            <returns>the number of columns filled into the array</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.IsDBNull(System.Int32)">
+            <summary>
+            Return true if the value at given index is a database null.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>true if the column is a database null value</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.Dispose(System.Boolean)">
+            <summary>
+            Invoked when this object is disposed.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.CheckResultSet">
+            <summary>
+            check if the ResultSet is proper
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.CheckOpen">
+            <summary>
+            check if the DataReader is open
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFDataReader.GetResultSetMetaData">
+            <summary>
+            Get the JDBC ResultSetMetaData for the results.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.IsClosed">
+            <summary>
+            Return true if this DataReader has been closed.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.RecordsAffected">
+            <summary>
+            Return the number of record affected in case the command is an
+            update/delete/insert query.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.Depth">
+            <summary>
+            The depth of this DataReader -- always returns 0 for now.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.HasRows">
+            <summary>
+            Return true if this query has any rows. Not implemented in SQLFire
+            and will throw a <c>NotSupportedException</c>.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.FieldCount">
+            <summary>
+            Get the number of columns in the resultset.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.Item(System.String)">
+            <summary>
+            Get the column value with given name.
+            </summary>
+            <param name="name">name of the column</param>
+            <returns>column value as generic object</returns>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.Item(System.Int32)">
+            <summary>
+            Get value at the given index as a generic object.
+            </summary>
+            <param name="index">the zero based column index of the value</param>
+            <returns>the value as a generic object</returns>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFDataReader.FetchSize">
+            <summary>
+            Get or set the default number of rows that are suggested to be fetched
+            in one retrieval for the current resultset.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFSeverity">
+            <summary>
+            Enumeration for the severity level of the exception that parallels
+            the SQLFire JDBC severity levels.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.Undefined">
+            <summary>
+            occurs when no severity was defined for the exception
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.NoneApplicable">
+            <summary>
+            occurs only when the system was unable to determine the severity
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.Warning">
+            <summary>
+            severity associated with SQLWarnings
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.Statement">
+            <summary>
+            severity associated with errors which cause only the current
+            statement to be aborted
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.Transaction">
+            <summary>
+            severity associated with those errors which cause the current
+            transaction to be aborted
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.Session">
+            <summary>
+            severity associated with errors which cause the current connection
+            to be closed
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.Database">
+            <summary>
+            severity associated with errors which cause the current database
+            to be closed
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFSeverity.System">
+            <summary>
+            severity associated with internal errors which cause the system
+            to shut down
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLState">
+            <summary>
+            Internal class to hold the JDBC SQLState string with its associated
+            <see cref="T:VMware.Data.SQLFire.SQLFSeverity"/>.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.m_sqlState">
+            <summary>
+            the string corresponding to JDBC SQL state
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.m_severity">
+            <summary>
+            the <see cref="T:VMware.Data.SQLFire.SQLFSeverity"/> of the exception
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.RuntimeError">
+            <summary>
+            exception state denoting a generic runtime exception
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.ConnectFailed">
+            <summary>
+            exception state denoting that connection to server failed
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.NoCurrentConnection">
+            <summary>
+            exception state denoting that the current connection has been closed
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.MalformedUrl">
+            <summary>
+            exception state denoting that the given connection URL
+            could not be parsed
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.UnexpectedNull">
+            <summary>
+            a null value was obtained when not expected
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.InvalidMaxFieldSize">
+            <summary>
+            denotes that the size of a field provided is invalid
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.NullCommandText">
+            <summary>
+            exception state denoting that no command string has been provided
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.NoResultSet">
+            <summary>
+            exception state denoting that a JDBC ResultSet was not obtained
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.AlreadyClosed">
+            <summary>
+            the current statement/execution has been closed
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.ResultSetClosed">
+            <summary>
+            the current JDBC ResultSet has been closed
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.TransactionActive">
+            <summary>
+            exception state denoting the a transaction is already active
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.DataTypeError">
+            <summary>
+            denotes that there is some data-type error while passing arguments
+            or returning values to/from Statements
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.InvalidTransactionState">
+            <summary>
+            denotes that the Transaction state is in an improper state with
+            respect to the connection or command
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.NullResultSetMetaData">
+            <summary>
+            denotes that no <c>ResultSetMetaData</c> could be obtained as a result
+            of the last execution or from <c>PreparedStatement</c>
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.ParameterNameNotFound">
+            <summary>
+            denotes that a named parameter in query string could not be found in
+            the bound parameter list
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLState.UnimplementedIsolationLevel">
+            <summary>
+            denotes that the requested transaction isolation level is not supported
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLState.State">
+            <summary>
+            Get the string corresponding to JDBC SQL state.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLState.Severity">
+            <summary>
+            Get the <see cref="T:VMware.Data.SQLFire.SQLFSeverity"/> of the exception.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFParameter">
+             <summary>
+             Encapsulates the properties of a parameter being passed as input
+             to prepared commands or callable procedures, or returned as output
+             from callable procedures.
+            
+             This class implements <see cref="T:System.Data.IDbDataParameter"/> interface and
+             extends abstract <see cref="T:System.Data.Common.DbParameter"/> class.
+             </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_name">
+            <summary>
+            name of the parameter
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_type">
+            <summary>
+            the <c><see cref="T:VMware.Data.SQLFire.SQLFType"/></c> of the parameter
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_flags">
+            <summary>
+            the flags for this parameter (<see cref="T:VMware.Data.SQLFire.SQLFParameter.ParamFlags"/>)
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_value">
+            <summary>
+            the value of this parameter
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_direction">
+            <summary>
+            the direction of this parameter i.e. one of input, output,
+            input-output or return value
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_sourceColumn">
+            <summary>
+            the source column of this parameter -- not used in SQLFire yet
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_rowVersion">
+            <summary>
+            the DataRowVersion of this parameter -- not used in SQLFire yet
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_scale">
+            <summary>
+            the scale of this parameter when it is a NUMERIC or DECIMAL type
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_precision">
+            <summary>
+            the precision of this parameter when it is a NUMERIC or DECIMAL type
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.m_size">
+            <summary>
+            the size in bytes or characters of this parameter when it is a
+            BINARY type or one of the string types
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.#ctor">
+            <summary>
+            Default constructor that sets the type of this parameter
+            to <c><see cref="F:VMware.Data.SQLFire.SQLFType.Other"/></c>.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.#ctor(System.String,VMware.Data.SQLFire.SQLFType)">
+            <summary>
+            Construct a new parameter given its name and type.
+            </summary>
+            <param name="name">name of the parameter</param>
+            <param name="type">type of the parameter</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.ResetDbType">
+            <summary>
+            Reset the type of this parameter to default.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.Clone">
+            <summary>
+            Clone this parameter. The underlying value is not cloned rather
+            just copied by reference so may need to be changed as appropriate
+            in the returned <c>SQLFParameter</c>.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.s_bindMap">
+            <summary>
+            Map from .NET type to a delegate that will bind a value of that type
+            to the provided java.sql.PreparedStatement.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.s_updateMap">
+            <summary>
+            Map from .NET type to a delegate that will invoke the appropriate
+            update method on the given java.sql.ResultSet.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.ToString">
+            <summary>
+            Get a string representation of this parameter.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.ToString(System.Text.StringBuilder)">
+            <summary>
+            Populate given StringBuilder with a string representation of
+            this parameter.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.BindObject(java.sql.PreparedStatement,System.Int32,System.Object,VMware.Data.SQLFire.SQLFType,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Static method to bind the given object invoking the appropriate setter
+            method on the given java.sql.PreparedStatement. The JDBC type provided
+            is only used for setting the null value in case the object provided is
+            null. For all other cases the appropriate method is determined using
+            the actual type of the object. For a more general bind that will also
+            make use of the JDBC type use <see cref="M:VMware.Data.SQLFire.SQLFParameter.BindParameter(java.sql.PreparedStatement,java.sql.CallableStatement,System.Int32)"/>.
+            </summary>
+            <param name="pstmt">the PreparedStatement to be used for bind</param>
+            <param name="index">the index of this parameter for the bind</param>
+            <param name="bindVal">the value to be bound</param>
+            <param name="type">
+            the <c><see cref="T:VMware.Data.SQLFire.SQLFType"/></c> for this parameter
+            </param>
+            <param name="size">
+            for variable size types, the required size to be bound
+            or &lt;= 0 to ignore
+            </param>
+            <param name="scale">
+            the scale, if any, for a NUMERIC or DECIMAL type
+            </param>
+            <param name="precision">
+            the precision, if any, for a NUMERIC or DECIMAL type
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.UpdateObject(java.sql.ResultSet,System.Int32,System.Object,System.Int32,System.Int32)">
+            <summary>
+            Static method to update to the given object invoking the appropriate
+            update method on the given java.sql.ResultSet.The appropriate method
+            is determined using the actual type of the object and if none of the
+            built-in types match, then the generic ResultSet#updateObject() method
+            is invoked.
+            </summary>
+            <param name="rs">the ResultSet to be used for update</param>
+            <param name="index">the index of the column to be updated</param>
+            <param name="updateVal">the updated value</param>
+            <param name="scale">
+            the scale, if any, for a NUMERIC or DECIMAL type
+            </param>
+            <param name="precision">
+            the precision, if any, for a NUMERIC or DECIMAL type
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.GetBindObject(System.Object)">
+            <summary>
+            Any massaging to be done for the object to be bound as parameter.
+            Currently it just checks for the special <c>DBNull.Value</c> type
+            and returns null for that.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.BindParameter(java.sql.PreparedStatement,java.sql.CallableStatement,System.Int32)">
+            <summary>
+            Bind this parameter to the given PreparedStatement at the given index.
+            If the provided CallableStatement is non-null and this is an output
+            parameter then it is registered with the statement as required for JDBC.
+            For the case of a CallableStatement both the <paramref name="pstmt"/> and
+            <paramref name="cstmt"/> arguments should be set properly.
+            </summary>
+            <param name="pstmt">the PreparedStatement to be used for bind</param>
+            <param name="cstmt">
+            the CallableStatement to be used for output parameter registration
+            </param>
+            <param name="index">the index of this parameter</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.RegisterIfOutParameter(java.sql.CallableStatement,System.Int32)">
+            <summary>
+            If this parameter is an output parameter then register it with the
+            provided CallableStatement.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameter.BindParameterPostExecute(java.sql.CallableStatement,System.Int32)">
+            <summary>
+            If this parameter is an output parameter then get its value from
+            the given CallableStatement and set it back in this parameter.
+            </summary>
+            <param name="cstmt">the CallableStatement to be used</param>
+            <param name="index">the index of this parameter</param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.DbType">
+            <summary>
+            Get or set the <c><see cref="P:VMware.Data.SQLFire.SQLFParameter.DbType"/></c> of this parameter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.Type">
+            <summary>
+            Get or set the <c><see cref="T:VMware.Data.SQLFire.SQLFType"/></c> of this parameter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.Direction">
+            <summary>
+            Get or set the direction of this parameter
+            i.e. one of input, output, input-output or return value.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.IsNullable">
+            <summary>
+            Get or set the nullable flag for this parameter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.ParameterName">
+            <summary>
+            Get or set the name of this parameter.
+            </summary>
+            <remarks>
+            This will be matched against the placeholders in query string prefixed
+            with ':' and if found then this parameter will correspond to that
+            position in the query string.
+            
+            For example if the <c>ParameterName</c> is 'CustomerID' and the
+            query string contains a placeholder ':CustomerID' then this
+            parameter will be bound to that placeholder in the query string.
+            If this parameter name is not found in the query string then it will
+            be bound by position only to the '?' placeholder in the query string.
+            </remarks>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.SourceColumn">
+            <summary>
+            Get or set the source column of this parameter for the associated
+            <c>DataTable</c>.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.SourceVersion">
+            <summary>
+            Get or set the <c>DataRowVersion</c> of this parameter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.Value">
+            <summary>
+            Get or set the value of this parameter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.SourceColumnNullMapping">
+            <summary>
+            Get or set flag for SourceColumnNullMapping
+            -- not yet used by SQLFire.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.Scale">
+            <summary>
+            Get or set the scale of this NUMERIC or DECIMAL parameter. Will be
+            ignored if the type is not one of these two or value is not decimal.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.Precision">
+            <summary>
+            Get or set the precision of this NUMERIC or DECIMAL parameter.
+            Should not be zero.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.Size">
+            <summary>
+            Get or set the size of this parameter for BINARY or string types.
+            Ignored for other types of parameter. Should be greater than zero.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.IsScaleSet">
+            <summary>
+            Return true if the scale has been explicitly set for a
+            NUMERIC or DECIMAL parameter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.IsTypeSet">
+            <summary>
+            Return true if the type of this parameter has been explicitly set.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.IsInputParameter">
+            <summary>
+            Return true if this is an input parameter.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameter.IsOutputParameter">
+            <summary>
+            Return true if this is an output parameter.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFParameter.ParamFlags">
+            <summary>
+            Enum to encapsulate the flags for this parameter.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.ParamFlags.None">
+            <summary>
+            default is None i.e. no special flag
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.ParamFlags.IsNullable">
+            <summary>
+            indicates that this parameter is nullable
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.ParamFlags.TypeSet">
+            <summary>
+            set when the type of this parameter has been explicitly set
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.ParamFlags.ScaleSet">
+            <summary>
+            set when the scale of this parameter has been explicitly set
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameter.ParamFlags.SourceColumnNullMapping">
+            <summary>
+            set when the <c>SourceColumnNullMapping</c> property has been set
+            for this parameter
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.BindDotNetObject">
+            <summary>
+            Delegate used by <see cref="M:VMware.Data.SQLFire.SQLFParameter.BindObject(java.sql.PreparedStatement,System.Int32,System.Object,VMware.Data.SQLFire.SQLFType,System.Int32,System.Int32,System.Int32)"/> method to bind
+            a .NET object to the given <c>java.sql.PreparedStatement</c> invoking
+            the appropriate setter method.
+            </summary>
+            <param name="pstmt">the PreparedStatement to be used</param>
+            <param name="index">the index of this parameter</param>
+            <param name="val">the object to be bound</param>
+            <param name="size">
+            for variable size types, the required size to be bound
+            or &lt;= 0 to ignore
+            </param>
+        </member>
+        <member name="T:VMware.Data.SQLFire.UpdateDotNetObject">
+            <summary>
+            Delegate used by <see cref="M:VMware.Data.SQLFire.SQLFParameter.UpdateObject(java.sql.ResultSet,System.Int32,System.Object,System.Int32,System.Int32)"/> method to
+            invoke the appropriate method of <c>java.sql.ResultSet</c> for the
+            given .NET object.
+            </summary>
+            <param name="rs">the ResultSet to be used</param>
+            <param name="index">the index of the column to be updated</param>
+            <param name="val">the updated value of the object</param>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFParameterCollection">
+             <summary>
+             Encapsulates a collection of parameters to a <c>SQLFCommand</c>.
+             The parameter can be an instance of <see cref="T:VMware.Data.SQLFire.SQLFParameter"/>, or
+             can directly be the .NET object itself.
+            
+             This class implements the <see cref="T:System.Data.IDataParameterCollection"/>
+             interface and extends abstract <see cref="T:System.Data.Common.DbParameterCollection"/> class.
+             </summary>
+             <remarks>
+             Unlike most other drivers this implementation allows for also adding
+             raw objects to the collection too and stores them such for memory
+             efficiency and avoid creation of many parameter objects. For such a case
+             when raw objects are added to the collection, the direction is always
+             assumed to be input and the SQLFType is determined from the object type.
+             </remarks>
+             <seealso cref="T:VMware.Data.SQLFire.SQLFCommand"/>
+             <seealso cref="T:VMware.Data.SQLFire.SQLFParameter"/>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameterCollection.m_paramList">
+            <summary>
+            the list of parameters that can contain either SQLFParameter's
+            or raw objects
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFParameterCollection.m_paramMap">
+            <summary>
+            the map of parameter name to <c>SQLFParameter</c> for names parameters
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.#ctor">
+            <summary>
+            Default constructor that initializes an empty collection of parameters.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.#ctor(VMware.Data.SQLFire.SQLFParameterCollection)">
+            <summary>
+            Copy constructor that will copy the parameters from the given
+            <c>SQLFParameterCollection</c>.
+            </summary>
+            <param name="other">the collection to copy elements from</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Contains(System.String)">
+            <summary>
+            Return true if this collection contains a parameter with a given name.
+            </summary>
+            <param name="parameterName">name of parameter to search</param>
+            <returns>
+            true if the collection contains a parameter with given name else false
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.IndexOf(System.String)">
+            <summary>
+            Index of the parameter with a provided name in the collection.
+            </summary>
+            <param name="parameterName">name of parameter to search</param>
+            <returns>
+            index of the parameter if the collection contains a parameter
+            with given name else -1
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.RemoveAt(System.String)">
+            <summary>
+            Remove the parameter with given name, if found.
+            </summary>
+            <param name="parameterName">name of parameter to be removed</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Add(System.Object)">
+            <summary>
+            Add a new object to the end of this collection. The given object can
+            be either an <c>SQLFParameter</c> or a raw object.
+            </summary>
+            <param name="value">
+            the object to be added to this collection that can be either an
+            instance of <c>SQLFParameter</c> or a raw object
+            </param>
+            <returns>the index at which the object was added i.e. Count-1</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Add(VMware.Data.SQLFire.SQLFParameter)">
+            <summary>
+            Add the given parameter to the end of collection.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Add(System.String,VMware.Data.SQLFire.SQLFType)">
+            <summary>
+            A convenience method to add an <see cref="T:VMware.Data.SQLFire.SQLFParameter"/> to this
+            collection with the given name and type.
+            </summary>
+            <param name="parameterName">name of the parameter</param>
+            <param name="type">the <see cref="T:VMware.Data.SQLFire.SQLFType"/> of parameter</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Add(System.String,VMware.Data.SQLFire.SQLFType,System.Object)">
+            <summary>
+            A convenience method to add an <see cref="T:VMware.Data.SQLFire.SQLFParameter"/> to this
+            collection with the given name, value and type.
+            </summary>
+            <param name="parameterName">name of the parameter</param>
+            <param name="type">the <see cref="T:VMware.Data.SQLFire.SQLFType"/> of parameter</param>
+            <param name="val">value of the parameter</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.AddRange(System.Array)">
+            <summary>
+            Add all values from a given array to this collection.
+            </summary>
+            <param name="values">the array to be added to this collection</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.AddRange(VMware.Data.SQLFire.SQLFParameter[])">
+            <summary>
+            Add all <c>SQLFParameter</c>s from a given array to this collection.
+            </summary>
+            <param name="values">
+            the array of <c>SQLFParameter</c>s to be added to this collection
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Clear">
+            <summary>
+            Clear all parameters or raw objects from this collection.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Contains(System.Object)">
+            <summary>
+            Return true if this collection contains the given <c>SQLFParameter</c>
+            or raw object value.
+            </summary>
+            <param name="val">the value to be searched in this collection</param>
+            <returns>
+            true if this collection contains the given value and false otherwise
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Contains(VMware.Data.SQLFire.SQLFParameter)">
+            <summary>
+            Return true if this collection contains the given <c>SQLFParameter</c>.
+            </summary>
+            <param name="parameter">
+            the parameter to be searched in this collection
+            </param>
+            <returns>
+            true if this collection contains the given value and false otherwise
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.CopyTo(System.Array,System.Int32)">
+            <summary>
+            Copy all elemeents in this collection in the given array starting
+            at the provided index in the array.
+            </summary>
+            <param name="array">the array to be used for copy</param>
+            <param name="index">the index in the array to start the copy</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.GetEnumerator">
+            <summary>
+            Get an enumerator for this collection.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.GetParameter(System.String)">
+            <summary>
+            Base class override to get parameter with a given name.
+            </summary>
+            <param name="parameterName">the name of parameter to search</param>
+            <returns>the parameter with given name or null if not found</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.GetSQLFParameter(System.String)">
+            <summary>
+            Get <c>SQLFParameter</c> with a given name.
+            </summary>
+            <param name="parameterName">the name of parameter to search</param>
+            <returns>the parameter with given name or null if not found</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.GetParameter(System.Int32)">
+            <summary>
+            Base class override to get parameter at the given index. This assumes
+            the element at given index to be an <c>SQLFParameter</c> and will
+            throw a <c>ClassCastException</c> if this is not the case.
+            </summary>
+            <param name="index">the index of parameter</param>
+            <returns>an <c>SQLFParameter</c> at given index</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.IndexOf(System.Object)">
+            <summary>
+            Get the index of given element in this collection.
+            </summary>
+            <param name="value">the value to search for in the collection</param>
+            <returns>
+            index of given element in this collection or -1 if not found
+            </returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Insert(System.Int32,System.Object)">
+            <summary>
+            Insert the given element at the provided index.
+            </summary>
+            <param name="index">
+            the index at which the element has to be inserted
+            </param>
+            <param name="val">
+            the element to be inserted that can be either an <c>SQLFParameter</c>
+            or a raw object
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Insert(System.Int32,VMware.Data.SQLFire.SQLFParameter)">
+            <summary>
+            Insert the given <c>SQLFParameter</c> at the specified index.
+            </summary>
+            <param name="index">
+            the index at which the element has to be inserted
+            </param>
+            <param name="parameter">the <c>SQLFParameter</c> to be inserted</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Remove(System.Object)">
+            <summary>
+            Remove the given element from this collection.
+            </summary>
+            <param name="value">
+            the element to be removed that can be either an <c>SQLFParameter</c>
+            or a raw object
+            </param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Remove(VMware.Data.SQLFire.SQLFParameter)">
+            <summary>
+            Remove the given <c>SQLFParameter</c> from this collection.
+            </summary>
+            <param name="parameter">the <c>SQLFParameter</c> to be removed</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.RemoveAt(System.Int32)">
+            <summary>
+            Remove the element at the given index from this collection.
+            </summary>
+            <param name="index">the index of element to be removed</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.SetParameter(System.String,System.Data.Common.DbParameter)">
+            <summary>
+            Set the <c>SQLFParameter</c> for parameter of given name.
+            </summary>
+            <param name="parameterName">the name of parameter</param>
+            <param name="value">the <c>SQLFParameter</c> to be set</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.SetParameter(System.Int32,System.Data.Common.DbParameter)">
+            <summary>
+            Set the <c>SQLFParameter</c> for parameter at given index.
+            </summary>
+            <param name="index">the index of parameter</param>
+            <param name="value">the <c>SQLFParameter</c> to be set</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Get(System.Int32)">
+            <summary>
+            Get the element at the given index in this collection.
+            </summary>
+            <param name="index">the index of element</param>
+            <returns>an <c>SQLFParameter</c> or a raw object</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.GetNamedParameters">
+            <summary>
+            Get the set of all named parameters in this collection.
+            </summary>
+            <returns>the collection of all named <c>SQLFParameter</c>s</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.Set(System.Int32,System.Object)">
+            <summary>
+            Set the element at the given index in this collection.
+            </summary>
+            <param name="index">the index of element</param>
+            <param name="val">an <c>SQLFParameter</c> or a raw object</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.SetParameter(System.String,VMware.Data.SQLFire.SQLFParameter)">
+            <summary>
+            Set the <c>SQLFParameter</c> with given name in this collection.
+            </summary>
+            <param name="parameterName">the name of the parameter</param>
+            <param name="parameter">the parameter to be set</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.SetParameter(System.Int32,VMware.Data.SQLFire.SQLFParameter)">
+            <summary>
+            Set the <c>SQLFParameter</c> at given index in this collection.
+            </summary>
+            <param name="index">the index for the parameter</param>
+            <param name="parameter">the parameter to be set</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.ToString">
+            <summary>
+            Get a semi-colon separated string representation of this
+            parameter collection.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFParameterCollection.AddParameter(System.String,VMware.Data.SQLFire.SQLFParameter)">
+            <summary>
+            Add a new <c>SQLFParameter</c> this both the list and map that
+            this collection encapsulates.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.System#Data#IDataParameterCollection#Item(System.String)">
+            <summary>
+            Get or set the parameter with given name. The object being set
+            can either be an <c>SQLFParameter</c> or a raw object. In the
+            latter case an <c>SQLFParameter</c> is created for the object on
+            the fly and name set as provided.
+            </summary>
+            <param name="parameterName">the name of parameter</param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.Item(System.String)">
+            <summary>
+            Get or set an <c>SQLFParameter</c> with given name.
+            </summary>
+            <param name="parameterName">name of the given parameter</param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.System#Collections#IList#Item(System.Int32)">
+            <summary>
+            Get or set the <c>SQLFParameter</c> or raw value at the given index.
+            </summary>
+            <param name="index">the index in collection</param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.Item(System.Int32)">
+            <summary>
+            Get or set the <c>SQLFParameter</c> or raw value at the given index.
+            </summary>
+            <param name="index">the index in collection</param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.Count">
+            <summary>
+            Returns the number of elements in this collection.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.IsFixedSize">
+            <summary>
+            Whether this collection is of fixed size or not -- always returns false.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.IsReadOnly">
+            <summary>
+            Whether this collection is read-only or not -- always returns false.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.IsSynchronized">
+            <summary>
+            Whether this collection is synchronized or not.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFParameterCollection.SyncRoot">
+            <summary>
+            Get the synchronization object for this collection.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFPeerConnection">
+            <summary>
+            An SQLFire peer client connection ("jdbc:sqlfire:;" URL) using
+            sqlfire.jar converted to DLL.
+            
+            Most of the real work is done by <see cref="T:VMware.Data.SQLFire.SQLFConnection"/> while this
+            class just defines how to get the JDBC style connection string in the
+            form expected by the peer driver. Also forces load of the EmbeddedDriver
+            since the converted DLLs cannot load it automatically like in JDK 1.6.
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFPeerConnection.PeerConnFormat">
+            <summary>
+            The peer connection format string including placeholder for properties
+            that will be gotten from the .NET style connection string
+            "{prop1}={val1};{prop2}={val2};...".
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFPeerConnection.#cctor">
+            <summary>
+            Static constructor that forces loading of the EmbeddedDriver.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFPeerConnection.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFPeerConnection.#ctor(System.String)">
+            <summary>
+            Constructor given a connection string in .NET style
+            "{prop1}={val1};{prop2}={val2};...".
+            </summary>
+            <param name="connectionString">the connection string</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFPeerConnection.Clone">
+            <summary>
+            Get a clone for this connection copying in the relevant properties.
+            The new connection will not be open and will not share any state
+            with this connection.
+            </summary>
+            <returns>a clone for this connection object</returns>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFPeerConnection.GetConnectionStringFormat">
+            <summary>
+            The JDBC formatted connection string with place holders that will be
+            filled in by the result of <c>TokenizeConnectionString</c> method.
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFPeerConnection.TokenizeConnectionString(System.String)">
+            <summary>
+            Get the array of string that will be passed to the string format as
+            returned by <c>GetConnectionStringFormat</c> method from the
+            .NET connection string.
+            </summary>
+            <param name="connectionString">the .NET connection string</param>
+            <returns>
+            the split tokens as expected by <c>GetConnectionStringFormat</c>
+            </returns>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFRowUpdatedEventArgs">
+             <summary>
+             Provides data for the <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.OnRowUpdated(VMware.Data.SQLFire.SQLFRowUpdatedEventArgs)"/> event of a <see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/>
+             that is passed to <see cref="T:VMware.Data.SQLFire.SQLFRowUpdatedEventHandler"/>.
+            
+             This event is raised when an update to a row is complete.
+             </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFRowUpdatedEventArgs.#ctor(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Create an instance of <c>SQLFRowUpdatedEventArgs</c> object.
+            </summary>
+            <param name="row">the <see cref="T:System.Data.DataRow"/> being updated</param>
+            <param name="command">
+            the <see cref="T:System.Data.IDbCommand"/> to be executed when update is called
+            </param>
+            <param name="statementType">the type of SQL statement to execute</param>
+            <param name="tableMapping">
+            the <see cref="T:System.Data.Common.DataTableMapping"/> to send through an update
+            </param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFRowUpdatedEventArgs.Command">
+            <summary>
+            Gets the <see cref="T:System.Data.IDbCommand"/> to be executed during the update
+            operation.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFRowUpdatedEventHandler">
+            <summary>
+            Delegate to handle the <c>RowUpdated</c> event of a
+            <see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/>.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFRowUpdatingEventArgs">
+             <summary>
+             Provides data for the <see cref="M:VMware.Data.SQLFire.SQLFDataAdapter.OnRowUpdating(VMware.Data.SQLFire.SQLFRowUpdatingEventArgs)"/> event of a <see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/>
+             that is passed to <see cref="T:VMware.Data.SQLFire.SQLFRowUpdatingEventHandler"/>.
+            
+             This event is raised just before an update to a row begins.
+             </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFRowUpdatingEventArgs.#ctor(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Create an instance of <c>SQLFRowUpdatingEventArgs</c> object.
+            </summary>
+            <param name="row">the updated <see cref="T:System.Data.DataRow"/></param>
+            <param name="command">
+            the <see cref="T:System.Data.IDbCommand"/> executed when update is called
+            </param>
+            <param name="statementType">the type of SQL statement executed</param>
+            <param name="tableMapping">
+            the <see cref="T:System.Data.Common.DataTableMapping"/> sent through an update
+            </param>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFRowUpdatingEventArgs.Command">
+            <summary>
+            Gets the <see cref="T:System.Data.IDbCommand"/> to execute during the update.
+            operation.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFRowUpdatingEventArgs.BaseCommand">
+            <summary>
+            Gets or sets the <see cref="T:System.Data.IDbCommand"/> to execute during the update.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFRowUpdatingEventHandler">
+            <summary>
+            Delegate to handle the <c>RowUpdating</c> event of a
+            <see cref="T:VMware.Data.SQLFire.SQLFDataAdapter"/>.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFTransaction">
+             <summary>
+             Implementation of the <see cref="T:System.Data.IDbTransaction"/> interface that allows
+             control of distributed transactions for a SQLFire system.
+            
+             This class also extends the abstract <see cref="T:System.Data.Common.DbTransaction"/> class.
+             </summary>
+             <seealso cref="M:VMware.Data.SQLFire.SQLFConnection.BeginTransaction(System.Data.IsolationLevel)"/>
+             <seealso cref="M:VMware.Data.SQLFire.SQLFConnection.BeginSQLFTransaction(System.Data.IsolationLevel)"/>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFTransaction.m_conn">
+            <summary>
+            the underlying <c>SQLFConnection</c>
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFTransaction.m_pending">
+            <summary>
+            tracks if no commit/rollback has been performed yet
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFTransaction.m_command">
+            <summary>
+            current <c>SQLFCommand</c> associated with this transaction
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFTransaction.#ctor(VMware.Data.SQLFire.SQLFConnection,System.Data.IsolationLevel)">
+            <summary>
+            Create a new <c>SQLFTransaction</c> object that also starts off
+            a new transaction on the connection with given isolation level.
+            </summary>
+            <param name="conn">the underlying connection object</param>
+            <param name="level">the isolation level to use for transaction</param>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFTransaction.Commit">
+            <summary>
+            commit this transaction
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFTransaction.Rollback">
+            <summary>
+            rollback this transaction
+            </summary>
+        </member>
+        <member name="M:VMware.Data.SQLFire.SQLFTransaction.Dispose(System.Boolean)">
+            <summary>
+            Invoked when this object is disposed.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFTransaction.Connection">
+            <summary>
+            The underlying <c>SQLFConnection</c> object for this Transaction.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFTransaction.DbConnection">
+            <summary>
+            Base class override to return the underlying connection.
+            </summary>
+        </member>
+        <member name="P:VMware.Data.SQLFire.SQLFTransaction.IsolationLevel">
+            <summary>
+            Get the isolation level for this Transaction.
+            </summary>
+        </member>
+        <member name="T:VMware.Data.SQLFire.SQLFType">
+            <summary>
+            Enumeration of the SQL types supported by SQLFire.
+            </summary>
+            <remarks>
+            The integer values of these values correspond to the JDBC constants in
+            <c>java.sql.Types</c> for corresponding types.
+            
+            The JDBC types ARRAY, DATALINK, LONGNVARCHAR, NCHAR, NCLOB, NVARCHAR,
+            REF, ROWID, SQLXML, STRUCT are not yet implemented in SQLFire so have
+            not been provided.
+            </remarks>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Binary">
+            <summary>
+            Type ID that corresponds to the SQL type <c>CHAR(&lt;size&gt;) FOR
+            BIT DATA</c> (JDBC type BINARY)
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Blob">
+            <summary>
+            Type ID that corresponds to the SQL type BLOB
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Boolean">
+            <summary>
+            Type ID that corresponds to the SQL type BOOLEAN
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Char">
+            <summary>
+            Type ID that corresponds to the SQL type CHAR
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Clob">
+            <summary>
+            Type ID that corresponds to the SQL type CLOB
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Date">
+            <summary>
+            Type ID that corresponds to the SQL type DATE
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Decimal">
+            <summary>
+            Type ID that corresponds to the SQL type DECIMAL
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Double">
+            <summary>
+            Type ID that corresponds to the SQL type DOUBLE
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Float">
+            <summary>
+            Type ID that corresponds to the SQL type FLOAT
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Integer">
+            <summary>
+            Type ID that corresponds to the SQL type INTEGER
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.JavaObject">
+            <summary>
+            Type ID that corresponds to the SQL type JAVA_OBJECT
+            (an instance of IKVM java type)
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Long">
+            <summary>
+            Type ID that corresponds to the SQL type BIGINT
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.LongVarBinary">
+            <summary>
+            Type ID that corresponds to the SQL type LONGVARBINARY
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.LongVarChar">
+            <summary>
+            Type ID that corresponds to the SQL type LONGVARCHAR
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Null">
+            <summary>
+            Type ID that identifies the generic SQL NULL value
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Numeric">
+            <summary>
+            Type ID that corresponds to the SQL type NUMERIC
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Real">
+            <summary>
+            Type ID that corresponds to the SQL type REAL
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Short">
+            <summary>
+            Type ID that corresponds to the SQL type SMALLINT
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.VarBinary">
+            <summary>
+            Type ID that corresponds to the SQL type VARBINARY
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.VarChar">
+            <summary>
+            Type ID that corresponds to the SQL type VARCHAR
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Time">
+            <summary>
+            Type ID that corresponds to the SQL type TIME
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.TimeStamp">
+            <summary>
+            Type ID that corresponds to the SQL type TIMESTAMP
+            </summary>
+        </member>
+        <member name="F:VMware.Data.SQLFire.SQLFType.Other">
+            <summary>
+            Type ID that indicates that the SQL type is database-specific
+            and gets mapped to an object that can be accessed via the methods
+            GetValue and SetValue.
+            </summary>
+        </member>
+    </members>
+</doc>

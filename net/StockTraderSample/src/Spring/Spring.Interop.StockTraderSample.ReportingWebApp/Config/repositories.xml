@@ -3,8 +3,11 @@
          xmlns:db="http://www.springframework.net/database">
 
   <db:provider id="dbProvider"
-              provider="SqlServer-1.1"
-              connectionString="Data Source=(local);Database=SpringInterop;User ID=springqa;Password=springqa;Trusted_Connection=False"/>
+        provider="SqlFire-Beta"
+        connectionString="Server=localhost:1527"/>
+
+  <db:additionalProviders resource="file://~/Config/sqlfire.xml"/>
+  
 
   <object id="transactionManager" type="Spring.Data.Core.AdoPlatformTransactionManager, Spring.Data">
     <property name="DbProvider" ref="dbProvider"/>
@@ -17,7 +20,7 @@
 
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.TradeRowMapper, Spring.Interop.StockTraderSample.ReportingWebApp" />
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.CreditCheckFailureRowMapper, Spring.Interop.StockTraderSample.ReportingWebApp" />
-  
+
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.TradeActivityRepository, Spring.Interop.StockTraderSample.ReportingWebApp" autowire="constructor" />
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.CreditCheckFailuresRepository, Spring.Interop.StockTraderSample.ReportingWebApp" autowire="constructor" />
 

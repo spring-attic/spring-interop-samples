@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+
+    <object id="SqlFire-Beta" type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.SqlFireDbProvider, Spring.Interop.StockTraderSample.ReportingWebApp"  singleton="false">
+    <constructor-arg name="DbMetaData">
+      <object type="Spring.Data.Common.DbMetadata, Spring.Data">
+        <constructor-arg name="productName" value="SQLFireADO.NETClient"/>
+        <constructor-arg name="assemblyName" value="VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="connectionType" value="VMware.Data.SQLFire.SQLFClientConnection, VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="commandType" value="VMware.Data.SQLFire.SQLFCommand, VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="parameterType" value="VMware.Data.SQLFire.SQLFParameter, VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="dataAdapterType" value="VMware.Data.SQLFire.SQLFDataAdapter, VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="commandBuilderType" value="VMware.Data.SQLFire.SQLFCommandBuilder, VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="commandBuilderDeriveParametersMethod" value="not supported"/>
+        <constructor-arg name="parameterDbType" value="VMware.Data.SQLFire.SQLFType, VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="parameterDbTypeProperty" value="DbType"/>
+        <constructor-arg name="parameterIsNullableProperty" value="IsNullable"/>
+        <constructor-arg name="parameterNamePrefix" value="@"/>
+        <constructor-arg name="exceptionType" value="VMware.Data.SQLFire.SQLFException, VMware.Data.SQLFire, Version=1.0.0.0, Culture=neutral, PublicKeyToken=126e6338d9f55e0c"/>
+        <constructor-arg name="useParameterNamePrefixInParameterCollection" value="true"/>
+        <constructor-arg name="useParameterPrefixInSql" value="true"/>
+        <constructor-arg name="bindByName" value="true"/>
+        <constructor-arg name="errorCodeExceptionExpression" value="ErrorCode"/>
+
+        <property name="ErrorCodes.BadSqlGrammarCodes">
+          <value>-007,-029,-097,-104,-109,-115,-128,-199,-204,-206,-301,-408,-441,-491</value>
+        </property>
+        <property name="ErrorCodes.DuplicateKeyCodes">
+          <value>-803</value>
+        </property>
+        <property name="ErrorCodes.DataIntegrityViolationCodes">
+          <value>-407,-530,-531,-532,-543,-544,-545,-603,-667,-803</value>
+        </property>
+        <property name="ErrorCodes.DataAccessResourceFailureCodes">
+          <value>-904,-971</value>
+        </property>
+        <property name="ErrorCodes.TransientAccessResourceFailureCodes">
+          <value>-1035,-1218,-30080,-30081</value>
+        </property>
+        <property name="ErrorCodes.DeadlockLoserCodes">
+          <value>-911,-913</value>
+        </property>
+      </object>
+    </constructor-arg>
+  </object>
+</objects>
