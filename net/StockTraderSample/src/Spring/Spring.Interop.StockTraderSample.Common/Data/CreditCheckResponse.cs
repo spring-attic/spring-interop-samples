@@ -6,7 +6,7 @@ namespace Spring.Interop.StockTraderSample.Common.Data
     {
         private readonly string _account;
         private readonly decimal _value;
-        private readonly bool _passFailFail;
+        private readonly bool _passFail;
         private readonly string _reason;
 
 
@@ -14,7 +14,7 @@ namespace Spring.Interop.StockTraderSample.Common.Data
         {
             _account = account;
             _value = value;
-            _passFailFail = passFail;
+            _passFail = passFail;
 
             if (!passFail)
             {
@@ -39,9 +39,9 @@ namespace Spring.Interop.StockTraderSample.Common.Data
             get { return _reason; }
         }
 
-        public bool PassFailFail
+        public bool PassFail
         {
-            get { return _passFailFail; }
+            get { return _passFail; }
         }
     }
 }

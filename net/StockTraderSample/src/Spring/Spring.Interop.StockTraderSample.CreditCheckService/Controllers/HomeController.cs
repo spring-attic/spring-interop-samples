@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Spring.Interop.StockTraderSample.Common.Data;
 
 namespace Spring.Interop.StockTraderSample.CreditCheckService.Controllers
@@ -28,7 +30,10 @@ namespace Spring.Interop.StockTraderSample.CreditCheckService.Controllers
         public ActionResult CreditCheck(string accountName, decimal purchaseValue)
         {
             var response = AssembleRandomCreditCheckResponse(accountName, purchaseValue);
-            return Json(response, JsonRequestBehavior.AllowGet);
+            var json = JsonConvert.SerializeObject(response, Formatting.None, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+
+            return Content(json, "application/json");
+
         }
 
         private CreditCheckResponse AssembleRandomCreditCheckResponse(string account, decimal purchaseValue)
