@@ -1,6 +1,6 @@
 ﻿namespace Spring.Interop.StockTraderSample.Client.UI
 {
-    partial class FailuresForm
+    partial class OutstandingSharesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tradeFailuresListBox = new System.Windows.Forms.ListBox();
+            this.outstandingSharesListBox = new System.Windows.Forms.ListBox();
             this.closeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // tradeFailuresListBox
+            // outstandingSharesListBox
             // 
-            this.tradeFailuresListBox.FormattingEnabled = true;
-            this.tradeFailuresListBox.Location = new System.Drawing.Point(13, 42);
-            this.tradeFailuresListBox.Name = "tradeFailuresListBox";
-            this.tradeFailuresListBox.Size = new System.Drawing.Size(421, 225);
-            this.tradeFailuresListBox.TabIndex = 0;
+            this.outstandingSharesListBox.FormattingEnabled = true;
+            this.outstandingSharesListBox.Location = new System.Drawing.Point(13, 42);
+            this.outstandingSharesListBox.Name = "outstandingSharesListBox";
+            this.outstandingSharesListBox.Size = new System.Drawing.Size(421, 225);
+            this.outstandingSharesListBox.TabIndex = 0;
             // 
             // closeButton
             // 
@@ -56,22 +56,22 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.Size = new System.Drawing.Size(135, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Trade Failure Report";
+            this.label1.Text = "Outstanding Shares Report";
             // 
-            // FailuresForm
+            // OutstandingSharesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 317);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.tradeFailuresListBox);
-            this.Name = "FailuresForm";
+            this.Controls.Add(this.outstandingSharesListBox);
+            this.Name = "OutstandingSharesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Trade Failures";
-            this.Load += new System.EventHandler(this.FailuresForm_Load);
+            this.Text = "Outstanding Shares";
+            this.Load += new System.EventHandler(this.OutstandingSharesForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -79,7 +79,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox tradeFailuresListBox;
+        private System.Windows.Forms.ListBox outstandingSharesListBox;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Label label1;
     }

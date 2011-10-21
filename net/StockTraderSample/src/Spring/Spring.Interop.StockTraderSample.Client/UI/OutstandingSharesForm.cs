@@ -12,11 +12,11 @@ using Spring.Rest.Client;
 
 namespace Spring.Interop.StockTraderSample.Client.UI
 {
-    public partial class FailuresForm : Form
+    public partial class OutstandingSharesForm : Form
     {
         private readonly string _accountName;
 
-        public FailuresForm(string accountName)
+        public OutstandingSharesForm(string accountName)
         {
             _accountName = accountName;
             InitializeComponent();
@@ -27,14 +27,14 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             Close();
         }
 
-        private void FailuresForm_Load(object sender, EventArgs e)
+        private void OutstandingSharesForm_Load(object sender, EventArgs e)
         {
             var rest = ContextRegistry.GetContext().GetObject("restTemplate") as RestTemplate;
-            var failures = rest.GetForObject<IEnumerable<TradeFailureResponse>>("/home/CreditFailureReport");
+            var outstandingShares = rest.GetForObject<IEnumerable<OutstandingShares>>("/home/OutstandingShares");
 
-            foreach (var failure in failures)
+            foreach (var share in outstandingShares)
             {
-                tradeFailuresListBox.Items.Add(failure);
+                outstandingSharesListBox.Items.Add(string.Format("{0}: {1}", share.Symbol, share.Shares));
             }
 
         }

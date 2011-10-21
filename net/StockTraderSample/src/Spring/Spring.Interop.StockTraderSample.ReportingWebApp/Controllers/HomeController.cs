@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using System.Web.Mvc;
 using Spring.Data.Generic;
 using Spring.Interop.StockTraderSample.ReportingWebApp.Models;
@@ -45,7 +46,7 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
         {
             var shares = _outstandingShares.GetOutStandingShares();
 
-            if (Request.IsAjaxRequest())
+            if (Request.AcceptTypes.Any(rt => rt == "application/json"))
             {
                 return Json(shares, JsonRequestBehavior.AllowGet);
             }
