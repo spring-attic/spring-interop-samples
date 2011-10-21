@@ -153,7 +153,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(202, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "i.e. APP.STOCK.QUOTES.nasdaq.MSFT";
+            this.label3.Text = "i.e. app.stock.quotes.nasdaq.MSFT";
             // 
             // label4
             // 
