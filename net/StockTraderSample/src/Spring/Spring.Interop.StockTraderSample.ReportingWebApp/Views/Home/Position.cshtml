@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Spring.Interop.StockTraderSample.Common.Data.Position>
+@{
+    ViewBag.Title = "Outstanding Shares Report";
+}
+<ul>
+@foreach (var position in Model)
+{
+    <li>@position.Symbol  @position.Shares</li>
+}
+</ul>

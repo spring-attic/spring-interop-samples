@@ -101,11 +101,11 @@
     <Compile Include="Gateways\RabbitStockServiceGateway.cs" />
     <Compile Include="Handlers\StockAppHandler.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="UI\OutstandingSharesForm.cs">
+    <Compile Include="UI\PositionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OutstandingSharesForm.Designer.cs">
-      <DependentUpon>OutstandingSharesForm.cs</DependentUpon>
+    <Compile Include="UI\PositionsForm.Designer.cs">
+      <DependentUpon>PositionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\StockController.cs" />
     <Compile Include="UI\StockForm.cs">
@@ -132,8 +132,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\OutstandingSharesForm.resx">
-      <DependentUpon>OutstandingSharesForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\PositionsForm.resx">
+      <DependentUpon>PositionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>

@@ -11,12 +11,12 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
     public class HomeController : Controller
     {
         private readonly TradeActivityRepository _tradeActivity;
-        private readonly OutstandingSharesRepository _outstandingShares;
+        private readonly PositionRepository _position;
 
-        public HomeController(TradeActivityRepository tradeActivity, OutstandingSharesRepository outstandingShares)
+        public HomeController(TradeActivityRepository tradeActivity, PositionRepository position)
         {
             _tradeActivity = tradeActivity;
-            _outstandingShares = outstandingShares;
+            _position = position;
         }
 
         public string Message { get; set; }
@@ -42,9 +42,9 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
             return View(tradeModel);
         }
 
-        public ActionResult OutstandingShares()
+        public ActionResult Position()
         {
-            var shares = _outstandingShares.GetOutStandingShares();
+            var shares = _position.GetAllShares();
 
             if (Request.AcceptTypes.Any(rt => rt == "application/json"))
             {

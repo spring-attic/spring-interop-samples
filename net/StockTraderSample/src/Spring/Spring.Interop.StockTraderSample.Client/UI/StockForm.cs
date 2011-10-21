@@ -170,10 +170,10 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             RebindQueue(string.Empty);
         }
 
-        private void failedTradesButton_Click(object sender, EventArgs e)
+        private void currentPositionsButton_Click(object sender, EventArgs e)
         {
-            var outstandingSharesForm = new OutstandingSharesForm(accountNameTextBox.Text);
-            outstandingSharesForm.ShowDialog();
+            var positionsForm = new PositionsForm(accountNameTextBox.Text);
+            positionsForm.ShowDialog();
         }
 
     }
