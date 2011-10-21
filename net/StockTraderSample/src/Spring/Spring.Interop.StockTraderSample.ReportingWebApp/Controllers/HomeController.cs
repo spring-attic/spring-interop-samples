@@ -10,12 +10,12 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
     public class HomeController : Controller
     {
         private readonly TradeActivityRepository _tradeActivity;
-        private readonly CreditCheckFailuresRepository _creditCheckFailures;
+        private readonly OutstandingSharesRepository _outstandingShares;
 
-        public HomeController(TradeActivityRepository tradeActivity, CreditCheckFailuresRepository creditCheckFailures)
+        public HomeController(TradeActivityRepository tradeActivity, OutstandingSharesRepository outstandingShares)
         {
             _tradeActivity = tradeActivity;
-            _creditCheckFailures = creditCheckFailures;
+            _outstandingShares = outstandingShares;
         }
 
         public string Message { get; set; }
@@ -41,10 +41,16 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
             return View(tradeModel);
         }
 
-        public ActionResult CreditFailureReport()
+        public ActionResult OutstandingShares()
         {
-            var failures = _creditCheckFailures.GetAllFailures();
-            return Json(failures, JsonRequestBehavior.AllowGet);
+            var shares = _outstandingShares.GetOutStandingShares();
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(shares, JsonRequestBehavior.AllowGet);
+            }
+
+            return View(shares);
         }
     }
 }

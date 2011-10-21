@@ -19,10 +19,9 @@
   </object>
 
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.TradeRowMapper, Spring.Interop.StockTraderSample.ReportingWebApp" />
-  <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.CreditCheckFailureRowMapper, Spring.Interop.StockTraderSample.ReportingWebApp" />
 
   <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.TradeActivityRepository, Spring.Interop.StockTraderSample.ReportingWebApp" autowire="constructor" />
-  <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.CreditCheckFailuresRepository, Spring.Interop.StockTraderSample.ReportingWebApp" autowire="constructor" />
+  <object type="Spring.Interop.StockTraderSample.ReportingWebApp.Repository.OutstandingSharesRepository, Spring.Interop.StockTraderSample.ReportingWebApp" autowire="constructor" />
 
 
 </objects>

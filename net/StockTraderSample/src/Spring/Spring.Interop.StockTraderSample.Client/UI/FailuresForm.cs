@@ -30,7 +30,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         private void FailuresForm_Load(object sender, EventArgs e)
         {
             var rest = ContextRegistry.GetContext().GetObject("restTemplate") as RestTemplate;
-            var failures = rest.GetForObject<IEnumerable<CreditCheckFailure>>("/home/CreditFailureReport");
+            var failures = rest.GetForObject<IEnumerable<TradeFailureResponse>>("/home/CreditFailureReport");
 
             foreach (var failure in failures)
             {
