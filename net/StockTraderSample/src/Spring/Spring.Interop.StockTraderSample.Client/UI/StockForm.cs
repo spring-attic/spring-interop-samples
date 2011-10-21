@@ -119,15 +119,15 @@ namespace Spring.Interop.StockTraderSample.Client.UI
                 {
                     IAmqpAdmin amqpAdmin = new RabbitAdmin(connectionFactory);
 
-                    TopicExchange mktDataExchange = new TopicExchange("APP.STOCK.MARKETDATA", false, false);
+                    TopicExchange mktDataExchange = new TopicExchange("app.stock.marketdata", false, false);
                     amqpAdmin.DeclareExchange(mktDataExchange);
-                    Spring.Messaging.Amqp.Core.Queue mktDataQueue = new Spring.Messaging.Amqp.Core.Queue("APP.STOCK.MARKETDATA");
+                    Spring.Messaging.Amqp.Core.Queue mktDataQueue = new Spring.Messaging.Amqp.Core.Queue("app.stock.marketdata");
                     amqpAdmin.DeclareQueue(mktDataQueue);
 
                     //Create the Exchange for MarketData Requests if it does not already exist.
                     //amqpAdmin.DeclareBinding(BindingBuilder.Bind(mktDataQueue).To(mktDataExchange).With(_currentBinding));
                     //Set up initial binding
-                    RebindQueue("APP.STOCK.QUOTES.nasdaq.*");
+                    RebindQueue("app.stock.quotes.nasdaq.*");
                 }
             }
             catch (Exception ex)
@@ -146,8 +146,8 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             {
                 IAmqpAdmin amqpAdmin = new RabbitAdmin(factory);
 
-                TopicExchange mktDataExchange = new TopicExchange("APP.STOCK.MARKETDATA", false, false);
-                Spring.Messaging.Amqp.Core.Queue mktDataQueue = new Spring.Messaging.Amqp.Core.Queue("APP.STOCK.MARKETDATA");
+                TopicExchange mktDataExchange = new TopicExchange("app.stock.marketdata", false, false);
+                Spring.Messaging.Amqp.Core.Queue mktDataQueue = new Spring.Messaging.Amqp.Core.Queue("app.stock.marketdata");
 
                 if (!string.IsNullOrEmpty(_currentBinding))
                     amqpAdmin.RemoveBinding(BindingBuilder.Bind(mktDataQueue).To(mktDataExchange).With(_currentBinding));
