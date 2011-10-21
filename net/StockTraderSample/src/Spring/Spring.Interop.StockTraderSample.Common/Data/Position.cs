@@ -1,11 +1,11 @@
 namespace Spring.Interop.StockTraderSample.Common.Data
 {
-    public class OutstandingShares
+    public class Position
     {
         private readonly string _symbol;
         private readonly int _shares;
 
-        public OutstandingShares(string symbol, int shares)
+        public Position(string symbol, int shares)
         {
             _symbol = symbol;
             _shares = shares;

@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\OutstandingShares.cs" />
+    <Compile Include="Data\Position.cs" />
     <Compile Include="Data\TradeFailureResponse.cs" />
     <Compile Include="Data\CreditCheckRequest.cs" />
     <Compile Include="Data\CreditCheckResponse.cs" />

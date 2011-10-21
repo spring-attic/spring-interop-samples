@@ -43,7 +43,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             this.tradeQuantityNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.accountNameTextBox = new System.Windows.Forms.TextBox();
-            this.failedTradesButton = new System.Windows.Forms.Button();
+            this.currentPositionsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tradeQuantityNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,7 +151,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(93, 107);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(202, 13);
+            this.label3.Size = new System.Drawing.Size(176, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "i.e. app.stock.quotes.nasdaq.MSFT";
             // 
@@ -189,22 +189,22 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             this.accountNameTextBox.Size = new System.Drawing.Size(192, 20);
             this.accountNameTextBox.TabIndex = 1;
             // 
-            // failedTradesButton
+            // currentPositionsButton
             // 
-            this.failedTradesButton.Location = new System.Drawing.Point(90, 387);
-            this.failedTradesButton.Name = "failedTradesButton";
-            this.failedTradesButton.Size = new System.Drawing.Size(340, 23);
-            this.failedTradesButton.TabIndex = 8;
-            this.failedTradesButton.Text = "Show Failed Trades";
-            this.failedTradesButton.UseVisualStyleBackColor = true;
-            this.failedTradesButton.Click += new System.EventHandler(this.failedTradesButton_Click);
+            this.currentPositionsButton.Location = new System.Drawing.Point(90, 387);
+            this.currentPositionsButton.Name = "currentPositionsButton";
+            this.currentPositionsButton.Size = new System.Drawing.Size(340, 23);
+            this.currentPositionsButton.TabIndex = 8;
+            this.currentPositionsButton.Text = "Show Current Positions";
+            this.currentPositionsButton.UseVisualStyleBackColor = true;
+            this.currentPositionsButton.Click += new System.EventHandler(this.currentPositionsButton_Click);
             // 
             // StockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 422);
-            this.Controls.Add(this.failedTradesButton);
+            this.Controls.Add(this.currentPositionsButton);
             this.Controls.Add(this.tradeQuantityNumericUpDown);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnClear);
@@ -247,6 +247,6 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         private System.Windows.Forms.NumericUpDown tradeQuantityNumericUpDown;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox accountNameTextBox;
-        private System.Windows.Forms.Button failedTradesButton;
+        private System.Windows.Forms.Button currentPositionsButton;
     }
 }
