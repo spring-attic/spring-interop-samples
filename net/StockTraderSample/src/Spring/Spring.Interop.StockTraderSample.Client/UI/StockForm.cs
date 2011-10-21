@@ -62,10 +62,8 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         private void OnSendTradeRequest(object sender, EventArgs e)
         {
-            //In this simple example no data is collected from the view.
-            //Instead a hardcoded trade request is created in the controller.
-            tradeRequestStatusTextBox.Text = "Request Pending...";
             _stockController.SendTradeRequest(tradeRequestStatusTextBox.Text, Convert.ToInt32(tradeQuantityNumericUpDown.Value), accountNameTextBox.Text);
+            tradeRequestStatusTextBox.Text = "Request Pending...";
             log.Info("Sent trade request.");
         }
 
