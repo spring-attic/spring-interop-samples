@@ -6,7 +6,8 @@ public class Sequence implements Serializable {
 
   /* Private Fields */
 
-  private String name;
+	private static final long serialVersionUID = -5414262408374568373L;
+	private String name;
   private int nextId;
 
   /* Constructors */
