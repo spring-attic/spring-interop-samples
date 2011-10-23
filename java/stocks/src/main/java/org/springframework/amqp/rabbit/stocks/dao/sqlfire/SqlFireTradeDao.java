@@ -1,7 +1,5 @@
 package org.springframework.amqp.rabbit.stocks.dao.sqlfire;
 
-import java.math.BigDecimal;
-
 import javax.sql.DataSource;
 
 import org.springframework.amqp.rabbit.stocks.dao.TradeDao;
@@ -9,7 +7,6 @@ import org.springframework.amqp.rabbit.stocks.domain.Trade;
 import org.springframework.amqp.rabbit.stocks.generated.domain.QTrade;
 import org.springframework.data.jdbc.query.QueryDslJdbcTemplate;
 import org.springframework.data.jdbc.query.SqlInsertCallback;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.Tuple;
@@ -34,8 +31,9 @@ public class SqlFireTradeDao implements TradeDao {
 
 			public long doInSqlInsertClause(SQLInsertClause insertClause) {
 				
-				return insertClause.columns(qTrade.id, qTrade.symbol, qTrade.ordertype, qTrade.quantity, qTrade.executionprice, qTrade.error, qTrade.errormessage)
-					.values(trade.getId(), trade.getSymbol(), trade.getOrdertype(), trade.getQuantity(), trade.getExecutionPrice(), trade.isError() ? "T" : "F", trade.getErrorMessage()).execute();
+				return insertClause.columns(qTrade.id, qTrade.symbol, qTrade.buyrequest,  qTrade.ordertype, qTrade.quantity, qTrade.executionprice, qTrade.error, qTrade.errormessage, qTrade.confirmationnumber)
+					.values(trade.getId(), trade.getSymbol(), trade.isBuyRequest() ? "T" : "F", trade.getOrdertype(), trade.getQuantity(), trade.getExecutionPrice(), trade.isError() ? "T" : "F", 
+							trade.getErrorMessage(), trade.getConfirmationNumber()).execute();
 				
 			}
 		});
@@ -45,6 +43,13 @@ public class SqlFireTradeDao implements TradeDao {
 		SQLQuery sqlQuery = template.newSqlQuery()
 				.from(qTrade)
 				.where(qTrade.id.eq(id));		
+			return template.queryForObject(sqlQuery,  new MappingTradeProjection(qTrade.all()));
+	}
+	
+	public Trade findByConfirmationNumber(String confirmationNumber) {
+		SQLQuery sqlQuery = template.newSqlQuery()
+				.from(qTrade)
+				.where(qTrade.confirmationnumber.eq(confirmationNumber));		
 			return template.queryForObject(sqlQuery,  new MappingTradeProjection(qTrade.all()));
 	}
 	
@@ -64,12 +69,18 @@ public class SqlFireTradeDao implements TradeDao {
 				trade.setErrorMessage(tuple.get(qTrade.errormessage));
 			}
 			
+			String buyRequestAsString = tuple.get(qTrade.buyrequest);
+			if (buyRequestAsString.equalsIgnoreCase("T")) {
+				trade.setBuyRequest(true);
+			}
+			
 			
 			trade.setExecutionPrice(tuple.get(qTrade.executionprice).doubleValue());
 			trade.setId(tuple.get(qTrade.id));
 			trade.setOrdertype(tuple.get(qTrade.ordertype));
 			trade.setQuantity(tuple.get(qTrade.quantity));
 			trade.setSymbol(tuple.get(qTrade.symbol));
+			trade.setConfirmationNumber(tuple.get(qTrade.confirmationnumber));
 			
 			return trade;
 		}

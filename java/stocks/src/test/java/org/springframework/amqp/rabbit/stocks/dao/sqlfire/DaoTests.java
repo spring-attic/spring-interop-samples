@@ -2,6 +2,8 @@ package org.springframework.amqp.rabbit.stocks.dao.sqlfire;
 
 import static org.junit.Assert.*;
 
+import java.util.UUID;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.rabbit.stocks.dao.SequenceDao;
@@ -34,11 +36,23 @@ public class DaoTests {
 	@Test
 	public void testTradeDao() {
 		int tradeId = sequenceDao.getNextTradeId();
-		Trade trade = new Trade(tradeId, "AAPL", "BUY", 100, 392.0, true, "BAD") ;
+		Trade trade = new Trade(tradeId, "AAPL", true, "MARKET", 100, 392.0, true, "BAD") ;
+		String confirmationNumber = UUID.randomUUID().toString();
+		trade.setConfirmationNumber(confirmationNumber);
 		tradeDao.save(trade);
 		Trade trade2 = tradeDao.findById(tradeId);
-		assertEquals(tradeId, trade2.getId());
+		assertEquals(tradeId, trade2.getId());			
+		assertTrade(trade2);
+		
+		Trade trade3 = tradeDao.findByConfirmationNumber(confirmationNumber);
+		assertTrade(trade3);
+
+	}
+
+	private void assertTrade(Trade trade2) {
+			
 		assertEquals(100, trade2.getQuantity());
+		assertTrue(trade2.isBuyRequest());
 	}
 	
 	

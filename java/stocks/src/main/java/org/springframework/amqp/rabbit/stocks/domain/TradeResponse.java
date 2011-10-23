@@ -27,6 +27,8 @@ public class TradeResponse {
 	private long quantity;
 
 	private BigDecimal price;
+	
+	private boolean buyRequest;
 
 	private String orderType;
 
@@ -41,6 +43,15 @@ public class TradeResponse {
 	private long timestamp = new Date().getTime();
 	
 	private String requestId;
+	
+
+	public boolean isBuyRequest() {
+		return buyRequest;
+	}
+
+	public void setBuyRequest(boolean buyRequest) {
+		this.buyRequest = buyRequest;
+	}
 
 	public String getRequestId() {
 		return requestId;

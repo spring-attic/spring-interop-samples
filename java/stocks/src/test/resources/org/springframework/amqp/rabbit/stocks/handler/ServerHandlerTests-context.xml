@@ -3,14 +3,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:task="http://www.springframework.org/schema/task"
-	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<import resource="classpath:/server-gemfire.xml" />
+	
+	<context:property-placeholder location="classpath:/jdbc.properties"/>
 
-	<tx:annotation-driven/>
+	<import resource="classpath:server-handlers.xml" />
+	<import resource="classpath:server-services.xml" />
+	<import resource="classpath:server-database.xml"/>
+	<import resource="classpath:server-gemfire.xml"/>
+	
 
 </beans>

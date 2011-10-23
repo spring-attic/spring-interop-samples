@@ -13,7 +13,7 @@
 		<config>src/main/resources/server-messaging.xml</config>
 		<config>src/main/resources/server-services.xml</config>
 		<config>src/test/resources/org/springframework/amqp/rabbit/stocks/dao/sqlfire/DaoTests-context.xml</config>
-		<config>src/main/resources/spring-gemfire.xml</config>
+		<config>src/main/resources/server-gemfire.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

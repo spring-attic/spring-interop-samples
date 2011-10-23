@@ -8,6 +8,7 @@ import org.springframework.amqp.rabbit.stocks.domain.TradeRequest;
 import org.springframework.amqp.rabbit.stocks.domain.TradeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 public class DefaultTradingService implements TradingService {
 
@@ -24,12 +25,16 @@ public class DefaultTradingService implements TradingService {
 	public void processTrade(TradeRequest request, TradeResponse response) {
 		int tradeId = sequenceDao.getNextTradeId();
 		
-		Trade trade = new Trade(tradeId, response.getTicker(), response.getOrderType(), response.getQuantity(), 
+		// put invalid trades into a separate table.
+		Trade trade = new Trade(tradeId, response.getTicker(), response.isBuyRequest(), response.getOrderType(), response.getQuantity(), 
 					response.getPrice().doubleValue(), response.isError(), response.getErrorMessage());
+		if (StringUtils.hasText(response.getConfirmationNumber())) {
+			trade.setConfirmationNumber(response.getConfirmationNumber());
+		}
 		
 		tradeDao.save(trade);
 		if (!response.isError()) {
-			tradingBookDao.update(response.getTicker(), response.getOrderType(), response.getQuantity());
+			tradingBookDao.update(response.getTicker(), response.isBuyRequest(), response.getQuantity());
 		}
 
 	}

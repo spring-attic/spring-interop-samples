@@ -12,7 +12,7 @@
 	</bean>
 	
 	<bean id="tradingService"
-		class="org.springframework.amqp.rabbit.stocks.service.stubs.TradingServiceStub">
+		class="org.springframework.amqp.rabbit.stocks.service.DefaultTradingService">
 	</bean>
 	
 </beans>

@@ -2,6 +2,8 @@ package org.springframework.amqp.rabbit.stocks.dao;
 
 public interface TradingBookDao {
 
-	void update(String ticker, String orderType, long quantity);
+	long getQuantity(String ticker);
+	
+	void update(String ticker, boolean buyRequest, long quantity);
 
 }

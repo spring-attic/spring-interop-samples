@@ -4,13 +4,15 @@
     xmlns:gfe="http://www.springframework.org/schema/gemfire"
     xsi:schemaLocation="http://www.springframework.org/schema/gemfire http://www.springframework.org/schema/gemfire/spring-gemfire-1.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-        
-    <gfe:client-cache id="book"/>
     
-    <gfe:transaction-manager id="gemfire-tx-manager" cache-ref="book"/>
+	<gfe:cache/>
+    <gfe:client-region id="book" />
+   
+    
+    <gfe:transaction-manager id="gemfire-tx-manager"/>
     
    	<bean id="tradingBookDao" class="org.springframework.amqp.rabbit.stocks.dao.gemfire.GemfireTradingBookDao">
-		
+		<property name="tradingBook" ref="book"/>
 	</bean>
 
 </beans>

@@ -16,6 +16,8 @@
 	<import resource="classpath:server-messaging.xml" />
 	<import resource="classpath:server-services.xml" />
 	<import resource="classpath:server-jmx.xml" />
+	<import resource="classpath:server-database.xml"/>
+	<import resource="classpath:server-gemfire.xml"/>
 
 	<task:scheduled-tasks>
 		<task:scheduled ref="marketDataGateway" method="sendMarketData" fixed-delay="5000"/>

@@ -19,23 +19,26 @@ public class Trade {
 	
 	private int id;
 	private String symbol;
+	private boolean buyRequest;
 	private String ordertype;
 	private long quantity;
 	private double executionPrice;
 	private boolean error; 
 	private String errorMessage;
+	private String confirmationNumber;
 
-	public Trade(int tradeId, String symbol, String ordertype, long quantity, double executionPrice) {
+	public Trade(int tradeId, String symbol, boolean buyRequest, String ordertype, long quantity, double executionPrice) {
 		super();
 		this.id = tradeId;
+		this.buyRequest = buyRequest;
 		this.symbol = symbol;
 		this.ordertype = ordertype;
 		this.quantity = quantity;
 		this.executionPrice = executionPrice;
 	}
 	
-	public Trade(int tradeId, String symbol, String ordertype, long quantity, double executionPrice,  boolean error, String errorMessage) {
-		this(tradeId, symbol, ordertype, quantity, executionPrice);
+	public Trade(int tradeId, String symbol, boolean buyRequest, String ordertype, long quantity, double executionPrice,  boolean error, String errorMessage) {
+		this(tradeId, symbol, buyRequest, ordertype, quantity, executionPrice);
 		this.error = error;
 		this.errorMessage = errorMessage;
 	}
@@ -44,8 +47,24 @@ public class Trade {
 	// TODO remove zero-arg ctor and setters, did to simplify mapping
 	public Trade() {		
 	}
+	
+	
 
+	public String getConfirmationNumber() {
+		return confirmationNumber;
+	}
 
+	public void setConfirmationNumber(String confirmationNumber) {
+		this.confirmationNumber = confirmationNumber;
+	}
+
+	public boolean isBuyRequest() {
+		return buyRequest;
+	}
+
+	public void setBuyRequest(boolean buyRequest) {
+		this.buyRequest = buyRequest;
+	}
 
 	public int getId() {
 		return id;
