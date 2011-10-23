@@ -20,12 +20,12 @@ public class Trade {
 	private int id;
 	private String symbol;
 	private String ordertype;
-	private int quantity;
+	private long quantity;
 	private double executionPrice;
-	private String error = "T";  // ('T' or 'F');
+	private boolean error; 
 	private String errorMessage;
 
-	public Trade(int tradeId, String symbol, String ordertype, int quantity, double executionPrice) {
+	public Trade(int tradeId, String symbol, String ordertype, long quantity, double executionPrice) {
 		super();
 		this.id = tradeId;
 		this.symbol = symbol;
@@ -34,7 +34,7 @@ public class Trade {
 		this.executionPrice = executionPrice;
 	}
 	
-	public Trade(int tradeId, String symbol, String ordertype, int quantity, double executionPrice,  String error, String errorMessage) {
+	public Trade(int tradeId, String symbol, String ordertype, long quantity, double executionPrice,  boolean error, String errorMessage) {
 		this(tradeId, symbol, ordertype, quantity, executionPrice);
 		this.error = error;
 		this.errorMessage = errorMessage;
@@ -71,11 +71,11 @@ public class Trade {
 		this.ordertype = ordertype;
 	}
 
-	public int getQuantity() {
+	public long getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(long quantity) {
 		this.quantity = quantity;
 	}
 
@@ -87,11 +87,12 @@ public class Trade {
 		this.executionPrice = executionPrice;
 	}
 
-	public String getError() {
+
+	public boolean isError() {
 		return error;
 	}
 
-	public void setError(String error) {
+	public void setError(boolean error) {
 		this.error = error;
 	}
 
@@ -102,61 +103,7 @@ public class Trade {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((error == null) ? 0 : error.hashCode());
-		result = prime * result + ((errorMessage == null) ? 0 : errorMessage.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(executionPrice);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + id;
-		result = prime * result + ((ordertype == null) ? 0 : ordertype.hashCode());
-		result = prime * result + quantity;
-		result = prime * result + ((symbol == null) ? 0 : symbol.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Trade other = (Trade) obj;
-		if (error == null) {
-			if (other.error != null)
-				return false;
-		} else if (!error.equals(other.error))
-			return false;
-		if (errorMessage == null) {
-			if (other.errorMessage != null)
-				return false;
-		} else if (!errorMessage.equals(other.errorMessage))
-			return false;
-		if (Double.doubleToLongBits(executionPrice) != Double.doubleToLongBits(other.executionPrice))
-			return false;
-		if (id != other.id)
-			return false;
-		if (ordertype == null) {
-			if (other.ordertype != null)
-				return false;
-		} else if (!ordertype.equals(other.ordertype))
-			return false;
-		if (quantity != other.quantity)
-			return false;
-		if (symbol == null) {
-			if (other.symbol != null)
-				return false;
-		} else if (!symbol.equals(other.symbol))
-			return false;
-		return true;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Trade [id=" + id + ", symbol=" + symbol + ", ordertype=" + ordertype + ", quantity=" + quantity

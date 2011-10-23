@@ -28,6 +28,10 @@ public class SqlFireSequenceDao implements SequenceDao {
 		this.template = new QueryDslJdbcTemplate(dataSource);
 	}
 	
+	public int getNextTradeId() throws DataAccessException {
+		return getNextId(TRADE_SEQ);
+	}
+	
 	/**
 	 * This is a generic sequence ID generator that is based on a database table
 	 * called 'SEQUENCE', which contains two columns (NAME, NEXTID). This

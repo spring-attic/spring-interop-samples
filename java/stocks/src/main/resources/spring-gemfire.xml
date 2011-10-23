@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gfe="http://www.springframework.org/schema/gemfire"
+    xsi:schemaLocation="http://www.springframework.org/schema/gemfire http://www.springframework.org/schema/gemfire/spring-gemfire-1.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+    <gfe:client-cache id="book"/>
+    
+    <gfe:transaction-manager id="gemfire-tx-manager" cache-ref="book"/>
+    
+   	<bean id="tradingBookDao" class="org.springframework.amqp.rabbit.stocks.dao.gemfire.GemfireTradingBookDao">
+		
+	</bean>
+
+</beans>

@@ -27,14 +27,14 @@ public class DaoTests {
 	@Test	
 	public void testSequenceDao() {
 		assertTrue("sequenceDao should be an AOP proxy", AopUtils.isAopProxy(sequenceDao));
-		int firstId = sequenceDao.getNextId("tradenum");
+		int firstId = sequenceDao.getNextTradeId();
 		assertEquals(1000, firstId);
 	}
 	
 	@Test
 	public void testTradeDao() {
-		int tradeId = sequenceDao.getNextId("tradenum");
-		Trade trade = new Trade(tradeId, "AAPL", "BUY", 100, 392.0, "F", "BAD") ;
+		int tradeId = sequenceDao.getNextTradeId();
+		Trade trade = new Trade(tradeId, "AAPL", "BUY", 100, 392.0, true, "BAD") ;
 		tradeDao.save(trade);
 		Trade trade2 = tradeDao.findById(tradeId);
 		assertEquals(tradeId, trade2.getId());

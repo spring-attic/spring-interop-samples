@@ -1,5 +1,10 @@
 package org.springframework.amqp.rabbit.stocks.dao;
 
 public interface SequenceDao {
-		int getNextId(final String name);
+	
+		static String TRADE_SEQ = "tradenum";
+		
+		int getNextTradeId();
+		
+		int getNextId(String name);
 }
