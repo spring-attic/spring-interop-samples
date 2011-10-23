@@ -1,0 +1,780 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Spring.Data.GemFire</name>
+    </assembly>
+    <members>
+        <member name="T:Spring.Data.GemFire.AllKeysInterest">
+            <summary>
+            Basic holder class for registering an all-key based interest in cached data.
+            </summary>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.IInterest">
+            <summary>
+            Basic holder interface for registering an interest in cached data. 
+            </summary>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="P:Spring.Data.GemFire.IInterest.Policy">
+            <summary>
+            Gets or sets the policy.
+            </summary>
+            <value>The policy.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.IInterest.Durable">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Spring.Data.GemFire.AllKeysInterest"/> is durable.
+            </summary>
+            <value><c>true</c> if durable; otherwise, <c>false</c>.</value>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="M:Spring.Data.GemFire.AllKeysInterest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.AllKeysInterest"/> class.
+            </summary>
+        </member>
+        <member name="M:Spring.Data.GemFire.AllKeysInterest.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.AllKeysInterest"/> class.
+            </summary>
+            <param name="durable">if set to <c>true</c> register durable interest.</param>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="M:Spring.Data.GemFire.AllKeysInterest.#ctor(Spring.Data.GemFire.InterestResultPolicy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.AllKeysInterest"/> class.
+            </summary>
+            <param name="policy">The policy.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.AllKeysInterest.#ctor(Spring.Data.GemFire.InterestResultPolicy,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.AllKeysInterest"/> class.
+            </summary>
+            <param name="policy">The policy.</param>
+            <param name="durable">if set to <c>true</c> register durable interest.</param>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="M:Spring.Data.GemFire.AllKeysInterest.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Spring.Data.GemFire.AllKeysInterest.Policy">
+            <summary>
+            Gets or sets the policy.
+            </summary>
+            <value>The policy.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.AllKeysInterest.Durable">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Spring.Data.GemFire.AllKeysInterest"/> is durable.
+            </summary>
+            <value><c>true</c> if durable; otherwise, <c>false</c>.</value>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="T:Spring.Data.GemFire.CacheFactoryObject">
+            <summary>
+            Factory used for configuring a Gemfire Cache manager. Allows either retrieval of an existing, opened cache 
+            or the creation of a new one.
+            </summary>
+            <remarks>This class implements the <see cref="T:Spring.Dao.Support.IPersistenceExceptionTranslator"/> interface, as
+            auto-detected by Spring's PersistenceExceptionTranslationPostProcessor for AOP-based translation of
+            native exceptions to Spring DataAccessExceptions.  Hence, the presence of this class automatically enables
+            a PersistenceExceptionTranslationPostProcessor to translate GemFire exceptions.
+            </remarks>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="M:Spring.Data.GemFire.CacheFactoryObject.AfterPropertiesSet">
+            <summary>
+            Initialization callback called by Spring.  Responsible for connecting to the distributed system
+            and creating the cache.
+            </summary>
+        </member>
+        <member name="M:Spring.Data.GemFire.CacheFactoryObject.Dispose">
+            <summary>
+            Closes the cache and disconnects from the distributed system.
+            </summary>
+        </member>
+        <member name="M:Spring.Data.GemFire.CacheFactoryObject.TranslateExceptionIfPossible(System.Exception)">
+            <summary>
+            Translate the given exception thrown by a persistence framework to a
+            corresponding exception from Spring's generic DataAccessException hierarchy,
+            if possible.
+            </summary>
+            <param name="ex">The exception thrown.</param>
+            <returns>
+            the corresponding DataAccessException (or <code>null</code> if the
+            exception could not be translated, as in this case it may result from
+            user code rather than an actual persistence problem)
+            </returns>
+            <remarks>
+            	<para>
+            Do not translate exceptions that are not understand by this translator:
+            for example, if coming from another persistence framework, or resulting
+            from user code and unrelated to persistence.
+            </para>
+            	<para>
+            Of particular importance is the correct translation to <see cref="T:Spring.Dao.DataIntegrityViolationException"/>
+            for example on constraint violation.  Implementations may use Spring ADO.NET Framework's
+            sophisticated exception translation to provide further information in the event of SQLException as a root cause.
+            </para>
+            </remarks>
+            <seealso cref="T:Spring.Dao.DataIntegrityViolationException"/>
+            <seealso cref="T:Spring.Data.Support.ErrorCodeExceptionTranslator"/>
+            <author>Rod Johnson</author>
+            <author>Juergen Hoeller</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="M:Spring.Data.GemFire.CacheFactoryObject.GetObject">
+            <summary>
+            Returns the cache object
+            </summary>
+            <returns>The cache object</returns>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.DistributedSystemName">
+            <summary>
+            Sets the name of the distributed system.
+            </summary>
+            <value>The name of the distributed system.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.Properties">
+            <summary>
+            Sets the properties used to configure the Gemfire Cache. These are copied into 
+            a GemStone.GemFire.Cache.Properties object and used to initialize the DistributedSystem.
+            </summary>
+            <value>The properties used to configure the cache..</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.CacheXml">
+            <summary>
+            Sets the name of the cache XML that can be used to configure the cache.
+            </summary>
+            <value>The cache XML.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.DisconnectOnClose">
+            <summary>
+            Sets a value indicating whether to call DistributedSystem.Disconnect when this object is 
+            disposed.  There is a bug in the 3.0.0.9 client that may hang calls to close.  The default is
+            true, set to false if you experience a hang in the application.
+            </summary>
+            <value><c>true</c> to call DistributedSystem.Disconnect when this object is dispose; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.KeepAliveOnClose">
+            <summary>
+            Sets a value indicating whether to call cache.close(keepalive) which determines
+            whether to keep a durable client's queue alive.
+            </summary>
+            <value><c>true</c> call keep alive on close; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.ObjectType">
+            <summary>
+            Returns Gemstone.GemFire.Cache.Cache 
+            </summary>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.IsSingleton">
+            <summary>
+            Returns true
+            </summary>
+        </member>
+        <member name="P:Spring.Data.GemFire.CacheFactoryObject.ObjectName">
+            <summary>
+            Sets the name of the cache to the name of the Spring object definition.  Can be overrided by 
+            specifying 'name' as the key in the Properties collection.
+            </summary>
+        </member>
+        <member name="T:Spring.Data.GemFire.Caching.GemFireCache">
+            <summary>
+            Cache implementation for Gemfire
+            </summary>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.Caching.NamespaceDoc">
+            <summary>
+             This namespace contains all core classes making up the Spring GemFire project. 
+            </summary>
+        </member>
+        <member name="T:Spring.Data.GemFire.Config.CacheParser">
+            <summary>
+            Parser for <cache/> definitions.
+            </summary>
+            <author>Costin Leau</author> 
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.Config.ClientRegionParser">
+            <summary>
+            Parser for <client-region/> definitions.
+            </summary>
+            <author>Costin Leau</author> 
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.Config.NamespaceDoc">
+            <summary>
+             This namespace contains all classes providing Cache advice support for the Spring GemFire project. 
+            </summary>
+        </member>
+        <member name="T:Spring.Data.GemFire.Config.PoolParser">
+            <summary>
+            Parser for <client-region/> definitions.
+            </summary>
+            <author>Costin Leau</author> 
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.Config.LookupRegionParser">
+            <summary>
+            Parser for <lookup-region/> definitions.
+            </summary>
+            <author>Costin Leau</author> 
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.Config.GemfireNamespaceParser">
+            <summary>
+            Namespace parser for GemFire
+            </summary>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.Config.ParsingUtils">
+            <summary>
+            Various minor utility used by the parser.
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.GemFireCacheUtils">
+            <summary>
+            Helper class featuring methods for GemFire Cache or Region handling. 
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET))</author>
+        </member>
+        <member name="M:Spring.Data.GemFire.GemFireCacheUtils.ConvertGemFireAccessException(GemStone.GemFire.Cache.GemFireException)">
+            <summary>
+            Converts the GemFireException into an appropriate one from the Spring.Data.Dao hierarchy.
+            </summary>
+            <param name="ex">The GemFire exception.</param>
+            <returns>A Spring DataAccessException</returns>
+        </member>
+        <member name="T:Spring.Data.GemFire.GemFireSystemException">
+            <summary>
+            GemFire-specific subclass of UncategorizedDataAccessException, for GemFire system errors 
+            that do not match any concrete <code>Spring.Data.Dao</code> exceptions.
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="M:Spring.Data.GemFire.GemFireSystemException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.GemFireSystemException"/> class.
+            </summary>
+        </member>
+        <member name="M:Spring.Data.GemFire.GemFireSystemException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.GemFireSystemException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.GemFireSystemException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new instance of the GemFireSystemException class with the specified message
+            and root cause.
+            </summary>
+            <param name="message">
+            A message about the exception.
+            </param>
+            <param name="rootCause">
+            The root exception that is being wrapped.
+            </param>
+        </member>
+        <member name="M:Spring.Data.GemFire.GemFireSystemException.#ctor(GemStone.GemFire.Cache.GemFireException)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.GemFireSystemException"/> class.
+            </summary>
+            <param name="cause">The cause.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.GemFireSystemException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Creates a new instance of the
+            <see cref="T:Spring.Data.GemFire.GemFireSystemException"/> class.
+            </summary>
+            <param name="info">
+            The <see cref="T:System.Runtime.Serialization.SerializationInfo"/>
+            that holds the serialized object data about the exception being thrown.
+            </param>
+            <param name="context">
+            The <see cref="T:System.Runtime.Serialization.StreamingContext"/>
+            that contains contextual information about the source or destination.
+            </param>
+        </member>
+        <member name="T:Spring.Data.GemFire.KeyInterest">
+            <summary>
+            Basic holder class for registering a keys based interest in cached data.
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="M:Spring.Data.GemFire.KeyInterest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.KeyInterest"/> class.
+            </summary>
+        </member>
+        <member name="M:Spring.Data.GemFire.KeyInterest.#ctor(GemStone.GemFire.Cache.ICacheableKey[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.KeyInterest"/> class.
+            </summary>
+            <param name="keys">The keys.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.KeyInterest.#ctor(GemStone.GemFire.Cache.ICacheableKey[],System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.KeyInterest"/> class.
+            </summary>
+            <param name="keys">The keys.</param>
+            <param name="durable">if set to <c>true</c> register durable interest.</param>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="M:Spring.Data.GemFire.KeyInterest.#ctor(GemStone.GemFire.Cache.ICacheableKey[],Spring.Data.GemFire.InterestResultPolicy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.KeyInterest"/> class.
+            </summary>
+            <param name="keys">The keys.</param>
+            <param name="policy">The policy.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.KeyInterest.#ctor(GemStone.GemFire.Cache.ICacheableKey[],Spring.Data.GemFire.InterestResultPolicy,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.KeyInterest"/> class.
+            </summary>
+            <param name="keys">The keys.</param>
+            <param name="policy">The policy.</param>
+            <param name="durable">if set to <c>true</c> register durable interest.</param>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="M:Spring.Data.GemFire.KeyInterest.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Spring.Data.GemFire.KeyInterest.Keys">
+            <summary>
+            Gets or sets the keys.
+            </summary>
+            <value>The keys.</value>
+        </member>
+        <member name="T:Spring.Data.GemFire.InterestResultPolicy">
+            <summary>
+            Enumeration for the policy of what to load on region initialization when registering for interest in cached data
+            </summary>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="F:Spring.Data.GemFire.InterestResultPolicy.KeysAndValues">
+            <summary>
+            The client receives a bulk load of all available keys and values matching the interest registration criteria. This is the default interest result policy. 
+            </summary>
+        </member>
+        <member name="F:Spring.Data.GemFire.InterestResultPolicy.Keys">
+            <summary>
+            The client receives a bulk load of all available keys matching the interest registration criteria.
+            </summary>
+        </member>
+        <member name="F:Spring.Data.GemFire.InterestResultPolicy.None">
+            <summary>
+            The client does not receive any immediate bulk loading. 
+            </summary>
+        </member>
+        <member name="T:Spring.Data.GemFire.NamespaceDoc">
+            <summary>
+             This namespace contains all core classes making up the Spring GemFire project. 
+            </summary>
+        </member>
+        <member name="T:Spring.Data.GemFire.PoolConnection">
+            <summary>
+            Simple holder class used for configuring servers or locators for GemFire pools.
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.PoolFactoryDefaults">
+            <summary>
+            Static value for default values of the Pool 
+            </summary>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.PoolFactoryObject">
+            <summary>
+            Factory object for easy declaration and configuration of a GemFire pool. 
+            </summary>
+            <remarks>
+            If a new pool is created, its life-cycle is bound to that of the declaring container.
+            <para>
+            Note that if the pool already exists, it will be returned as is, without any
+            modifications and its life cycle untouched by this factory.
+            </para>
+            </remarks>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="P:Spring.Data.GemFire.PoolFactoryObject.Pool">
+            <summary>
+            Sets the pool.
+            </summary>
+            <value>The pool.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.PoolFactoryObject.Name">
+            <summary>
+            Sets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.PoolFactoryObject.Locators">
+            <summary>
+            Sets the locators.
+            </summary>
+            <value>The locators.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.PoolFactoryObject.Servers">
+            <summary>
+            Sets the servers.
+            </summary>
+            <value>The servers.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.PoolFactoryObject.KeepAlive">
+            <summary>
+            Sets a value indicating whether to keep alive
+            </summary>
+            <value><c>true</c> if keep alive; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Spring.Data.GemFire.RegexInterest">
+            <summary>
+            Cache interest based on regular expression rather then individual key types.  
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="M:Spring.Data.GemFire.RegexInterest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.RegexInterest"/> class.
+            </summary>
+        </member>
+        <member name="M:Spring.Data.GemFire.RegexInterest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.RegexInterest"/> class.
+            </summary>
+            <param name="regex">The regex.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.RegexInterest.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.RegexInterest"/> class.
+            </summary>
+            <param name="regex">The regex.</param>
+            <param name="durable">if set to <c>true</c> register durable interest.</param>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="M:Spring.Data.GemFire.RegexInterest.#ctor(System.String,Spring.Data.GemFire.InterestResultPolicy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.RegexInterest"/> class.
+            </summary>
+            <param name="regex">The regex.</param>
+            <param name="policy">The policy.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.RegexInterest.#ctor(System.String,Spring.Data.GemFire.InterestResultPolicy,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Spring.Data.GemFire.RegexInterest"/> class.
+            </summary>
+            <param name="regex">The regex.</param>
+            <param name="policy">The policy.</param>
+            <param name="durable">if set to <c>true</c> register durable interest.</param>
+            <remarks>
+            The client can register any of its interest lists and continuous queries as durable. 
+            Durable interest remains even if the client disconnects for a period of time. 
+            During the client’s down time, the server maintains its durable subscriptions and then, 
+            when the client reconnects, plays them back to the client.
+            </remarks>
+        </member>
+        <member name="M:Spring.Data.GemFire.RegexInterest.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Spring.Data.GemFire.RegexInterest.AfterPropertiesSet">
+            <summary>
+            Ensures the regex property has been set.
+            </summary>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegexInterest.Regex">
+            <summary>
+            Gets the regex backing this interest
+            </summary>
+            <value>The regex.</value>
+        </member>
+        <member name="T:Spring.Data.GemFire.RegionAttributesFactoryObject">
+            <summary>
+            Create a Gemstone.Gemfire.Cache.RegionsAttribute using standard .NET setter properties.
+            </summary>
+            <author>Mark Pollack</author>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.CachingEnabled">
+            <summary>
+            Sets the caching enabled flag for this region.  
+            </summary>
+            <value>The caching is enabled.</value>
+            <remarks>If true, cache data for this region in this process. 
+            If set to false, then no data is stored in the local process, 
+            but events and distributions will still occur, and the region can still be used to put and remove, etc... 
+            The default if not set is 'true', 'false' is illegal for regions of ScopeType.Local scope. <see cref="P:Spring.Data.GemFire.RegionAttributesFactoryObject.LocalScope"/>
+            </remarks>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.ClientNotification">
+             <summary>
+             Sets the client notification to be enabled/disabled.
+             </summary>
+             <value>The client notification enabled.</value>
+             <remarks>
+            Ttrue if client notifications have to be enabled; false otherwise 
+             </remarks>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.LruEntriesLimit">
+            <summary>
+            Sets a limit on the number of entries that will be held in the cache. If a new entry is added while at the limit, the cache will evict the least recently used entry. 
+            </summary>
+            <value>The limit of the number of entries before eviction starts. Defaults to 0, meaning no LRU actions will used.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.CloningEnabled">
+            <summary>
+            Gets or sets the cloning enabled.
+            </summary>
+            <value>The cloning enabled.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.LocalScope">
+            <summary>
+            Sets a value indicating whether the region should be local scope, creating a private
+            data set in the memory area where this region residers, invisible to other client caches in the system.
+            </summary>
+            <value><c>true</c> if create a locally coped region; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.DiskPolicy">
+            <summary>
+            Sets the disk policy.  Only used when a new region is created.
+            </summary>
+            <value>The region disk policy.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.InitialCapacity">
+            <summary>
+            Sets the initial capacity of the map used for storing the entries.  Default is 16
+            </summary>
+            <value>The initial capacity.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.LoadFactor">
+            <summary>
+            Sets the load factor of the map used for storing the entries.  Default 0.75
+            </summary>
+            <value>The load factor.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.ConcurrencyLevel">
+            <summary>
+            Sets the allowed concurrency among updates to values in the region is guided by the concurrencyLevel, 
+            which is used as a hint for internal sizing.  Default 16.
+            </summary>
+            <value>The concurrency level.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.RegionTimeToLive">
+            <summary>
+            Sets the region time to live in seconds for the region as a whole
+            </summary>
+            <value>The region time to live.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.RegionTimeToLiveAction">
+            <summary>
+            Sets the region time to live expiration action.
+            </summary>
+            <value>The region time to live action.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.RegionIdleTimeout">
+            <summary>
+            Sets the region idle timeout in seconds
+            </summary>
+            <value>The region idle timeout.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.RegionIdleTimeoutAction">
+            <summary>
+            Sets the region idle timeout expiration action.
+            </summary>
+            <value>The region idle timeout action.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.EntryTimeToLive">
+            <summary>
+            Sets the entry time to live in seconds
+            </summary>
+            <value>The entry time to live.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.EntryTimeToLiveAction">
+            <summary>
+            Sets the entry time to live expiration action.
+            </summary>
+            <value>The entry time to live action.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.EntryIdleTimeout">
+            <summary>
+            Sets the entry idle timeout in seconds
+            </summary>
+            <value>The entry idle timeout.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionAttributesFactoryObject.EntryIdleTimeoutAction">
+            <summary>
+            Sets the entry idle timeout expiration action.
+            </summary>
+            <value>The entry idle timeout action.</value>
+        </member>
+        <member name="T:Spring.Data.GemFire.ClientRegionFactoryObject">
+            <summary>
+            FactoryObject for creating generic Gemfire Region. Will try to first locate the region (by name)
+            and, in case none if found, proceed to creating one using the given settings. 
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="T:Spring.Data.GemFire.RegionLookupFactoryObject">
+            <summary>
+            Simple FactoryObject for retrieving generic GemFire Regions. If the region doesn't exist, an exception is thrown.
+            For declaring and configuring new regions, see <see cref="T:Spring.Data.GemFire.ClientRegionFactoryObject"/>.
+            </summary>
+            <author>Costin Leau</author>
+            <author>Mark Pollack (.NET)</author>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionLookupFactoryObject.Cache">
+            <summary>
+            Sets the cache used for creating the region
+            </summary>
+            <value>The cache to set</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.RegionLookupFactoryObject.Name">
+            <summary>
+            Sets the name of the cache region. If no cache is found under
+            the given name, a new one will be created.
+            If no name is given, the objectName will be used.
+            </summary>
+            <value>The region name.</value>
+        </member>
+        <member name="M:Spring.Data.GemFire.ClientRegionFactoryObject.PostProcessAttributes(GemStone.GemFire.Cache.AttributesFactory)">
+            <summary>
+            Indented for subclasses to override and provide additional configuration of the AttributesFactory,
+            for example setting persistence manager option is not currenlty exposed as a public property on the
+            ClientRegionFactoryObject.
+            </summary>
+            <param name="attrFactory">The attributes factory.</param>
+        </member>
+        <member name="M:Spring.Data.GemFire.ClientRegionFactoryObject.PostProcess(GemStone.GemFire.Cache.Region)">
+            <summary>
+            Subclasses can override this method to further customize the Region configuration.
+            </summary>
+            <remarks>
+            Post-process the region object for this factory object during the initialization process.
+            The object is already initialized and configured by the factory object before this method
+            is invoked.
+            </remarks>
+            <param name="region">The region.</param>
+        </member>
+        <member name="P:Spring.Data.GemFire.ClientRegionFactoryObject.Destroy">
+            <summary>
+            Sets a value indicating whether the region created by this factory object will be
+            destroyed on shutdown (default false)
+            </summary>
+            <value><c>true</c> if destroy region on shutdown; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Spring.Data.GemFire.ClientRegionFactoryObject.Attributes">
+            <summary>
+            Sets the region attributes used for the region by this factory.  Allows maximum control in 
+            specifying the region settings.  
+            </summary>
+            <value>The attributes.</value>
+            <remarks>Used only when a new region is created.</remarks>
+        </member>
+        <member name="P:Spring.Data.GemFire.ClientRegionFactoryObject.Endpoints">
+            <summary>
+            Sets the endpoints for a client region. It is a comma separated list of host:port pairs.
+            </summary>
+            <value>The endpoints.</value>
+            <remarks>If the endpoints are set then the region is taken to be a Thin-client region that interacts with the GemFire Java cacheserver. </remarks>
+        </member>
+        <member name="P:Spring.Data.GemFire.ClientRegionFactoryObject.PoolName">
+            <summary>
+            Sets the name of the pool for a client region
+            </summary>
+            <value>The name of the pool to attach to this region.</value>
+            <remarks>The pool with the name specified must be already created.</remarks>
+        </member>
+        <member name="P:Spring.Data.GemFire.ClientRegionFactoryObject.CacheListeners">
+            <summary>
+            Gets or sets the cache listener.
+            </summary>
+            <value>The cache listener.</value>
+            <remarks>
+            Sets the cache listeners used for the region used by this factory.
+            Used only when a new region is created.Overrides the settings
+            specified through <see cref="P:Spring.Data.GemFire.ClientRegionFactoryObject.Attributes"/>
+            </remarks>
+        </member>
+        <member name="P:Spring.Data.GemFire.ClientRegionFactoryObject.CacheLoader">
+            <summary>
+            Sets the cache loader.
+            </summary>
+            <value>The cache loader to set on a newly created region</value>
+            <remarks>
+            Sets the cache loader used for the region used by this factory.
+            Used only when a new region is created.  Overrides the settings
+            specified through <see cref="P:Spring.Data.GemFire.ClientRegionFactoryObject.Attributes"/>
+            </remarks>
+        </member>
+        <member name="P:Spring.Data.GemFire.ClientRegionFactoryObject.CacheWriter">
+            <summary>
+            Gets or sets the cache writer.
+            </summary>
+            <value>The cache writer to set on a newly created region</value>
+            <remarks>
+            Sets the cache writer used for the region used by this factory.
+            Used only when a new region is created. Overrides the settings
+            specified through <see cref="P:Spring.Data.GemFire.ClientRegionFactoryObject.Attributes"/>
+            </remarks>
+        </member>
+    </members>
+</doc>

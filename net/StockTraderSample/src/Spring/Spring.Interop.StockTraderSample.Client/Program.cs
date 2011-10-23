@@ -56,6 +56,7 @@ namespace Spring.Interop.StockTraderSample.Client
             catch (Exception e)
             {
                 log.Error("Spring.Interop.StockTraderSample.Client is broken.", e);
+                throw;
             }
         }
 
