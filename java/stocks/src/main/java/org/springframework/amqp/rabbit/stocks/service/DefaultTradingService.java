@@ -30,7 +30,7 @@ public class DefaultTradingService implements TradingService {
 		int tradeId = sequenceDao.getNextTradeId();
 		
 		// put invalid trades into a separate table.
-		Trade trade = new Trade(tradeId, response.getTicker(), response.isBuyRequest(), response.getOrderType(), response.getQuantity(), 
+		Trade trade = new Trade(tradeId, response.getTicker(), response.getBuyRequest(), response.getOrderType(), response.getQuantity(), 
 					response.getPrice().doubleValue(), response.isError(), response.getErrorMessage());
 		if (StringUtils.hasText(response.getConfirmationNumber())) {
 			trade.setConfirmationNumber(response.getConfirmationNumber());
@@ -39,7 +39,7 @@ public class DefaultTradingService implements TradingService {
 		
 		tradeDao.save(trade);
 		if (!response.isError()) {
-			tradingBookDao.update(response.getTicker(), response.isBuyRequest(), response.getQuantity());
+			tradingBookDao.update(response.getTicker(), response.getBuyRequest(), response.getQuantity());
 		} else {
 			logger.info("Did not update Gemfire Cache, TradeResponse has an error.  " + trade);
 		}

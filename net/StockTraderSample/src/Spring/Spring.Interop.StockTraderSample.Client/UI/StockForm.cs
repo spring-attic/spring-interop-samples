@@ -46,7 +46,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         private StockController _stockController;
         private string _currentBinding;
-        //private const decimal DefaultTradeRequestQuantity = 1;
+        private const decimal DefaultTradeRequestQuantity = 1;
         private const string DefaultAccountName = "ACCT-123";
 
         public StockForm()
@@ -78,13 +78,15 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
                            if (trade.Error)
                            {
-                               var msg = string.Format("Error buying {0} shares of {1}: {2}", trade.Quantity, trade.Ticker, trade.ErrorMessage);
+                               var msg = string.Format("Error processing {0} shares of {1}:\n{2}", trade.Quantity, trade.Ticker, trade.ErrorMessage);
                                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                            }
                            else
                            {
-                               var msg = string.Format("Confirmed. Purchased {0} shares of {1}\nfor a total cost of {2} ", trade.Quantity, trade.Ticker, trade.Price);
-                               MessageBox.Show(msg, "Trade Completed", MessageBoxButtons.OK);
+                               var purchasedOrSold = trade.BuyRequest ? "Purchased" : "Sold";
+
+                               var msg = string.Format("Confirmed. {0} {1} shares of {2}\nfor a total cost of {3} ", purchasedOrSold, trade.Quantity, trade.Ticker, trade.Price);
+                               MessageBox.Show(msg, "Trade Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                            }
                        }));
         }
@@ -94,7 +96,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             Invoke(new MethodInvoker(
                        delegate
                        {
-                           marketDataListBox.Items.Insert(0, string.Format("{0}.{1} {2}", quote.Stock.StockExchange.ToString(), quote.Stock.Ticker, quote.Price));
+                           marketDataListBox.Items.Insert(0, string.Format("{0}.{1} {2}", quote.Stock.StockExchange, quote.Stock.Ticker, quote.Price));
 
                            //ensure that there are never more than 50 entries in the listbox (to prevent endlessly-growing data)
                            if (marketDataListBox.Items.Count == 50)
@@ -126,6 +128,8 @@ namespace Spring.Interop.StockTraderSample.Client.UI
                 listener.Start();
             }
 
+            tradeOperationsGroupBox.Enabled = true;
+
             RebindQueue(txtRoutingKey.Text);
         }
 
@@ -137,7 +141,9 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         private void StockForm_Load(object sender, EventArgs e)
         {
             accountNameTextBox.Text = DefaultAccountName;
-            //tradeQuantityNumericUpDown.Value = DefaultTradeRequestQuantity;
+            tradeQuantityNumericUpDown.Value = DefaultTradeRequestQuantity;
+
+            tradeOperationsGroupBox.Enabled = false;
 
             try
             {

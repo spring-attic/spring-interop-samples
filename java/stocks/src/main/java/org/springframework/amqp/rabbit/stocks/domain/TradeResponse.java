@@ -45,7 +45,7 @@ public class TradeResponse {
 	private String requestId;
 	
 
-	public boolean isBuyRequest() {
+	public boolean getBuyRequest() {
 		return buyRequest;
 	}
 

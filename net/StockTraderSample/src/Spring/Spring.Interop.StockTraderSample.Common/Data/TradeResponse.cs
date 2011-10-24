@@ -37,6 +37,8 @@ namespace Spring.Interop.StockTraderSample.Common.Data
 
         private string confirmationNumber;
 
+        private bool _buyRequest;
+
         private bool error;
 
         private string errorMessage;
@@ -81,6 +83,12 @@ namespace Spring.Interop.StockTraderSample.Common.Data
         {
             get { return errorMessage; }
             set { errorMessage = value; }
+        }
+
+        public bool BuyRequest
+        {
+            get { return _buyRequest; }
+            set { _buyRequest = value; }
         }
 
         public bool Equals(TradeResponse other)

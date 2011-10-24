@@ -69,7 +69,8 @@ public class ExecutionVenueServiceStub implements ExecutionVenueService {
         else
         {
         	//in line with market data implementation
-        	double unitPrice = MockStock.getStockByName(ticker).randomPrice();
+        	MockStock stock = MockStock.getStockByName(ticker);
+			double unitPrice = stock.randomPrice();
         	double blur = Math.abs(gaussian());
             return new BigDecimal((unitPrice + blur) * quantity);
         }        
