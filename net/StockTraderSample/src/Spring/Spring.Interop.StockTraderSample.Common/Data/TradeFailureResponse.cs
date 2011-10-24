@@ -4,10 +4,10 @@
     {
         private readonly string _failureReason;
         private readonly string _symbol;
-        private readonly Trade.OrderType _orderType;
+        private readonly string _orderType;
         private readonly int _quantity;
 
-        public TradeFailureResponse(string symbol, int quantity, string failureReason, Trade.OrderType orderType)
+        public TradeFailureResponse(string symbol, int quantity, string failureReason, string orderType)
         {
             _symbol = symbol;
             _orderType = orderType;
@@ -15,7 +15,7 @@
             _quantity = quantity;
         }
 
-        public Trade.OrderType OrderOrderType
+        public string OrderOrderType
         {
             get { return _orderType; }
         }

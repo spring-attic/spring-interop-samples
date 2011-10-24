@@ -19,9 +19,8 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Repository
 
         public IEnumerable<Trade> GetAllTrades()
         {
-            var sql = "select Symbol, Quantity, ExecutionPrice, TradeType from Trade";
-
-            return _adoTemplate.QueryWithRowMapper(CommandType.Text, sql, _tradeRowMapper);
+            const string selectAllTrades = "select ConfirmationNumber, Symbol, Quantity, ExecutionPrice, BuyRequest, OrderType, Error, ErrorMessage from Trade";
+            return _adoTemplate.QueryWithRowMapper(CommandType.Text, selectAllTrades, _tradeRowMapper);
         }
     }
 
@@ -29,10 +28,16 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Repository
     {
         public Trade MapRow(IDataReader reader, int rowNum)
         {
-            var typeString = reader.GetString(3);
-            var type = Trade.ConvertToOrderType(typeString);
-
-            return new Trade(reader.GetString(0), reader.GetInt32(1), (double)reader.GetDecimal(2), type);
+            return new Trade(
+                reader.GetString(0),  //confirmation number
+                reader.GetString(1),  //symbol
+                reader.GetInt32(2),   //quantity
+                reader.GetDecimal(3), //execution price
+                reader.GetBoolean(4), //buy request?
+                reader.GetString(5),  //order type
+                reader.GetBoolean(6), //error?
+                reader.GetString(7)   //error message(s)
+                );
         }
     }
 }
