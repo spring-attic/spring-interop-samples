@@ -38,11 +38,16 @@ namespace Spring.Interop.StockTraderSample.CreditCheckService.Controllers
 
         private CreditCheckResponse AssembleRandomCreditCheckResponse(string account, decimal purchaseValue)
         {
+            /*
             var rnd = new Random();
             var reasonIndex = rnd.Next(0, _failureReasons.Count() - 1);
             var passFail = rnd.Next(1, 100) % 5.0 == 0 ? false : true;
-
-            return new CreditCheckResponse(account, purchaseValue, passFail, _failureReasons.ElementAt(reasonIndex));
+            */
+            if (purchaseValue > 10000)
+            {
+                return new CreditCheckResponse(account, purchaseValue, false, "Insufficient Funds.");
+            }
+            return new CreditCheckResponse(account, purchaseValue, true, "");
         }
     }
 }
