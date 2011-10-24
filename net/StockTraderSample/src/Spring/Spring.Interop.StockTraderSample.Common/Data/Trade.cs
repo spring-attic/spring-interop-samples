@@ -5,7 +5,6 @@ namespace Spring.Interop.StockTraderSample.Common.Data
     public class Trade
     {
         private readonly string _confirmationNumber;
-
         private readonly string _symbol;
         private readonly long _quantity;
         private readonly decimal _executionPrice;
@@ -26,6 +25,11 @@ namespace Spring.Interop.StockTraderSample.Common.Data
             _errorMessage = errorMessage;
         }
 
+
+        public string ConfirmationNumber
+        {
+            get { return _confirmationNumber; }
+        }
 
         public string ErrorMessage
         {
