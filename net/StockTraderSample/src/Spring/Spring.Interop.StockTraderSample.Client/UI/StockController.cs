@@ -72,12 +72,18 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         public void UpdateMarketData(Quote quote)
         {
-            stockForm.UpdateMarketData(quote);
+            if (stockForm != null)
+            {
+                stockForm.UpdateMarketData(quote);
+            }
         }
 
         public void UpdateTrade(TradeResponse tradeResponse)
         {
-            stockForm.UpdateTrade(tradeResponse);
+            if (stockForm != null)
+            {
+                stockForm.UpdateTrade(tradeResponse);
+            }
         }
 
 

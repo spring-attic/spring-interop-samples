@@ -6,7 +6,10 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     
 	<gfe:cache/>
-    <gfe:client-region id="book" />
+	<gfe:pool id="pool">	
+	  <gfe:server host="localhost" port="40404"/>
+	</gfe:pool>
+    <gfe:client-region id="book" pool-name="pool" />
    
     
     <gfe:transaction-manager id="gemfire-tx-manager"/>

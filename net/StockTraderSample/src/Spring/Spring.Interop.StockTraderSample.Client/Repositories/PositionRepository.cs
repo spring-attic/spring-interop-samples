@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using GemStone.GemFire.Cache;
-using GemStone.GemFire.Cache.Generic;
 using Spring.Interop.StockTraderSample.Common.Data;
+using ICacheableKey = GemStone.GemFire.Cache.ICacheableKey;
 
 
 namespace Spring.Interop.StockTraderSample.Client.Repositories
@@ -12,22 +12,21 @@ namespace Spring.Interop.StockTraderSample.Client.Repositories
 
         private Region _region;
 
-        public PositionRepository(Spring.Data.GemFire.ClientRegionFactoryObject region)
+        public PositionRepository(Region region)
         {
-            _region = region.GetObject() as Region;
+            _region = region;
         }
-        
+
         public IEnumerable<Position> GetAllShares()
         {
-            var positions = new List<Position>();
-
-            RegionEntry[] regionEntries = _region.GetEntries(false);
-
-            foreach (RegionEntry regionEntry in regionEntries)
+            var positions = new List<Position>();           
+            ICacheableKey[] keys = _region.GetServerKeys();
+            foreach (var key in keys)
             {
-                positions.Add(new Position(regionEntry.Key.ToString(), Convert.ToInt32(regionEntry.Value.ToString())));
-            }
+                Console.WriteLine(key + ", " + _region.Get(key));
+                positions.Add(new Position(key.ToString(), Convert.ToInt32(_region.Get(key).ToString())));
 
+            }
             return positions;
         }
     }

@@ -2,12 +2,18 @@ package org.springframework.amqp.rabbit.stocks.dao.gemfire;
 
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.amqp.rabbit.stocks.dao.TradingBookDao;
+import org.springframework.amqp.rabbit.stocks.dao.sqlfire.SqlFireTradeDao;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional("gemfire-tx-manager")
 public class GemfireTradingBookDao implements TradingBookDao {
 
+	private static Log logger = LogFactory.getLog(GemfireTradingBookDao.class);
+	
+	
 	private Map tradingBook;
 
 	public Map getTradingBook() {
@@ -38,6 +44,7 @@ public class GemfireTradingBookDao implements TradingBookDao {
 			totalQuantity = totalQuantity - quantity;
 		}
 		tradingBook.put(ticker, totalQuantity);
+		logger.info("Updated Gemfire Trading Book. ticker = " + ticker + ", quantity = " + quantity + ", buyRequest = " + buyRequest);
 	}
 
 }

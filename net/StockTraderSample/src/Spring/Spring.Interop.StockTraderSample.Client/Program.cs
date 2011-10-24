@@ -22,11 +22,12 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using Common.Logging;
-using RabbitMQ.Client;
 using Spring.Context;
 using Spring.Context.Support;
-using Spring.Messaging.Amqp.Rabbit.Core;
+using Spring.Data.GemFire.Config;
 using Spring.Interop.StockTraderSample.Client.UI;
+using Spring.Objects.Factory.Xml;
+
 
 namespace Spring.Interop.StockTraderSample.Client
 {
@@ -44,6 +45,7 @@ namespace Spring.Interop.StockTraderSample.Client
             try
             {
                 log.Info("Running....");
+                NamespaceParserRegistry.RegisterParser(typeof(GemfireNamespaceParser));
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 using (IApplicationContext ctx = ContextRegistry.GetContext())

@@ -2,9 +2,12 @@ package org.springframework.amqp.rabbit.stocks.dao.sqlfire;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.amqp.rabbit.stocks.dao.TradeDao;
 import org.springframework.amqp.rabbit.stocks.domain.Trade;
 import org.springframework.amqp.rabbit.stocks.generated.domain.QTrade;
+import org.springframework.amqp.rabbit.stocks.service.DefaultTradingService;
 import org.springframework.data.jdbc.query.QueryDslJdbcTemplate;
 import org.springframework.data.jdbc.query.SqlInsertCallback;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,8 @@ import com.mysema.query.types.MappingProjection;
 @Transactional()
 public class SqlFireTradeDao implements TradeDao {
 
+	private static Log logger = LogFactory.getLog(SqlFireTradeDao.class);
+	
 	private final QTrade qTrade = QTrade.trade;
 
 	private QueryDslJdbcTemplate template;
@@ -37,6 +42,7 @@ public class SqlFireTradeDao implements TradeDao {
 				
 			}
 		});
+		logger.info("Saved Trade " + trade);
 	}
 
 	public Trade findById(int id) {
