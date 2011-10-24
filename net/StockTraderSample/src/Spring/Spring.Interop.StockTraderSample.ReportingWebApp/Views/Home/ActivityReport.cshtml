@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = Model.Title;
 }
+
+@{
+    var grid = new WebGrid(Model.Trades);
+}
+
 @if (Model.Trades.Count() == 0)
 {
     <h2>
@@ -9,10 +14,12 @@
 }
 else
 {
-    <ul>
-        @foreach (var trade in Model.Trades)
-        {
-            <li>@trade.Symbol @trade.ExecutionPrice @trade.Quantity @trade.OrderType</li>
-        }
-    </ul>
+
+    <h2>Trade Activity Details</h2>
+    
+    @grid.GetHtml();
+    
 }
+
+
+
