@@ -1,7 +1,16 @@
 INSERT INTO sequence VALUES('tradenum', 1000);
 
-INSERT INTO trades (1, 'MSFT',2,22.50,'BUY');
-INSERT INTO trades (2, 'CSCO',1,145.50,'BUY');
-INSERT INTO trades (3, 'APPL',25,345.60,'BUY');
-INSERT INTO trades (4, 'GOOG',10,18.45,'BUY');
-INSERT INTO trades (5, 'MSFT',100,22.50,'BUY');
+insert into trade (id, symbol, buyrequest, ordertype, quantity, executionprice, error)
+    values (1,'MSFT', '1', 'MARKET', 1, 25.10, '0');
+insert into trade (id, symbol, buyrequest, ordertype, quantity, executionprice, error)
+    values (2,'APPL', '1', 'MARKET', 10, 200.00, '0');
+insert into trade (id, symbol, buyrequest, ordertype, quantity, executionprice, error)
+    values (3,'GOOG', '0', 'LIMIT', 30, 125.10, '0');
+insert into trade (id, symbol, buyrequest, ordertype, quantity, executionprice, error, errormessage)
+    values (4,'CSCO', '1', 'MARKET', 100, 25.10, '1', 'you are ugly');
+insert into trade (id, symbol, buyrequest, ordertype, quantity, executionprice, error)
+    values (5,'GOOG', '0', 'LIMIT', 500, 112.22, '0');
+insert into trade (id, symbol, buyrequest, ordertype, quantity, executionprice, error)
+    values (6,'MSFT', '1', 'MARKET', 1500, 25.10, '0');
+
+

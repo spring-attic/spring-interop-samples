@@ -2,9 +2,17 @@
 @{
     ViewBag.Title = Model.Title;
 }
-<ul>
-@foreach (var trade in Model.Trades)
+@if (Model.Trades.Count() == 0)
 {
-    <li>@trade.Symbol  @trade.ExecutionPrice  @trade.Quantity  @trade.Type</li>
+    <h2>
+        No Trade Activity Found.</h2>
 }
-</ul>
+else
+{
+    <ul>
+        @foreach (var trade in Model.Trades)
+        {
+            <li>@trade.Symbol @trade.ExecutionPrice @trade.Quantity @trade.OrderType</li>
+        }
+    </ul>
+}
