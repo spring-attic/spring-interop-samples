@@ -1,4 +1,6 @@
-﻿namespace Spring.Interop.StockTraderSample.Common.Data
+﻿using System;
+
+namespace Spring.Interop.StockTraderSample.Common.Data
 {
     public class Trade
     {
@@ -59,5 +61,21 @@
         {
             get { return _symbol; }
         }
+
+        public static bool ConvertErrorToBoolean(string input)
+        {
+            return ConvertStringToBoolean(input);
+        }
+
+        public static bool ConvertBuyRequestToBoolean(string input)
+        {
+            return ConvertStringToBoolean(input);
+        }
+
+        private static bool ConvertStringToBoolean(string input)
+        {
+            return input.ToLower() == "t";
+        }
+
     }
 }

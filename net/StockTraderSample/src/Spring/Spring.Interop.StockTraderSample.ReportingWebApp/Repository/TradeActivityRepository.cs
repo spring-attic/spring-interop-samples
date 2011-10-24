@@ -29,14 +29,30 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Repository
         public Trade MapRow(IDataReader reader, int rowNum)
         {
             return new Trade(
-                reader.GetString(0),  //confirmation number
-                reader.GetString(1),  //symbol
-                reader.GetInt32(2),   //quantity
-                reader.GetDecimal(3), //execution price
-                reader.GetBoolean(4), //buy request?
-                reader.GetString(5),  //order type
-                reader.GetBoolean(6), //error?
-                reader.GetString(7)   //error message(s)
+                
+                //confirmation number
+                reader.GetString(0),
+                
+                //symbol
+                reader.GetString(1),
+                
+                //quantity
+                reader.GetInt32(2),
+
+                //execution price
+                reader.GetDecimal(3),
+
+                //buy request?
+                Trade.ConvertBuyRequestToBoolean(reader.GetString(4)),
+
+                //order type
+                reader.GetString(5),
+
+                //error?
+                Trade.ConvertErrorToBoolean(reader.GetString(6)) ,
+
+                //error message(s)
+                reader.GetString(7)   
                 );
         }
     }
