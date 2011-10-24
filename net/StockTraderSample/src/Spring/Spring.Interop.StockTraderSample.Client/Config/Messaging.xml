@@ -17,7 +17,7 @@
     <property name="MessageConverter" ref="JsonMessageConverter"/>
   </object>
 
-  <object name="MessageListenerContainer" type="Spring.Messaging.Amqp.Rabbit.Listener.SimpleMessageListenerContainer, Spring.Messaging.Amqp.Rabbit" init-method="Start">
+  <object name="MessageListenerContainer" type="Spring.Messaging.Amqp.Rabbit.Listener.SimpleMessageListenerContainer, Spring.Messaging.Amqp.Rabbit">
     <property name="ConnectionFactory" ref="ConnectionFactory"/>
     <property name="QueueNames" value="app.stock.marketdata,app.stock.joe"/>
     <property name="ConcurrentConsumers" value="1"/>

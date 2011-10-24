@@ -27,6 +27,7 @@ using Spring.Interop.StockTraderSample.Common.Data;
 using Spring.Messaging.Amqp.Core;
 using Spring.Messaging.Amqp.Rabbit.Connection;
 using Spring.Messaging.Amqp.Rabbit.Core;
+using Spring.Messaging.Amqp.Rabbit.Listener;
 
 namespace Spring.Interop.StockTraderSample.Client.UI
 {
@@ -98,6 +99,14 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            var ctx = ContextRegistry.GetContext();
+            var listener = ctx.GetObject("MessageListenerContainer") as SimpleMessageListenerContainer;
+
+            if (!listener.IsRunning)
+            {
+                listener.Start();
+            }
+
             RebindQueue(txtRoutingKey.Text);
         }
 
@@ -136,12 +145,11 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         private void RebindQueue(string routingKey)
         {
-
-            var ctx = ContextRegistry.GetContext();
-            var factory = ctx.GetObject("ConnectionFactory") as IConnectionFactory;
-
             try
             {
+                var ctx = ContextRegistry.GetContext();
+                var factory = ctx.GetObject("ConnectionFactory") as IConnectionFactory;
+
                 IAmqpAdmin amqpAdmin = new RabbitAdmin(factory);
 
                 TopicExchange mktDataExchange = new TopicExchange("app.stock.marketdata", false, false);

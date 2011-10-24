@@ -13,7 +13,7 @@
   <object name="Region" type="Spring.Data.GemFire.ClientRegionFactoryObject, Spring.Data.GemFire">
     <property name="Endpoints" value="localhost:40404"/>
     <property name="Cache" ref="Cache"/>
-    <property name="Name" value="exampleregion"/>
+    <property name="Name" value="book"/>
     <property name="Attributes">
       <object type="Spring.Data.GemFire.RegionAttributesFactoryObject, Spring.Data.GemFire">
         <property name="ClientNotification" value="true"/>
