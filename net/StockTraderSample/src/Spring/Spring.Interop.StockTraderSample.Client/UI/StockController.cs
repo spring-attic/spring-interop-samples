@@ -54,11 +54,11 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             set { stockService = value; }
         }
 
-        public void SendTradeRequest(string symbol, int quantity, string account)
+        public void SendTradeRequest(string symbol, int quantity, string account, bool buyRequest)
         {
             TradeRequest tradeRequest = new TradeRequest();
             tradeRequest.AccountName = account;
-            tradeRequest.BuyRequest = true;
+            tradeRequest.BuyRequest = buyRequest;
             tradeRequest.OrderType = "MARKET";
             tradeRequest.Quantity = quantity;
             tradeRequest.RequestId = NextRequest();

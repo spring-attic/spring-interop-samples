@@ -63,8 +63,8 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         private void OnSendTradeRequest(object sender, EventArgs e)
         {
-            _stockController.SendTradeRequest(tradeRequestStatusTextBox.Text, Convert.ToInt32(tradeQuantityNumericUpDown.Value), accountNameTextBox.Text);
-            tradeRequestStatusTextBox.Text = "Request Pending...";
+            _stockController.SendTradeRequest(tradeRequestTickerSymbol.Text, Convert.ToInt32(tradeQuantityNumericUpDown.Value), accountNameTextBox.Text, buyRadioButton.Checked);
+            tradeRequestTickerSymbol.Text = "Request Pending...";
             log.Info("Sent trade request.");
         }
 
@@ -76,12 +76,14 @@ namespace Spring.Interop.StockTraderSample.Client.UI
                        {
                            if (trade.Error)
                            {
-                               tradeRequestStatusTextBox.Text = "Error buying " + trade.Quantity + " shares of " + trade.Ticker + "." +
-                                                                trade.ErrorMessage;
+                               var msg = string.Format("Error buying {0} shares of {1}.{2}", trade.Quantity, trade.Ticker, trade.ErrorMessage);
+                               MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                            }
                            else
                            {
-                               tradeRequestStatusTextBox.Text = "Confirmed. " + trade.Ticker + " " + trade.Price;
+                               tradeRequestTickerSymbol.Text = string.Empty;
+                               var msg = string.Format("Confirmed. {0} {1}", trade.Ticker, trade.Price);
+                               MessageBox.Show(msg, "Trade Completed", MessageBoxButtons.OK);
                            }
                        }));
         }
@@ -91,7 +93,14 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             Invoke(new MethodInvoker(
                        delegate
                        {
-                           marketDataListBox.Items.Add(quote.Stock.StockExchange.ToString() + "." + quote.Stock.Ticker + " " + quote.Price);
+                           marketDataListBox.Items.Insert(0, string.Format("{0}.{1} {2}", quote.Stock.StockExchange.ToString(), quote.Stock.Ticker, quote.Price));
+
+                           //ensure that there are never more than 50 entries in the listbox (to prevent endlessly-growing data)
+                           if (marketDataListBox.Items.Count == 50)
+                           {
+                               marketDataListBox.Items.RemoveAt(49);
+                           }
+
                        }));
         }
 
