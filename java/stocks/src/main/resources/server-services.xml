@@ -8,7 +8,7 @@
 	</bean>
 
 	<bean id="creditCheckService"
-		class="org.springframework.amqp.rabbit.stocks.service.stubs.CreditCheckServiceStub">
+		class="org.springframework.amqp.rabbit.stocks.service.DefaultCreditCheckService">
 	</bean>
 	
 	<bean id="tradingService"

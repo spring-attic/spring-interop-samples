@@ -114,6 +114,13 @@ public class TradeRequest {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "TradeRequest [ticker=" + ticker + ", quantity=" + quantity + ", price=" + price + ", orderType="
+				+ orderType + ", accountName=" + accountName + ", buyRequest=" + buyRequest + ", userName=" + userName
+				+ ", requestId=" + requestId + ", id=" + id + "]";
+	}
     
     
 }

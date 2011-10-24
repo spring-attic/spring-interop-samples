@@ -7,20 +7,13 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:property-placeholder system-properties-mode="OVERRIDE" location="classpath:/jdbc.properties"/>
-
-	<!--  pick up rabbit broker and RestTemplate configuration -->
-	<context:component-scan base-package="org.springframework.amqp.rabbit.stocks.config.server"/>
+	<context:property-placeholder location="classpath:/jdbc.properties"/>
 	
-	<import resource="classpath:server-handlers.xml" />
-	<import resource="classpath:server-messaging.xml" />
+	<bean class="org.springframework.amqp.rabbit.stocks.config.server.RestTemplateConfig"/>
+	
 	<import resource="classpath:server-services.xml" />
-	<import resource="classpath:server-jmx.xml" />
 	<import resource="classpath:server-database.xml"/>
 	<import resource="classpath:server-gemfire.xml"/>
-
-	<task:scheduled-tasks>
-		<task:scheduled ref="marketDataGateway" method="sendMarketData" fixed-delay="5000"/>
-	</task:scheduled-tasks>
 	
+
 </beans>

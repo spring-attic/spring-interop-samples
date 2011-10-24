@@ -36,7 +36,8 @@ public class GemfireTradingBookDao implements TradingBookDao {
 
 		long totalQuantity = 0;
 		if (tradingBook.containsKey(ticker)) {
-			totalQuantity = (Long) tradingBook.get(ticker);
+			String qtyAsString = tradingBook.get(ticker).toString();
+			totalQuantity = Long.parseLong(qtyAsString);
 		}
 		if (buyRequest) {
 			totalQuantity = totalQuantity + quantity;

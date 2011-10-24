@@ -46,7 +46,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         private StockController _stockController;
         private string _currentBinding;
-        private const decimal DefaultTradeRequestQuantity = 1;
+        //private const decimal DefaultTradeRequestQuantity = 1;
         private const string DefaultAccountName = "ACCT-123";
 
         public StockForm()
@@ -70,10 +70,19 @@ namespace Spring.Interop.StockTraderSample.Client.UI
 
         public void UpdateTrade(TradeResponse trade)
         {
+
             Invoke(new MethodInvoker(
                        delegate
                        {
-                           tradeRequestStatusTextBox.Text = "Confirmed. " + trade.Ticker + " " + trade.Price;
+                           if (trade.Error)
+                           {
+                               tradeRequestStatusTextBox.Text = "Error buying " + trade.Quantity + " shares of " + trade.Ticker + "." +
+                                                                trade.ErrorMessage;
+                           }
+                           else
+                           {
+                               tradeRequestStatusTextBox.Text = "Confirmed. " + trade.Ticker + " " + trade.Price;
+                           }
                        }));
         }
 
@@ -118,7 +127,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         private void StockForm_Load(object sender, EventArgs e)
         {
             accountNameTextBox.Text = DefaultAccountName;
-            tradeQuantityNumericUpDown.Value = DefaultTradeRequestQuantity;
+            //tradeQuantityNumericUpDown.Value = DefaultTradeRequestQuantity;
 
             try
             {

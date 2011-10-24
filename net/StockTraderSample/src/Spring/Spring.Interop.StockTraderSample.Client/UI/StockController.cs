@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections;
+using Common.Logging;
 using Spring.Interop.StockTraderSample.Client.Gateways;
 using Spring.Interop.StockTraderSample.Common.Data;
 
@@ -33,6 +34,9 @@ namespace Spring.Interop.StockTraderSample.Client.UI
     /// <author>Don McRae</author>
     public class StockController
     {
+
+        private readonly ILog log = LogManager.GetLogger(typeof(StockController));
+
         private StockForm stockForm;
 
         private IStockServiceGateway stockService;
@@ -61,6 +65,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             tradeRequest.Ticker = symbol;
             tradeRequest.UserName = "Joe Trader";
             
+            log.Info("Sending TradeRequest: " + tradeRequest);
             stockService.Send(tradeRequest);
         }
 

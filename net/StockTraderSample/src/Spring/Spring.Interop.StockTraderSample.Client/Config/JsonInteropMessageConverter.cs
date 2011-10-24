@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Spring.Messaging.Amqp.Support.Converter;
 
@@ -9,6 +10,7 @@ namespace Spring.Interop.StockTraderSample.Client.Config
         protected override void InitializeJsonSerializer()
         {
             this.jsonSerializer.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            this.jsonSerializer.DefaultValueHandling = DefaultValueHandling.Ignore;
         }
     }
     /*

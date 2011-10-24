@@ -18,6 +18,7 @@ package org.springframework.amqp.rabbit.stocks.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.amqp.rabbit.stocks.domain.MockStock;
 import org.springframework.amqp.rabbit.stocks.domain.TradeRequest;
 import org.springframework.amqp.rabbit.stocks.domain.TradeResponse;
 import org.springframework.amqp.rabbit.stocks.service.CreditCheckService;
@@ -25,52 +26,67 @@ import org.springframework.amqp.rabbit.stocks.service.ExecutionVenueService;
 import org.springframework.amqp.rabbit.stocks.service.TradingService;
 import org.springframework.util.StringUtils;
 
-
 /**
- * POJO handler that receives trade requests and sends back a trade response.  Main application
- * logic sits here which coordinates between {@link ExecutionVenueService}, {@link CreditCheckService}, 
- * and {@link TradingService}.
+ * POJO handler that receives trade requests and sends back a trade response. Main application logic sits here which
+ * coordinates between {@link ExecutionVenueService}, {@link CreditCheckService}, and {@link TradingService}.
  * 
  * @author Mark Pollack
- *
+ * 
  */
 public class ServerHandler {
 
-    private ExecutionVenueService executionVenueService;
+	private ExecutionVenueService executionVenueService;
 
-    private CreditCheckService creditCheckService;
+	private CreditCheckService creditCheckService;
 
-    private TradingService tradingService;
-    
-    
-	
-	public ServerHandler(ExecutionVenueService executionVenueService,
-						 CreditCheckService creditCheckService, 
-						 TradingService tradingService) {
+	private TradingService tradingService;
+
+	public ServerHandler(ExecutionVenueService executionVenueService, CreditCheckService creditCheckService,
+			TradingService tradingService) {
 		this.executionVenueService = executionVenueService;
 		this.creditCheckService = creditCheckService;
 		this.tradingService = tradingService;
 	}
 
-	public TradeResponse handleMessage(TradeRequest tradeRequest)
-	{
-        TradeResponse tradeResponse;
-        List<?> errors = new ArrayList<Object>();
-        if (creditCheckService.canExecute(tradeRequest, errors))
-        {
-            tradeResponse = executionVenueService.executeTradeRequest(tradeRequest);
-        }
-        else
-        {
-            tradeResponse = new TradeResponse();
-            tradeResponse.setError(true);
-            tradeResponse.setErrorMessage(StringUtils.arrayToCommaDelimitedString(errors.toArray()));
-            
-        }
-        tradingService.processTrade(tradeRequest, tradeResponse);
-        return tradeResponse;
+	public TradeResponse handleMessage(TradeRequest tradeRequest) {
+		TradeResponse tradeResponse;
+		List<String> errors = new ArrayList<String>();
+		if (validRequest(tradeRequest, errors)) {
+			if (creditCheckService.canExecute(tradeRequest, errors)) {
+				tradeResponse = executionVenueService.executeTradeRequest(tradeRequest);
+				tradingService.processTrade(tradeRequest, tradeResponse);
+			} else {
+				tradeResponse = createErrorTradeResponse(tradeRequest, errors);
+
+			}
+		} else {
+			tradeResponse = createErrorTradeResponse(tradeRequest, errors);
+		}
+		return tradeResponse;
 	}
 	
-	
-	
+	private boolean validRequest(TradeRequest tradeRequest, List<String> errors) {
+			if (MockStock.getStockByName(tradeRequest.getTicker())!=null) {
+				return true;
+			} else {
+				errors.add("Invalid Ticker [" + tradeRequest.getTicker() +"]");
+			}
+			return false;
+	}
+
+	private TradeResponse createErrorTradeResponse(TradeRequest tradeRequest, List<String> errors) {
+		TradeResponse tradeResponse;
+		tradeResponse = new TradeResponse();
+		tradeResponse.setError(true);
+		tradeResponse.setErrorMessage(StringUtils.arrayToCommaDelimitedString(errors.toArray()));
+		tradeResponse.setAccountName(tradeRequest.getAccountName());
+		tradeResponse.setBuyRequest(tradeRequest.isBuyRequest());
+		tradeResponse.setOrderType(tradeRequest.getOrderType());
+		tradeResponse.setRequestId(tradeRequest.getRequestId());
+		tradeResponse.setPrice(tradeRequest.getPrice());
+		tradeResponse.setQuantity(tradeRequest.getQuantity());
+		tradeResponse.setTicker(tradeRequest.getTicker());
+		return tradeResponse;
+	}
+
 }

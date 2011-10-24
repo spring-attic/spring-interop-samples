@@ -8,9 +8,12 @@
 		<property name="rabbitTemplate" ref="rabbitTemplate" />
 	</bean>
 
-	<listener-container concurrency="5" connection-factory="connectionFactory" message-converter="jsonMessageConverter"
+	<listener-container concurrency="5" connection-factory="connectionFactory" message-converter="jsonMessageConverter" error-handler="errorHandler"
 		xmlns="http://www.springframework.org/schema/rabbit">
-		<listener ref="serverHandler" method="handleMessage" queue-names="#{stockRequestQueue.name}" />
+		<listener ref="serverHandler" method="handleMessage" queue-names="#{stockRequestQueue.name}" />	
 	</listener-container>
+	
+	<bean id="errorHandler" class="org.springframework.amqp.rabbit.stocks.handler.DefaultErrorHandler"> 
+	</bean>
 
 </beans>

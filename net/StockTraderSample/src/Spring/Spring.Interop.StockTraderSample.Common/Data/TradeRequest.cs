@@ -120,7 +120,12 @@ namespace Spring.Interop.StockTraderSample.Common.Data
                 result = (result*397) ^ (requestId != null ? requestId.GetHashCode() : 0);
                 return result;
             }
-        }    
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Ticker: {0}, Quantity: {1}, Price: {2}, OrderType: {3}, AccountName: {4}, BuyRequest: {5}, UserName: {6}, RequestId: {7}", ticker, quantity, price, orderType, accountName, buyRequest, userName, requestId);
+        }
     }
 
 }

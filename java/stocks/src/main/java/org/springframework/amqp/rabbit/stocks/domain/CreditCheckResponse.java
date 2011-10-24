@@ -35,6 +35,7 @@ public class CreditCheckResponse {
 		return "CreditCheckResponse [account=" + account + ", value=" + value + ", passFail=" + passFail + ", reason="
 				+ reason + "]";
 	}
+	
   
    
 }

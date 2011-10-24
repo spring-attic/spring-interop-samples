@@ -26,7 +26,7 @@ namespace Spring.Interop.StockTraderSample.CreditCheckService.Controllers
 
             return View();
         }
-
+       
         public ActionResult CreditCheck(string accountName, decimal purchaseValue)
         {
             var response = AssembleRandomCreditCheckResponse(accountName, purchaseValue);

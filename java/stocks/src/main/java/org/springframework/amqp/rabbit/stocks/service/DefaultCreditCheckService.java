@@ -1,44 +1,42 @@
 package org.springframework.amqp.rabbit.stocks.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.params.HttpClientParams;
+import org.springframework.amqp.rabbit.stocks.domain.CreditCheckResponse;
+import org.springframework.amqp.rabbit.stocks.domain.MockStock;
 import org.springframework.amqp.rabbit.stocks.domain.TradeRequest;
-import org.springframework.http.client.CommonsClientHttpRequestFactory;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 public class DefaultCreditCheckService implements CreditCheckService {
 
-	public boolean canExecute(TradeRequest tradeRequest, List<?> errors) {
-		// TODO Auto-generated method stub
-		return false;
+	@Autowired
+	private RestTemplate restTemplate;
+
+	public boolean canExecute(TradeRequest tradeRequest, List<String> errors) {
+
+		if (tradeRequest.isBuyRequest()) {
+			double purchasePrice = calculatePurchasePrice(tradeRequest);
+			CreditCheckResponse response = restTemplate.getForObject(
+					"http://localhost:1100/home/CreditCheck/?accountname={0}&purchasevalue={1}", CreditCheckResponse.class,
+					tradeRequest.getAccountName(), purchasePrice);
+
+			// if failed credit check
+			if (!response.isPassFail()) {
+				errors.add(response.getReason());
+				return false;
+			}
+		}
+		return true;
 	}
 
-	public CommonsClientHttpRequestFactory requestFactory() {
-		HttpClientParams clientParams = new HttpClientParams();
-		clientParams.setConnectionManagerClass(org.apache.commons.httpclient.MultiThreadedHttpConnectionManager.class);
-
-		HttpClient httpClient = new HttpClient(clientParams);
-
-		CommonsClientHttpRequestFactory requestFactory = new CommonsClientHttpRequestFactory(httpClient);
-		return requestFactory;
+	private double calculatePurchasePrice(TradeRequest tradeRequest) {
+		MockStock stock = MockStock.getStockByName(tradeRequest.getTicker());
+		double purchasePrice = Double.MAX_VALUE;
+		if (stock != null) {
+			purchasePrice = tradeRequest.getQuantity() * stock.randomPrice();
+		}
+		return purchasePrice;
 	}
-	
-  public RestTemplate restTemplate() throws ClassNotFoundException {
-    RestTemplate template = new RestTemplate(requestFactory());
-    
-  	List<HttpMessageConverter<?>> messageConverters = template.getMessageConverters();
-  	List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>(messageConverters);
-   
-  	MappingJacksonHttpMessageConverter jsonConverter = new MappingJacksonHttpMessageConverter();
-  	converters.add(jsonConverter);	
-  	template.setMessageConverters(converters);
-  	
-    return template;
-  }
 
 }

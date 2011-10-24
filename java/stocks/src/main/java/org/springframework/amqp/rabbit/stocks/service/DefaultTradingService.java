@@ -8,7 +8,6 @@ import org.springframework.amqp.rabbit.stocks.dao.TradingBookDao;
 import org.springframework.amqp.rabbit.stocks.domain.Trade;
 import org.springframework.amqp.rabbit.stocks.domain.TradeRequest;
 import org.springframework.amqp.rabbit.stocks.domain.TradeResponse;
-import org.springframework.amqp.rabbit.stocks.gateway.RabbitMarketDataGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
