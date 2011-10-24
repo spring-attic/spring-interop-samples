@@ -74,15 +74,16 @@ namespace Spring.Interop.StockTraderSample.Client.UI
             Invoke(new MethodInvoker(
                        delegate
                        {
+                           tradeRequestTickerSymbol.Text = string.Empty;
+
                            if (trade.Error)
                            {
-                               var msg = string.Format("Error buying {0} shares of {1}.{2}", trade.Quantity, trade.Ticker, trade.ErrorMessage);
+                               var msg = string.Format("Error buying {0} shares of {1}: {2}", trade.Quantity, trade.Ticker, trade.ErrorMessage);
                                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                            }
                            else
                            {
-                               tradeRequestTickerSymbol.Text = string.Empty;
-                               var msg = string.Format("Confirmed. {0} {1}", trade.Ticker, trade.Price);
+                               var msg = string.Format("Confirmed. Purchased {0} shares of {1}\nfor a total cost of {2} ", trade.Quantity, trade.Ticker, trade.Price);
                                MessageBox.Show(msg, "Trade Completed", MessageBoxButtons.OK);
                            }
                        }));
