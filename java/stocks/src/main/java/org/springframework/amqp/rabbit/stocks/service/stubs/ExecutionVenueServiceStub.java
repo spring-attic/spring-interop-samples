@@ -21,6 +21,7 @@ import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.amqp.rabbit.stocks.domain.MockStock;
 import org.springframework.amqp.rabbit.stocks.domain.TradeRequest;
 import org.springframework.amqp.rabbit.stocks.domain.TradeResponse;
 import org.springframework.amqp.rabbit.stocks.service.ExecutionVenueService;
@@ -68,7 +69,9 @@ public class ExecutionVenueServiceStub implements ExecutionVenueService {
         else
         {
         	//in line with market data implementation
-            return new BigDecimal(22 + Math.abs(gaussian()));
+        	double unitPrice = MockStock.getStockByName(ticker).randomPrice();
+        	double blur = Math.abs(gaussian());
+            return new BigDecimal((unitPrice + blur) * quantity);
         }        
 	}
 	
