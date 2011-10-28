@@ -54,7 +54,7 @@ public class ServerHandler {
 		if (validRequest(tradeRequest, errors)) {
 			if (creditCheckService.canExecute(tradeRequest, errors)) {
 				tradeResponse = executionVenueService.executeTradeRequest(tradeRequest);
-				tradingService.processTrade(tradeRequest, tradeResponse);
+				//tradingService.processTrade(tradeRequest, tradeResponse);
 			} else {
 				tradeResponse = createErrorTradeResponse(tradeRequest, errors);
 
@@ -62,6 +62,9 @@ public class ServerHandler {
 		} else {
 			tradeResponse = createErrorTradeResponse(tradeRequest, errors);
 		}
+		
+		tradingService.processTrade(tradeRequest, tradeResponse);
+		
 		return tradeResponse;
 	}
 	
