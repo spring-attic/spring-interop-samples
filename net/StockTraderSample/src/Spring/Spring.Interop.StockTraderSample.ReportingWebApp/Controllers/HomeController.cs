@@ -26,11 +26,6 @@ namespace Spring.Interop.StockTraderSample.ReportingWebApp.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            return View();
-        }
-
         public ActionResult ActivityReport()
         {
             var trades = _tradeActivity.GetAllTrades();
