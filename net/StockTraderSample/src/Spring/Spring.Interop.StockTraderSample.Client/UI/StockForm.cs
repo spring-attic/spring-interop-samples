@@ -48,6 +48,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         private string _currentBinding;
         private const decimal DefaultTradeRequestQuantity = 1;
         private const string DefaultAccountName = "ACCT-123";
+        private const string DefaultRoutingKey = "app.stock.quotes.nasdaq.*";
 
         public StockForm()
         {
@@ -142,6 +143,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
         {
             accountNameTextBox.Text = DefaultAccountName;
             tradeQuantityNumericUpDown.Value = DefaultTradeRequestQuantity;
+            txtRoutingKey.Text = DefaultRoutingKey;
 
             tradeOperationsGroupBox.Enabled = false;
 
@@ -159,7 +161,7 @@ namespace Spring.Interop.StockTraderSample.Client.UI
                     //Create the Exchange for MarketData Requests if it does not already exist.
                     //amqpAdmin.DeclareBinding(BindingBuilder.Bind(mktDataQueue).To(mktDataExchange).With(_currentBinding));
                     //Set up initial binding
-                    RebindQueue("app.stock.quotes.nasdaq.*");
+                    RebindQueue(DefaultRoutingKey);
                 }
             }
             catch (Exception ex)
