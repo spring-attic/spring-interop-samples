@@ -15,6 +15,7 @@ Rabbit Setup Steps
 
 4. If mgt plugin added, nav to RabbitMQ web admin portal (http://localhost:55672  [default creds: username=guest, password=guest)
 
+********************
 
 GemFire Setup Steps
 1. Install GemFire as per the GemFire installation/getting-started instructions
@@ -23,8 +24,11 @@ GemFire Setup Steps
 
 	cacheserver start
 
-4. verify GemFire started via the following command-line: cacheserver status
+4. verify GemFire started via the following command-line:
 
+	cacheserver status
+
+********************
 
 SQLFire Setup Steps
 1. Install SQLFire as per the SQLFire installation/getting-started instructions
