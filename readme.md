@@ -19,7 +19,7 @@ The following vFabric components (Windows releases) must be installed and functi
 2. start RabbitMQ service (windows Services control panel or command-line as preferred)
 3. verify RabbitMQ service is running via the following command-line (switch to `rabbit-install-dir\sbin\`):
 
-    C:\rabbitDir\sbin> rabbitmqctl status
+    `C:\rabbitDir\sbin> rabbitmqctl status`
 
 4. If mgt plugin added, nav to RabbitMQ web admin portal (http://localhost:55672  [default creds: username=guest, password=guest)
 
