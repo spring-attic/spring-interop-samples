@@ -68,7 +68,7 @@ The following vFabric components (Windows releases) must be installed and functi
 Launch Sample Applications (Java and .NET) 
 ------------------------------------------
 
-The following .NET and Java application(s) must be running for the sample to function properly:
+Once the vFabric components are installed/configured properly, the following .NET and Java application(s) must be running for the sample to function properly:
 
 * Java Server App
 * .NET Windows Forms Client App
@@ -76,6 +76,8 @@ The following .NET and Java application(s) must be running for the sample to fun
 * .NET Credit Check REST service endpoint (hosted in ASP.NET MVC App)
 
 The default configuration settings for these applications assume all are to be deployed on the same computer, but these applications can be deployed on the same or different computers from each other (some configuration changes will be needed for deployment to multiple systems).
+
+_NOTE: The following steps assume that you want to run the sample Java and .NET applications from within their respective IDEs so that you can inspect the code, set breakpoints, etc.  This is expected to be the more common scenario for running these sample applications, but its not strictly necessary.  Any valid mechanism (command-line, etc.) may be used to launch these sample applications to begin to interact with the system._
 
 ### Starting the Java Server App
 
