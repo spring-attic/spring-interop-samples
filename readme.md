@@ -88,16 +88,16 @@ The default configuration settings for these applications assume all are to be d
 3. Launch a DEBUG instance of the `Spring.Interop.StockTraderSample.ReportingWebApp.2010` project (right-click on the project in the Solution Explorer window and select `Debug --> Start new instance`).  By default this web application will listen on PORT 1000.
 4. Launch a DEBUG instance of the `Spring.Interop.StockTraderSample.CreditCheckService.2010` project (right-click on the project in the Solution Explorer window and select `Debug --> Start new instance`).  By default this web application will listen on PORT 1100.
 
-Interactinig with the Sample Applications
------------------------------------------
+Interacting with the Sample Applications
+----------------------------------------
 
 ### Java Server App
-* The Java Server App contains no UI; once it is started, it will begin broadcasting stock _QUOTE_) messages and listeing for stock _BUY_ and _SELL_ messages.
+* The Java Server App contains no UI; once it is started, it will begin broadcasting stock _QUOTE_ messages and listening for stock _BUY_ and _SELL_ messages.
 
 ### .NET Windows Forms Client App
-* Use the _START_ and _STOP_ buttons to control listening for stock _QUOTE_ messages from the Java-based server.
+* Use the _START_ and _STOP_ buttons to control the client listening for stock _QUOTE_ messages from the Java-based server.
 * Change the value in the _Routing Key_ textbox and click the _APPLY_ button to change the filtering of _QUOTE_ messages received; this filtering is not merely applied to the listbox displaying the quotes, but controls the scope of the _QUOTE_ messages that are received by the client from the server.
-* To submit a _BUY_ or _SELL_ message to the server, enter a valid stock ticker symbol into the _Symbol_ textbox, select either the _Buy_ or _Sell_ radio button, enter a quantity into the numeric control, and click the _Send Trade Request_ button.  This message will be received by the Java Server App, processed, and a response message returned to the Client App.  If there are any errors, these will be returned to the Client App via messages from the Server App as well.
+* To submit a _BUY_ or _SELL_ message to the server enter a valid stock ticker symbol into the _Symbol_ textbox.  For the purposes of this sample system, only stock ticker symbols that appear in the quotes listbox are considered valid by the system.  Next, select either the _Buy_ or _Sell_ radio button, enter a quantity into the numeric control, and click the _Send Trade Request_ button.  This message will be received by the Java Server App, processed, and a response message returned to the Client App.  If there are any errors, these will be returned to the Client App via messages from the Server App as well.
 
 ### .NET ASP.NET MVC Web Trade Reporter App
 * Navigate to the application using your web browser of choice.  By default, the application will be running at the http://localhost:1000/ URL.
