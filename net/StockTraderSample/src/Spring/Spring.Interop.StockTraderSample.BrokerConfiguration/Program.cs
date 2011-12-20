@@ -44,8 +44,10 @@ namespace Spring.Interop.StockTraderSample.BrokerConfiguration
                 amqpAdmin.DeclareQueue(new Queue(ConfigurationManager.AppSettings["STOCK_REQUEST_QUEUE_NAME"]));
                 amqpAdmin.DeclareQueue(new Queue(ConfigurationManager.AppSettings["STOCK_RESPONSE_QUEUE_NAME"]));
 
-                TopicExchange mktDataExchange = new TopicExchange(ConfigurationManager.AppSettings["MARKET_DATA_EXCHANGE_NAME"], false, false);
-                amqpAdmin.DeclareExchange(mktDataExchange);
+                /*
+                 * TopicExchange mktDataExchange = new TopicExchange(ConfigurationManager.AppSettings["MARKET_DATA_EXCHANGE_NAME"], false, false);
+                 * amqpAdmin.DeclareExchange(mktDataExchange);
+                 */
                 Queue mktDataQueue = new Queue(ConfigurationManager.AppSettings["MARKET_DATA_QUEUE_NAME"]);
                 amqpAdmin.DeclareQueue(mktDataQueue);
 
