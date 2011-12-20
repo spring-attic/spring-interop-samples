@@ -10,22 +10,41 @@ Rabbit Setup Steps
 1. install RabbitMQ service as per the RabbitMQ installation/getting-started instructions (recommended but not necessary: add the admin plugin, see http://www.rabbitmq.com/management.html)
 2. start RabbitMQ service (windows Services control panel or command-line as preferred)
 3. verify RabbitMQ service is running via the following command-line (switch to <rabbitDir>\sbin\):
+
 	rabbitmqctl status
+
 4. If mgt plugin added, nav to RabbitMQ web admin portal (http://localhost:55672  [default creds: username=guest, password=guest)
 
 
 GemFire Setup Steps
 1. Install GemFire as per the GemFire installation/getting-started instructions
 2. copy the cache.xml file from <prj-source>\gemfire-config\ to the GemFire \bin\ folder
-3. start GemFire via the following command-line (switch to <gemfireDir>\bin\): cacheserver start
+3. start GemFire via the following command-line (switch to <gemfireDir>\bin\):
+
+	cacheserver start
+
 4. verify GemFire started via the following command-line: cacheserver status
 
 
 SQLFire Setup Steps
 1. Install SQLFire as per the SQLFire installation/getting-started instructions
-2. start the server via the following command-line (switch to <sqlfireDir>\bin\) : sqlf server start -dir=<path to data dir>   [can be an empty folder to start, but *must* exist]
-3. start sqlf> prompt via the following command-line: sqlf
-4. connect to the running server via the following command-line: connect client 'localhost:1527'
-5. run the script to create the SQLFire table and sequence via the following command-line (NOTE: path delimiters MUST be passed as "/" instead of "\"): run '<prj-source>/sqlfire_setup_scripts/sqlfire_create_schema.sql'
-6. run the script to populate the SEQUENCE with the initial value via the following command-line: run '<prj-source>/sqlfire_setup_scripts/sqlfire_populate_data.sql'
+2. start the server via the following command-line (switch to <sqlfireDir>\bin\):
+
+	sqlf server start -dir=<path to data dir>   [can be an empty folder to start, but *must* exist]
+
+3. start sqlf> prompt via the following command-line:
+
+	sqlf
+
+4. connect to the running server via the following command-line:
+
+	connect client 'localhost:1527'
+
+5. run the script to create the SQLFire table and sequence via the following command-line (NOTE: path delimiters MUST be passed as "/" instead of "\"):
+
+	run '<prj-source>/sqlfire_setup_scripts/sqlfire_create_schema.sql'
+
+6. run the script to populate the SEQUENCE with the initial value via the following command-line:
+
+	run '<prj-source>/sqlfire_setup_scripts/sqlfire_populate_data.sql'
 
