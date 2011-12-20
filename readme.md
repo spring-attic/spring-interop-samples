@@ -51,9 +51,9 @@ The following vFabric components (Windows releases) must be installed and functi
 
     `sqlf> connect client 'localhost:1527'`
 
-5. run the script to create the SQLFire table and sequence via the following command-line (NOTE: path delimiters _must_ be passed as `/` instead of `\`):
+5. run the script to create the SQLFire table and sequence via the following command-line (NOTE: even on Windows OS, the path delimiters _must_ be passed as `/` instead of `\`):
 
-    `sqlf> run 'path-to-project-repo/sqlfire_setup_scripts/sqlfire_create_schema.sql'`
+    `sqlf> **run 'path-to-project-repo/sqlfire_setup_scripts/sqlfire_create_schema.sql'**`
 
 6. run the script to populate the SEQUENCE with the initial value via the following command-line:
 
