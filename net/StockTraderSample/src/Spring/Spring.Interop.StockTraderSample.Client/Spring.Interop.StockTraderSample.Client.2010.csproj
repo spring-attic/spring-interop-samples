@@ -97,12 +97,14 @@
       <HintPath>..\..\..\packages\Spring.Rest.1.0.1\lib\net40\Spring.Rest.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrokerConfiguration.cs" />
     <Compile Include="Config\JsonInteropMessageConverter.cs" />
     <Compile Include="Gateways\IStockServiceGateway.cs" />
     <Compile Include="Gateways\RabbitStockServiceGateway.cs" />

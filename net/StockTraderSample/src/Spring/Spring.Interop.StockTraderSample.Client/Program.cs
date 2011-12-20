@@ -48,6 +48,9 @@ namespace Spring.Interop.StockTraderSample.Client
                 NamespaceParserRegistry.RegisterParser(typeof(GemfireNamespaceParser));
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+
+                BrokerConfiguration.Configure();
+
                 using (IApplicationContext ctx = ContextRegistry.GetContext())
                 {
                     StockForm stockForm = new StockForm();
