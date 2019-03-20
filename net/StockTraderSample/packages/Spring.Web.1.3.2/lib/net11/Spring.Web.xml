@@ -3305,7 +3305,7 @@
         </member>
         <member name="T:Spring.Web.Support.MimeMediaType">
             <summary>
-            Represents a MIME media type as defined by http://www.iana.org/assignments/media-types/
+            Represents a MIME media type as defined by https://www.iana.org/assignments/media-types/
             </summary>
             <author>Erich Eichinger</author>
         </member>
@@ -4891,8 +4891,8 @@
             </summary>
             <remarks>
             the 'action' attribute rendered by the default <see cref="T:System.Web.UI.HtmlControls.HtmlForm"/> control causes troubles 
-            in case of URL-rewriting. See e.g. <a href="http://www.thescripts.com/forum/thread408777.html">'thescripts.com' forum</a>
-            and also <a href="http://opensource.atlassian.com/projects/spring/browse/SPRNET-560">JIRA SPRNET-560</a> for more info.
+            in case of URL-rewriting. See e.g. <a href="https://bytes.com/forum/thread408777.html">'thescripts.com' forum</a>
+            and also <a href="https://opensource.atlassian.com/projects/spring/browse/SPRNET-560">JIRA SPRNET-560</a> for more info.
             </remarks>
             <author>Erich Eichinger</author>
         </member>
