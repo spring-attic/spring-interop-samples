@@ -8,9 +8,9 @@
  *
  * jQuery UI Slider 1.8.11
  *
- * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Copyright 2011, AUTHORS.txt (https://jqueryui.com/about)
  *
- * http://docs.jquery.com/UI/Slider#theming
+ * https://docs.jquery.com/UI/Slider#theming
  */
 .ui-slider { position: relative; text-align: left; }
 .ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 1.2em; height: 1.2em; cursor: default; }

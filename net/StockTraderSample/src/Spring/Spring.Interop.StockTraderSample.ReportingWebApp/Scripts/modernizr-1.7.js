@@ -7,11 +7,11 @@
 * which Microsoft distributed this file.
 *
 * Modernizr v1.7
-* http://www.modernizr.com
+* https://www.modernizr.com
 *
 * Developed by: 
-* - Faruk Ates  http://farukat.es/
-* - Paul Irish  http://paulirish.com/
+* - Faruk Ates  https://farukat.es/
+* - Paul Irish  https://paulirish.com/
 *
 * Copyright (c) 2009-2011
 */
@@ -89,7 +89,7 @@ window.Modernizr = (function(window,document,undefined){
     // Microsoft foregoes prefixes entirely <= IE8, but appears to 
     //   use a lowercase `ms` instead of the correct `Ms` in IE9
     
-    // More here: http://github.com/Modernizr/Modernizr/issues/issue/21
+    // More here: https://github.com/Modernizr/Modernizr/issues/issue/21
     domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
 
     ns = {'svg': 'http://www.w3.org/2000/svg'},
@@ -128,7 +128,7 @@ window.Modernizr = (function(window,document,undefined){
     
     /**
       * isEventSupported determines if a given element supports the given event
-      * function from http://yura.thinkweb2.com/isEventSupported/
+      * function from https://yura.thinkweb2.com/isEventSupported/
       */
     isEventSupported = (function(){
 
@@ -290,7 +290,7 @@ window.Modernizr = (function(window,document,undefined){
     };
     
     // On the S60 and BB Storm, getContext exists, but always returns undefined
-    // http://github.com/Modernizr/Modernizr/issues/issue/97/ 
+    // https://github.com/Modernizr/Modernizr/issues/issue/97/ 
     
     tests['canvas'] = function() {
         var elem = document.createElement( 'canvas' );
@@ -316,11 +316,11 @@ window.Modernizr = (function(window,document,undefined){
      *    the Palm Pre / WebOS (touch) phones.
      *    
      * Additionally, Chrome (desktop) used to lie about its support on this,
-     *    but that has since been rectified: http://crbug.com/36415
+     *    but that has since been rectified: https://crbug.com/36415
      *    
      * We also test for Firefox 4 Multitouch Support.
      *
-     * For more info, see: http://modernizr.github.com/Modernizr/touch.html
+     * For more info, see: https://modernizr.github.com/Modernizr/touch.html
      */
      
     tests['touch'] = function() {
@@ -334,9 +334,9 @@ window.Modernizr = (function(window,document,undefined){
      * geolocation tests for the new Geolocation API specification.
      *   This test is a standards compliant-only test; for more complete
      *   testing, including a Google Gears fallback, please see:
-     *   http://code.google.com/p/geo-location-javascript/
+     *   https://code.google.com/p/geo-location-javascript/
      * or view a fallback solution using google's geo API:
-     *   http://gist.github.com/366184
+     *   https://gist.github.com/366184
      */
     tests['geolocation'] = function() {
         return !!navigator.geolocation;
@@ -354,12 +354,12 @@ window.Modernizr = (function(window,document,undefined){
     // Web SQL database detection is tricky:
 
     // In chrome incognito mode, openDatabase is truthy, but using it will 
-    //   throw an exception: http://crbug.com/42380
+    //   throw an exception: https://crbug.com/42380
     // We can create a dummy database, but there is no way to delete it afterwards. 
     
     // Meanwhile, Safari users can get prompted on any database creation.
     //   If they do, any page with Modernizr will give them a prompt:
-    //   http://github.com/Modernizr/Modernizr/issues/closed#issue/113
+    //   https://github.com/Modernizr/Modernizr/issues/closed#issue/113
     
     // We have chosen to allow the Chrome incognito false positive, so that Modernizr
     //   doesn't litter the web with these test databases. As a developer, you'll have
@@ -413,7 +413,7 @@ window.Modernizr = (function(window,document,undefined){
     };
     
     
-    // http://css-tricks.com/rgba-browser-support/
+    // https://css-tricks.com/rgba-browser-support/
     tests['rgba'] = function() {
         // Set an rgba() color and check the returned value
         
@@ -465,7 +465,7 @@ window.Modernizr = (function(window,document,undefined){
     
     
     // Super comprehensive table about all the unique implementations of 
-    // border-radius: http://muddledramblings.com/table-of-css3-border-radius-compliance
+    // border-radius: https://muddledramblings.com/table-of-css3-border-radius-compliance
     
     tests['borderradius'] = function() {
         return test_props_all( 'borderRadius', '', function( prop ) {
@@ -511,10 +511,10 @@ window.Modernizr = (function(window,document,undefined){
     tests['cssgradients'] = function() {
         /**
          * For CSS Gradients syntax, please see:
-         * http://webkit.org/blog/175/introducing-css-gradients/
+         * https://webkit.org/blog/175/introducing-css-gradients/
          * https://developer.mozilla.org/en/CSS/-moz-linear-gradient
          * https://developer.mozilla.org/en/CSS/-moz-radial-gradient
-         * http://dev.w3.org/csswg/css3-images/#gradients-
+         * https://dev.w3.org/csswg/css3-images/#gradients-
          */
         
         var str1 = 'background-image:',
@@ -610,7 +610,7 @@ window.Modernizr = (function(window,document,undefined){
     // e.g.  Modernizr.video     // true
     //       Modernizr.video.ogg // 'probably'
     //
-    // Codec values from : http://github.com/NielsLeenheer/html5test/blob/9106a8/index.html#L845
+    // Codec values from : https://github.com/NielsLeenheer/html5test/blob/9106a8/index.html#L845
     //                     thx to NielsLeenheer and zcorpan
     
     // Note: in FF 3.5.1 and 3.5.0, "no" was a return value instead of empty string.
@@ -645,7 +645,7 @@ window.Modernizr = (function(window,document,undefined){
             
             // Mimetypes accepted: 
             //   https://developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
-            //   http://bit.ly/iphoneoscodecs
+            //   https://bit.ly/iphoneoscodecs
             bool.wav  = elem.canPlayType('audio/wav; codecs="1"');
             bool.m4a  = elem.canPlayType('audio/x-m4a;') || elem.canPlayType('audio/aac;');
         }
@@ -659,16 +659,16 @@ window.Modernizr = (function(window,document,undefined){
 
     // Normally, we could not test that directly and need to do a 
     //   `('localStorage' in window) && ` test first because otherwise Firefox will
-    //   throw http://bugzil.la/365772 if cookies are disabled
+    //   throw https://bugzil.la/365772 if cookies are disabled
 
     // However, in Firefox 4 betas, if dom.storage.enabled == false, just mentioning
-    //   the property will throw an exception. http://bugzil.la/599479
+    //   the property will throw an exception. https://bugzil.la/599479
     // This looks to be fixed for FF4 Final.
 
     // Because we are forced to try/catch this, we'll go aggressive.
 
     // FWIW: IE8 Compat mode supports these features completely:
-    //   http://www.quirksmode.org/dom/html5.html
+    //   https://www.quirksmode.org/dom/html5.html
     // But IE8 doesn't support either with local files
 
     tests['localstorage'] = function() {
@@ -710,7 +710,7 @@ window.Modernizr = (function(window,document,undefined){
     };
 
     // Thanks to F1lt3r and lucideer
-    // http://github.com/Modernizr/Modernizr/issues#issue/35
+    // https://github.com/Modernizr/Modernizr/issues#issue/35
     tests['smil'] = function(){
         return !!document.createElementNS && /SVG/.test(tostring.call(document.createElementNS(ns.svg,'animate')));
     };
@@ -729,8 +729,8 @@ window.Modernizr = (function(window,document,undefined){
         // We're using f which is the <input> element created early on
         // Mike Taylr has created a comprehensive resource for testing these attributes
         //   when applied to all input types: 
-        //   http://miketaylr.com/code/input-type-attr.html
-        // spec: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary
+        //   https://miketaylr.com/code/input-type-attr.html
+        // spec: https://www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary
         ret['input'] = (function(props) {
             for (var i = 0, len = props.length; i<len; i++) {
                 attrs[ props[i] ] = !!(props[i] in inputElem);
@@ -743,7 +743,7 @@ window.Modernizr = (function(window,document,undefined){
         //   true/false like all the other tests; instead, it returns an object
         //   containing each input type with its corresponding true/false value 
         
-        // Big thanks to @miketaylr for the html5 forms expertise. http://miketaylr.com/
+        // Big thanks to @miketaylr for the html5 forms expertise. https://miketaylr.com/
         ret['inputtypes'] = (function(props) {
           
             for (var i = 0, bool, inputElemType, defaultView, len=props.length; i < len; i++) {
