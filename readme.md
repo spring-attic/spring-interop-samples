@@ -1,3 +1,5 @@
+#  spring-interop-samples is no longer actively maintained by VMware, Inc.
+
 Spring-Interop-Samples
 ======================
 Samples demonstrating Java and .NET interop scenarios leveraging Spring support for vFabric components
