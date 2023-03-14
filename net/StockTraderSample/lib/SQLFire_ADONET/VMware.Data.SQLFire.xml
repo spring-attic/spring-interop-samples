@@ -131,7 +131,7 @@
         <member name="M:VMware.Data.SQLFire.SQLFException.PreserveStackTrace(System.Exception)">
             <summary>
             Useful function to preserve the stack trace when rethrowing. See
-            http://stackoverflow.com/questions/57383/
+            https://stackoverflow.com/questions/57383/
               in-c-how-can-i-rethrow-innerexception-without-losing-stack-trace.
             </summary>
         </member>
