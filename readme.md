@@ -17,7 +17,7 @@ The following vFabric components (Windows releases) must be installed and functi
 
 ### Rabbit Setup Steps
 
-1. install RabbitMQ service as per the RabbitMQ installation/getting-started instructions (recommended but not necessary: add the admin plugin, see http://www.rabbitmq.com/management.html)
+1. install RabbitMQ service as per the RabbitMQ installation/getting-started instructions (recommended but not necessary: add the admin plugin, see https://www.rabbitmq.com/management.html)
 2. start RabbitMQ service (windows Services control panel or command-line as preferred)
 3. verify RabbitMQ service is running via the following command-line (switch to `rabbit-install-dir\sbin\`):
 
